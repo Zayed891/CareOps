@@ -1,0 +1,359 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  engineType = "binary"
+  previewFeatures = ["relationJoins"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ========== Users & Authorization ==========
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      UserRole @default(STAFF)
+  
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  
+  permissions Permission[]
+  messages    Message[]
+  activityLogs ActivityLog[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([workspaceId])
+}
+
+enum UserRole {
+  OWNER
+  STAFF
+}
+
+model Permission {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  
+  canAccessInbox     Boolean @default(true)
+  canManageBookings  Boolean @default(true)
+  canViewForms       Boolean @default(true)
+  canViewInventory   Boolean @default(true)
+  canModifySettings  Boolean @default(false)
+  
+  @@unique([userId])
+}
+
+// ========== Workspace ==========
+
+model Workspace {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  address     String?
+  timezone    String  @default("UTC")
+  contactEmail String
+  isActive    Boolean @default(false)
+  
+  users           User[]
+  contacts        Contact[]
+  serviceTypes    ServiceType[]
+  formTemplates   FormTemplate[]
+  inventoryItems  InventoryItem[]
+  integrations    Integration[]
+  automationRules AutomationRule[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([slug])
+}
+
+// ========== Customer Management ==========
+
+model Contact {
+  id    String  @id @default(cuid())
+  name  String
+  email String?
+  phone String?
+  
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  
+  conversations    Conversation[]
+  bookings         Booking[]
+  formSubmissions  FormSubmission[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([workspaceId])
+  @@index([email])
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  contactId String
+  contact   Contact  @relation(fields: [contactId], references: [id])
+  
+  messages  Message[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([contactId])
+}
+
+model Message {
+  id             String          @id @default(cuid())
+  conversationId String
+  conversation   Conversation    @relation(fields: [conversationId], references: [id])
+  
+  senderId       String?
+  sender         User?           @relation(fields: [senderId], references: [id])
+  
+  content        String          @db.Text
+  channel        MessageChannel
+  direction      MessageDirection
+  
+  createdAt      DateTime        @default(now())
+  
+  @@index([conversationId])
+}
+
+enum MessageChannel {
+  EMAIL
+  SMS
+}
+
+enum MessageDirection {
+  INBOUND
+  OUTBOUND
+}
+
+// ========== Booking System ==========
+
+model ServiceType {
+  id          String @id @default(cuid())
+  name        String
+  description String? @db.Text
+  duration    Int // in minutes
+  location    String?
+  
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  
+  availabilities Availability[]
+  bookings       Booking[]
+  formTemplates  FormTemplate[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([workspaceId])
+}
+
+model Availability {
+  id            String      @id @default(cuid())
+  serviceTypeId String
+  serviceType   ServiceType @relation(fields: [serviceTypeId], references: [id])
+  
+  dayOfWeek     Int // 0-6 (Sunday-Saturday)
+  startTime     String // HH:MM format
+  endTime       String // HH:MM format
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  contactId   String
+  contact     Contact       @relation(fields: [contactId], references: [id])
+  
+  serviceTypeId String
+  serviceType   ServiceType @relation(fields: [serviceTypeId], references: [id])
+  
+  scheduledAt   DateTime
+  status        BookingStatus @default(PENDING)
+  
+  formSubmissions FormSubmission[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([contactId])
+  @@index([serviceTypeId])
+  @@index([scheduledAt])
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  NO_SHOW
+  CANCELLED
+}
+
+// ========== Forms ==========
+
+model FormTemplate {
+  id          String  @id @default(cuid())
+  name        String
+  description String? @db.Text
+  
+  workspaceId   String
+  workspace     Workspace @relation(fields: [workspaceId], references: [id])
+  
+  serviceTypeId String?
+  serviceType   ServiceType? @relation(fields: [serviceTypeId], references: [id])
+  
+  fields        FormField[]
+  submissions   FormSubmission[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([workspaceId])
+}
+
+model FormField {
+  id           String       @id @default(cuid())
+  templateId   String
+  template     FormTemplate @relation(fields: [templateId], references: [id])
+  
+  label        String
+  fieldType    String // text, email, phone, textarea, select, checkbox, etc.
+  required     Boolean      @default(false)
+  options      Json?        // For select/checkbox fields
+  order        Int
+  
+  createdAt DateTime @default(now())
+}
+
+model FormSubmission {
+  id         String       @id @default(cuid())
+  templateId String
+  template   FormTemplate @relation(fields: [templateId], references: [id])
+  
+  contactId  String
+  contact    Contact      @relation(fields: [contactId], references: [id])
+  
+  bookingId  String?
+  booking    Booking?     @relation(fields: [bookingId], references: [id])
+  
+  data       Json // Submitted form data
+  status     FormStatus   @default(PENDING)
+  
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  
+  @@index([contactId])
+  @@index([templateId])
+}
+
+enum FormStatus {
+  PENDING
+  COMPLETED
+  OVERDUE
+}
+
+// ========== Inventory ==========
+
+model InventoryItem {
+  id          String @id @default(cuid())
+  name        String
+  description String? @db.Text
+  quantity    Int    @default(0)
+  unit        String // pieces, boxes, liters, etc.
+  reorderLevel Int?
+  category    String?
+  lowStockThreshold Int @default(0)
+  
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  
+  alerts      InventoryAlert[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([workspaceId])
+}
+
+model InventoryAlert {
+  id        String        @id @default(cuid())
+  itemId    String
+  item      InventoryItem @relation(fields: [itemId], references: [id])
+  
+  threshold Int
+  isActive  Boolean       @default(true)
+  notifiedAt DateTime?
+  message   String        @default("")
+  resolved  Boolean       @default(false)
+  
+  createdAt DateTime      @default(now())
+  
+  @@index([itemId])
+}
+
+// ========== Communication & Integration ==========
+
+model Integration {
+  id          String           @id @default(cuid())
+  workspaceId String
+  workspace   Workspace        @relation(fields: [workspaceId], references: [id])
+  
+  type        IntegrationType
+  config      Json // Provider-specific configuration
+  isActive    Boolean          @default(true)
+  
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  
+  @@index([workspaceId])
+}
+
+enum IntegrationType {
+  EMAIL
+  SMS
+  CALENDAR
+}
+
+// ========== Automation ==========
+
+model AutomationRule {
+  id          String    @id @default(cuid())
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  
+  eventType   String // contact_created, booking_created, etc.
+  action      String // send_email, send_sms, create_alert
+  config      Json   // Action-specific configuration
+  isActive    Boolean @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([workspaceId])
+}
+
+// ========== Audit & Logs ==========
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  
+  action    String
+  details   Json?
+  
+  createdAt DateTime @default(now())
+  
+  @@index([createdAt])
+}
