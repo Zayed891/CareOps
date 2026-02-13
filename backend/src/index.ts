@@ -61,6 +61,7 @@ import staffRoutes from './routes/staff';
 import integrationRoutes from './routes/integrations';
 import automationRoutes from './routes/automation';
 import workspaceRoutes from './routes/workspace';
+import aiRoutes from './routes/ai';
 
 // Routes — Public (no auth)
 import publicRoutes from './routes/public';
@@ -78,6 +79,7 @@ app.use('/api/staff', staffRoutes);
 app.use('/api/integrations', integrationRoutes);
 app.use('/api/automation-rules', automationRoutes);
 app.use('/api/workspace', workspaceRoutes);
+app.use('/api/ai', aiRoutes);
 app.use('/api/public', publicRoutes);
 
 // Health check route

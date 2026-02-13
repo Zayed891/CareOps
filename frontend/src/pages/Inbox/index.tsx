@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Inbox, Send, ArrowLeft, Mail, MessageSquare, Filter, Trash2, TestTube } from 'lucide-react';
+import { Inbox, Send, ArrowLeft, Mail, MessageSquare, Filter, Trash2, TestTube, Sparkles } from 'lucide-react';
 import { conversationService } from '../../services/conversationService';
+import { aiService } from '../../services/aiService';
 import type { Conversation, Message } from '../../types/modules';
 import { format } from 'date-fns';
 import ConfirmModal from '../../components/ConfirmModal';
@@ -30,6 +31,7 @@ const InboxPage: React.FC = () => {
     const [testReplyText, setTestReplyText] = useState('');
     const [testReplyChannel, setTestReplyChannel] = useState<'EMAIL' | 'SMS'>('EMAIL');
     const [sendingTestReply, setSendingTestReply] = useState(false);
+    const [generatingReply, setGeneratingReply] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -72,7 +74,7 @@ const InboxPage: React.FC = () => {
             const response = await conversationService.sendMessage(selectedId, { content: newMessage, channel: sendChannel });
             setNewMessage('');
             await loadConversation(selectedId);
-            
+
             // Check if message was actually delivered via email/SMS
             if (response.deliveryError) {
                 alert(`⚠️ Message saved to inbox, but NOT delivered to customer!\n\n${response.deliveryError}\n\nPlease configure SendGrid/Twilio in your .env file.`);
@@ -103,20 +105,20 @@ const InboxPage: React.FC = () => {
 
     const confirmDelete = async () => {
         if (!conversationToDelete) return;
-        
+
         try {
             setDeleting(true);
             await conversationService.delete(conversationToDelete);
-            
+
             // Close the conversation if it's the one being deleted
             if (selectedId === conversationToDelete) {
                 setSelectedId(null);
                 setSelectedConversation(null);
             }
-            
+
             // Reload conversations list
             await loadConversations();
-            
+
             // Close modal
             setDeleteModalOpen(false);
             setConversationToDelete(null);
@@ -137,9 +139,9 @@ const InboxPage: React.FC = () => {
         if (!testReplyText.trim() || !selectedId) return;
         try {
             setSendingTestReply(true);
-            await conversationService.recordInbound(selectedId, { 
-                content: testReplyText, 
-                channel: testReplyChannel 
+            await conversationService.recordInbound(selectedId, {
+                content: testReplyText,
+                channel: testReplyChannel
             });
             setTestReplyText('');
             setShowTestReply(false);
@@ -149,6 +151,30 @@ const InboxPage: React.FC = () => {
             alert('Failed to record test reply. Please try again.');
         } finally {
             setSendingTestReply(false);
+        }
+    };
+
+    const handleSmartReply = async () => {
+        if (!selectedConversation || !selectedConversation.messages) return;
+
+        try {
+            setGeneratingReply(true);
+
+            // Format context for AI
+            const context = selectedConversation.messages
+                .slice(-10) // Take last 10 messages for context
+                .map(msg => `${msg.direction === 'OUTBOUND' ? 'Agent' : 'Customer'}: ${msg.content}`)
+                .join('\n');
+
+            const response = await aiService.generateReply(context);
+            if (response.reply) {
+                setNewMessage(response.reply);
+            }
+        } catch (error) {
+            console.error('Failed to generate smart reply:', error);
+            alert('Failed to generate smart reply. Please try again.');
+        } finally {
+            setGeneratingReply(false);
         }
     };
 
@@ -193,9 +219,8 @@ const InboxPage: React.FC = () => {
                                 <button
                                     key={convo.id}
                                     onClick={() => setSelectedId(convo.id)}
-                                    className={`w-full p-4 text-left border-b border-gray-100 hover:bg-gray-50 transition-colors ${
-                                        selectedId === convo.id ? 'bg-primary-50 border-l-2 border-l-primary-600' : ''
-                                    }`}
+                                    className={`w-full p-4 text-left border-b border-gray-100 hover:bg-gray-50 transition-colors ${selectedId === convo.id ? 'bg-primary-50 border-l-2 border-l-primary-600' : ''
+                                        }`}
                                 >
                                     <div className="flex items-center gap-3">
                                         <div className="relative flex-shrink-0">
@@ -257,14 +282,14 @@ const InboxPage: React.FC = () => {
                                     {selectedConversation.contact?.phone && ` · ${selectedConversation.contact.phone}`}
                                 </p>
                             </div>
-                            <button 
+                            <button
                                 onClick={() => setShowTestReply(true)}
                                 className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
                                 title="Simulate customer reply (for testing)"
                             >
                                 <TestTube className="h-4 w-4" />
                             </button>
-                            <button 
+                            <button
                                 onClick={() => handleDelete(selectedConversation.id)}
                                 className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                 title="Delete conversation"
@@ -309,17 +334,28 @@ const InboxPage: React.FC = () => {
                                 <div className="flex items-center">
                                     <button
                                         onClick={() => setSendChannel(sendChannel === 'EMAIL' ? 'SMS' : 'EMAIL')}
-                                        className={`px-3 py-2.5 border rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors ${
-                                            sendChannel === 'EMAIL'
+                                        className={`px-3 py-2.5 border rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors ${sendChannel === 'EMAIL'
                                                 ? 'border-blue-300 bg-blue-50 text-blue-700'
                                                 : 'border-green-300 bg-green-50 text-green-700'
-                                        }`}
+                                            }`}
                                         title={`Sending via ${sendChannel}. Click to switch.`}
                                     >
                                         {sendChannel === 'EMAIL' ? <Mail className="h-3.5 w-3.5" /> : <MessageSquare className="h-3.5 w-3.5" />}
                                         {sendChannel}
                                     </button>
                                 </div>
+                                <button
+                                    onClick={handleSmartReply}
+                                    disabled={generatingReply}
+                                    className="p-2.5 border border-purple-200 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 disabled:opacity-50 transition-colors"
+                                    title="Generate Smart Reply with AI"
+                                >
+                                    {generatingReply ? (
+                                        <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-purple-600"></div>
+                                    ) : (
+                                        <Sparkles className="h-3.5 w-3.5" />
+                                    )}
+                                </button>
                                 <input
                                     type="text"
                                     value={newMessage}
@@ -357,29 +393,27 @@ const InboxPage: React.FC = () => {
                             </div>
                             <p className="text-xs text-gray-500 mt-2">For testing: Add a message as if the customer replied</p>
                         </div>
-                        
+
                         <div className="p-5 space-y-4">
                             <div>
                                 <label className="label">Channel</label>
                                 <div className="flex gap-2">
                                     <button
                                         onClick={() => setTestReplyChannel('EMAIL')}
-                                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
-                                            testReplyChannel === 'EMAIL'
+                                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${testReplyChannel === 'EMAIL'
                                                 ? 'border-blue-300 bg-blue-50 text-blue-700'
                                                 : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
-                                        }`}
+                                            }`}
                                     >
                                         <Mail className="h-4 w-4" />
                                         Email
                                     </button>
                                     <button
                                         onClick={() => setTestReplyChannel('SMS')}
-                                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
-                                            testReplyChannel === 'SMS'
+                                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${testReplyChannel === 'SMS'
                                                 ? 'border-green-300 bg-green-50 text-green-700'
                                                 : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
-                                        }`}
+                                            }`}
                                     >
                                         <MessageSquare className="h-4 w-4" />
                                         SMS

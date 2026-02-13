@@ -6,6 +6,7 @@ import {
     ArrowRight, CheckCircle, Zap
 } from 'lucide-react';
 import Logo from '../../components/Logo';
+import DashboardPreview from './DashboardPreview';
 
 const LandingPage: React.FC = () => {
     return (
@@ -71,21 +72,10 @@ const LandingPage: React.FC = () => {
                         className="mt-16 relative mx-auto max-w-5xl"
                     >
                         <div className="rounded-2xl bg-gray-900 p-2 shadow-2xl ring-1 ring-gray-900/10">
-                            <div className="rounded-xl bg-white overflow-hidden aspect-[16/9] relative">
-                                {/* Placeholder for actual screenshot - using gradient for now */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center border border-gray-100">
-                                    <div className="text-center">
-                                        <div className="text-6xl font-bold text-gray-200 mb-4">Dashboard Preview</div>
-                                        <div className="text-gray-400">Interactive CRM & Analytics Dashboard</div>
-                                    </div>
-                                    {/* Mock UI Elements */}
-                                    <div className="absolute top-0 left-0 right-0 h-14 border-b border-gray-200 bg-white flex items-center px-4 space-x-2">
-                                        <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                                        <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                                        <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                                    </div>
-                                    <div className="absolute left-0 top-14 bottom-0 w-64 border-r border-gray-200 bg-white hidden md:block"></div>
-                                </div>
+                            <div className="rounded-xl bg-white overflow-hidden aspect-[16/9] relative group shadow-2xl">
+                                <DashboardPreview />
+                                {/* Overlay gradient for depth/glass effect */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/5 to-transparent pointer-events-none" />
                             </div>
                         </div>
                     </motion.div>
@@ -169,7 +159,7 @@ const LandingPage: React.FC = () => {
             </section>
 
             {/* Footer */}
-            <footer className="bg-gray-50 border-t border-gray-200 py-12">
+            <footer className="bg-gray-50 border-t border-gray-200 py-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
                     <div className="mb-4 md:mb-0">
                         <Logo size="sm" />
@@ -177,7 +167,7 @@ const LandingPage: React.FC = () => {
                     <div className="text-sm text-gray-500">
                         © {new Date().getFullYear()} CareOps Inc. All rights reserved.
                     </div>
-                    <div className="flex space-x-6 mt-4 md:mt-0 text-sm text-gray-500">
+                    <div className="flex space-x-8 mt-6 md:mt-0 text-sm text-gray-500">
                         <a href="#" className="hover:text-gray-900 transition-colors">Privacy</a>
                         <a href="#" className="hover:text-gray-900 transition-colors">Terms</a>
                         <a href="#" className="hover:text-gray-900 transition-colors">Contact</a>

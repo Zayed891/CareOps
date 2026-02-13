@@ -123,8 +123,35 @@ export const deleteContact = async (req: AuthRequest, res: Response) => {
         });
         if (!existing) return res.status(404).json({ error: 'Contact not found' });
 
-        await prisma.contact.delete({ where: { id } });
-        res.json({ message: 'Contact deleted' });
+        await prisma.$transaction(async (tx: any) => {
+            // 1. Get conversations to delete their messages
+            const conversations = await tx.conversation.findMany({
+                where: { contactId: id },
+                select: { id: true }
+            });
+            const conversationIds = conversations.map((c: any) => c.id);
+
+            // 2. Delete messages
+            if (conversationIds.length > 0) {
+                await tx.message.deleteMany({
+                    where: { conversationId: { in: conversationIds } }
+                });
+            }
+
+            // 3. Delete conversations
+            await tx.conversation.deleteMany({ where: { contactId: id } });
+
+            // 4. Delete form submissions
+            await tx.formSubmission.deleteMany({ where: { contactId: id } });
+
+            // 5. Delete bookings
+            await tx.booking.deleteMany({ where: { contactId: id } });
+
+            // 6. Delete the contact
+            await tx.contact.delete({ where: { id } });
+        });
+
+        res.json({ message: 'Contact and all related data deleted' });
     } catch (error) {
         console.error('Error deleting contact:', error);
         res.status(500).json({ error: 'Failed to delete contact' });
