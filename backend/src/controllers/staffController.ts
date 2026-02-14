@@ -38,7 +38,7 @@ export const inviteStaff = async (req: AuthRequest, res: Response) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = await prisma.$transaction(async (tx) => {
+        const user = await prisma.$transaction(async (tx: any) => {
             const newUser = await tx.user.create({
                 data: {
                     email, name, password: hashedPassword,
@@ -119,7 +119,7 @@ export const removeStaff = async (req: AuthRequest, res: Response) => {
         });
         if (!targetUser) return res.status(404).json({ error: 'Staff member not found' });
 
-        await prisma.$transaction(async (tx) => {
+        await prisma.$transaction(async (tx: any) => {
             await tx.permission.deleteMany({ where: { userId: id } });
             await tx.user.delete({ where: { id } });
         });

@@ -46,7 +46,7 @@ export const getInventoryItems = async (req: AuthRequest, res: Response) => {
                 orderBy: { [sortBy as string]: sortOrder as 'asc' | 'desc' },
             });
 
-            const lowStockItems = allItems.filter((item) => {
+            const lowStockItems = allItems.filter((item: any) => {
                 const threshold = item.alerts[0]?.threshold || item.reorderLevel;
                 return threshold && item.quantity <= threshold;
             });

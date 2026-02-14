@@ -31,7 +31,7 @@ export const getAvailability = async (req: AuthRequest, res: Response) => {
 
         // Filter by workspace
         const filtered = availability.filter(
-            (a) => a.serviceType.workspaceId === req.user.workspaceId
+            (a: any) => a.serviceType.workspaceId === req.user.workspaceId
         );
 
         res.json(filtered);

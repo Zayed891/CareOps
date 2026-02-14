@@ -21,7 +21,7 @@ export const getInventoryAlerts = async (req: AuthRequest, res: Response) => {
 
         // Filter to show only alerts where current quantity is below threshold
         const triggeredAlerts = alerts.filter(
-            (alert) => alert.item.quantity <= alert.threshold
+            (alert: any) => alert.item.quantity <= alert.threshold
         );
 
         res.json(triggeredAlerts);

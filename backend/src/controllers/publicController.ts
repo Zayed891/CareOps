@@ -85,7 +85,7 @@ export const getPublicAvailability = async (req: Request, res: Response) => {
         });
 
         const bookedTimes = new Set(
-            existingBookings.map(b => {
+            existingBookings.map((b: any) => {
                 const d = new Date(b.scheduledAt);
                 return `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
             })

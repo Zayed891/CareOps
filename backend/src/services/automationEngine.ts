@@ -61,7 +61,7 @@ const actionHandlers: Record<string, (p: ActionPayload) => Promise<void>> = {
                 let conversation = await prisma.conversation.findFirst({
                     where: { contactId: eventPayload.contactId },
                 });
-                
+
                 if (!conversation) {
                     // Create a new conversation if it doesn't exist
                     conversation = await prisma.conversation.create({
@@ -70,7 +70,7 @@ const actionHandlers: Record<string, (p: ActionPayload) => Promise<void>> = {
                         },
                     });
                 }
-                
+
                 // Create the message
                 await prisma.message.create({
                     data: {
@@ -80,7 +80,7 @@ const actionHandlers: Record<string, (p: ActionPayload) => Promise<void>> = {
                         direction: 'OUTBOUND',
                     },
                 });
-                
+
                 // Update conversation timestamp
                 await prisma.conversation.update({
                     where: { id: conversation.id },
@@ -112,7 +112,7 @@ const actionHandlers: Record<string, (p: ActionPayload) => Promise<void>> = {
                 let conversation = await prisma.conversation.findFirst({
                     where: { contactId: eventPayload.contactId },
                 });
-                
+
                 if (!conversation) {
                     // Create a new conversation if it doesn't exist
                     conversation = await prisma.conversation.create({
@@ -121,7 +121,7 @@ const actionHandlers: Record<string, (p: ActionPayload) => Promise<void>> = {
                         },
                     });
                 }
-                
+
                 // Create the message
                 await prisma.message.create({
                     data: {
@@ -131,7 +131,7 @@ const actionHandlers: Record<string, (p: ActionPayload) => Promise<void>> = {
                         direction: 'OUTBOUND',
                     },
                 });
-                
+
                 // Update conversation timestamp
                 await prisma.conversation.update({
                     where: { id: conversation.id },
@@ -214,7 +214,7 @@ class AutomationEngine {
 
             // Execute each matching rule's action concurrently
             await Promise.allSettled(
-                rules.map(async (rule) => {
+                rules.map(async (rule: any) => {
                     const handler = actionHandlers[rule.action];
                     if (!handler) {
                         logger.warn(`[AutomationEngine] Unknown action "${rule.action}" on rule ${rule.id}`);
