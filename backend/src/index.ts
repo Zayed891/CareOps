@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
-import { Server } from 'socket.io';
+
 
 // Load environment variables
 dotenv.config();
@@ -12,12 +12,7 @@ import passport from './config/passport';
 
 const app: Application = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer, {
-    cors: {
-        origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-        credentials: true,
-    },
-});
+
 
 const PORT = process.env.PORT || 5000;
 
@@ -109,9 +104,18 @@ app.get('/api/health', async (req: Request, res: Response) => {
 // Error handling middleware (must be last)
 app.use(errorHandler as any);
 
+// Initialize Socket.io
+import { initSocket } from './services/socketService';
+const io = initSocket(httpServer);
+
 // Socket.io connection handler
 io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
+
+    socket.on('join_workspace', (workspaceId) => {
+        console.log(`Socket ${socket.id} joined workspace ${workspaceId}`);
+        socket.join(workspaceId);
+    });
 
     socket.on('disconnect', () => {
         console.log('Client disconnected:', socket.id);

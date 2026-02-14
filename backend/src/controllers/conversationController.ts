@@ -4,6 +4,7 @@ import prisma from '../db';
 import automationEngine from '../services/automationEngine';
 import { sendEmail } from '../services/emailService';
 import { sendSms } from '../services/smsService';
+import { getIO } from '../services/socketService';
 
 // GET /api/conversations
 export const getConversations = async (req: AuthRequest, res: Response) => {
@@ -194,7 +195,7 @@ export const recordInboundMessage = async (req: AuthRequest, res: Response) => {
             where: { id, contact: { workspaceId } },
             include: { contact: true },
         });
-        
+
         if (!conversation) {
             return res.status(404).json({ error: 'Conversation not found' });
         }
@@ -202,6 +203,7 @@ export const recordInboundMessage = async (req: AuthRequest, res: Response) => {
         const { content, channel } = req.body;
         const messageChannel = channel || 'EMAIL';
 
+        // 1. Create the message first
         const message = await prisma.message.create({
             data: {
                 conversationId: conversation.id,
@@ -211,13 +213,49 @@ export const recordInboundMessage = async (req: AuthRequest, res: Response) => {
             },
         });
 
-        // Update conversation timestamp
+        // 2. AI Analysis (Async - don't block response)
+        let aiAnalysis = null;
+        let draftReply = null;
+        try {
+            const { geminiService } = await import('../services/geminiService');
+
+            // Analyze Intent
+            aiAnalysis = await geminiService.analyzeIntent(content);
+            console.log(`[AI Analysis] Message ${message.id}:`, aiAnalysis);
+
+            // Generate Draft Reply (Auto-Draft)
+            // We provide a simple context based on the message itself for now
+            const context = `Customer: ${content}\n\nIntent: ${aiAnalysis.intent}`;
+            draftReply = await geminiService.generateReply(context);
+
+        } catch (aiError) {
+            console.error('AI Analysis/Draft failed:', aiError);
+        }
+
+        // 3. Update conversation timestamp
         await prisma.conversation.update({
             where: { id: conversation.id },
             data: { updatedAt: new Date() },
         });
 
-        res.status(201).json(message);
+        // 4. Real-time notification
+        try {
+            const io = getIO();
+            io.to(workspaceId!).emit('message:received', {
+                conversationId: conversation.id,
+                messageId: message.id,
+                contactName: conversation.contact?.name,
+                content: message.content,
+                channel: message.channel,
+                timestamp: message.createdAt,
+                aiAnalysis,
+                draftReply, // Send draft to frontend
+            });
+        } catch (err) {
+            console.error('Socket emit error:', err);
+        }
+
+        res.status(201).json({ ...message, aiAnalysis });
     } catch (error) {
         console.error('Error recording inbound message:', error);
         res.status(500).json({ error: 'Failed to record inbound message' });

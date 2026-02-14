@@ -12,8 +12,8 @@ const LandingPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-white">
             {/* Header */}
-            <header className="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <header className="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-200 shadow-sm">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                     <Link to="/" className="transition-transform hover:scale-105">
                         <Logo size="sm" />
                     </Link>
@@ -30,18 +30,18 @@ const LandingPage: React.FC = () => {
             </header>
 
             {/* Hero Section */}
-            <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-white -z-10" />
+            <section className="pt-24 pb-24 lg:pt-36 lg:pb-32 overflow-hidden relative">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-50/80 via-white to-white -z-10" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <span className="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold tracking-wide uppercase mb-6">
+                        <span className="inline-block py-1.5 px-4 rounded-full bg-blue-50 text-blue-700 text-xs font-bold tracking-wide uppercase mb-8 border border-blue-100">
                             For Service Businesses
                         </span>
-                        <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
+                        <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 tracking-tight mb-8 leading-[1.1]">
                             Run your entire business <br className="hidden md:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-indigo-600">
                                 on autopilot

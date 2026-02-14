@@ -23,7 +23,7 @@ const BookingCalendar: React.FC = () => {
     // Removed unused loading state if not used in render, or I should use it.
     // The previous code had loading state but didn't use it in the return JSX (no loading spinner).
     // I will remove it for now to fix the lint.
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
 
     useEffect(() => {
         fetchBookings();
@@ -47,9 +47,7 @@ const BookingCalendar: React.FC = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
     };
 
-    const onDateClick = (day: Date) => {
-        setSelectedDate(day);
-    };
+
 
 
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -84,47 +82,50 @@ const BookingCalendar: React.FC = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-7 border-b border-gray-200 bg-gray-50">
-                {daysOfWeek.map(dayName => (
-                    <div key={dayName} className="py-2 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                        {dayName}
+            <div className="flex-1 overflow-auto">
+                <div className="min-w-[800px] h-full flex flex-col">
+                    <div className="grid grid-cols-7 border-b border-gray-200 bg-gray-50 flex-shrink-0">
+                        {daysOfWeek.map(dayName => (
+                            <div key={dayName} className="py-2 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                {dayName}
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
 
-            <div className="flex-1 grid grid-cols-7 grid-rows-5 lg:grid-rows-6">
-                {calendarDays.map((day) => {
-                    const dayBookings = bookings.filter(b => isSameDay(parseISO(b.scheduledAt), day));
+                    <div className="flex-1 grid grid-cols-7 grid-rows-5 lg:grid-rows-6">
+                        {calendarDays.map((day) => {
+                            const dayBookings = bookings.filter(b => isSameDay(parseISO(b.scheduledAt), day));
 
-                    return (
-                        <div
-                            key={day.toString()}
-                            className={`
-                                min-h-[80px] border-b border-r border-gray-100 p-2 relative group transition-colors hover:bg-gray-50
-                                ${!isSameMonth(day, monthStart) ? "bg-gray-50/50 text-gray-400" : "bg-white"}
-                                ${isToday(day) ? "bg-blue-50/30" : ""}
-                            `}
-                            onClick={() => onDateClick(day)}
-                        >
-                            <div className={`text-sm font-medium mb-1 ${isToday(day) ? "text-blue-600" : "text-gray-700"}`}>
-                                {format(day, "d")}
-                            </div>
-
-                            <div className="space-y-1">
-                                {dayBookings.map(booking => (
-                                    <div
-                                        key={booking.id}
-                                        className={`text-xs px-1.5 py-0.5 rounded truncate ${getStatusColor(booking.status)}`}
-                                        title={`${booking.serviceType?.name} with ${booking.contact?.name}`}
-                                    >
-                                        <span className="font-semibold mr-1">{format(parseISO(booking.scheduledAt), 'h:mm a')}</span>
-                                        {booking.contact?.name?.split(' ')[0]}
+                            return (
+                                <div
+                                    key={day.toString()}
+                                    className={`
+                                        min-h-[80px] border-b border-r border-gray-100 p-2 relative group transition-colors hover:bg-gray-50
+                                        ${!isSameMonth(day, monthStart) ? "bg-gray-50/50 text-gray-400" : "bg-white"}
+                                        ${isToday(day) ? "bg-blue-50/30" : ""}
+                                    `}
+                                >
+                                    <div className={`text-sm font-medium mb-1 ${isToday(day) ? "text-blue-600" : "text-gray-700"}`}>
+                                        {format(day, "d")}
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-                    );
-                })}
+
+                                    <div className="space-y-1">
+                                        {dayBookings.map(booking => (
+                                            <div
+                                                key={booking.id}
+                                                className={`text-xs px-1.5 py-0.5 rounded truncate ${getStatusColor(booking.status)}`}
+                                                title={`${booking.serviceType?.name} with ${booking.contact?.name}`}
+                                            >
+                                                <span className="font-semibold mr-1">{format(parseISO(booking.scheduledAt), 'h:mm a')}</span>
+                                                {booking.contact?.name?.split(' ')[0]}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     );

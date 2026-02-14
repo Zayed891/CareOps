@@ -13,6 +13,8 @@ import { Logger as logger } from '../utils/logger';
  * 
  * SendGrid will forward all emails sent to inbound.yourdomain.com to this webhook.
  */
+import { getIO } from '../services/socketService';
+
 export const handleSendGridWebhook = async (req: Request, res: Response) => {
     try {
         // SendGrid Inbound Parse sends data as multipart/form-data
@@ -28,7 +30,7 @@ export const handleSendGridWebhook = async (req: Request, res: Response) => {
         // Extract customer email (SendGrid sends "Name <email@example.com>" format)
         const emailMatch = from.match(/<(.+?)>/) || [null, from];
         const customerEmail = emailMatch[1]?.trim() || from.trim();
-        
+
         if (!customerEmail) {
             logger.warn('[Webhook] Could not extract email from:', from);
             return res.status(400).json({ error: 'Invalid sender format' });
@@ -55,11 +57,9 @@ export const handleSendGridWebhook = async (req: Request, res: Response) => {
             });
         }
 
-        // Extract message content (prefer text, fallback to HTML, fallback to subject)
-        const messageContent = text || html || subject || 'No content';
-
         // Create inbound message
-        await prisma.message.create({
+        const messageContent = text || html || '';
+        const message = await prisma.message.create({
             data: {
                 conversationId: conversation.id,
                 content: messageContent,
@@ -68,11 +68,46 @@ export const handleSendGridWebhook = async (req: Request, res: Response) => {
             },
         });
 
+        // AI Analysis & Auto-Draft
+        let aiAnalysis = null;
+        let draftReply = null;
+        try {
+            const { geminiService } = await import('../services/geminiService');
+
+            // Analyze
+            aiAnalysis = await geminiService.analyzeIntent(messageContent);
+            logger.info(`[Webhook] AI Analysis for ${conversation.id}:`, aiAnalysis);
+
+            // Draft Reply
+            const context = `Customer: ${messageContent}\n\nIntent: ${aiAnalysis.intent}`;
+            draftReply = await geminiService.generateReply(context);
+        } catch (aiError) {
+            logger.error('[Webhook] AI Analysis/Draft failed:', aiError);
+        }
+
         // Update conversation timestamp
         await prisma.conversation.update({
             where: { id: conversation.id },
             data: { updatedAt: new Date() },
         });
+
+        // Emit socket event for real-time update
+        try {
+            const io = getIO();
+            io.to(contact.workspaceId).emit('message:received', {
+                conversationId: conversation.id,
+                messageId: message.id,
+                contactName: contact.name,
+                content: message.content,
+                channel: message.channel,
+                timestamp: message.createdAt,
+                aiAnalysis,
+                draftReply, // Send draft
+            });
+            logger.info('[Webhook] Socket event emitted for inbound email');
+        } catch (socketError) {
+            logger.error('[Webhook] Failed to emit socket event:', socketError);
+        }
 
         logger.info('[Webhook] Inbound email recorded for contact:', contact.name);
         res.status(200).json({ received: true });

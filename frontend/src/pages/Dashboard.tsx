@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-    Users,
     Calendar,
     ClipboardList,
     AlertTriangle,
@@ -11,7 +10,6 @@ import {
     ArrowRight,
     MessageSquare,
     CheckCircle,
-    XCircle,
     Bell,
     FileWarning,
     AlertOctagon,
@@ -151,27 +149,23 @@ const Dashboard: React.FC = () => {
                             <div
                                 key={i}
                                 onClick={() => navigate(alert.link)}
-                                className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 ${
-                                    alert.severity === 'critical'
+                                className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 ${alert.severity === 'critical'
                                         ? 'bg-red-50 border-red-200 hover:bg-red-100 hover:border-red-300'
                                         : 'bg-amber-50 border-amber-200 hover:bg-amber-100 hover:border-amber-300'
-                                }`}
+                                    }`}
                             >
-                                <div className={`p-2 rounded-lg ${
-                                    alert.severity === 'critical' ? 'bg-red-100 text-red-600' : 'bg-amber-100 text-amber-600'
-                                }`}>
+                                <div className={`p-2 rounded-lg ${alert.severity === 'critical' ? 'bg-red-100 text-red-600' : 'bg-amber-100 text-amber-600'
+                                    }`}>
                                     {alertIcon(alert)}
                                 </div>
                                 <div className="flex-1">
-                                    <p className={`text-sm font-medium ${
-                                        alert.severity === 'critical' ? 'text-red-800' : 'text-amber-800'
-                                    }`}>
+                                    <p className={`text-sm font-medium ${alert.severity === 'critical' ? 'text-red-800' : 'text-amber-800'
+                                        }`}>
                                         {alert.message}
                                     </p>
                                 </div>
-                                <ArrowRight className={`h-4 w-4 ${
-                                    alert.severity === 'critical' ? 'text-red-400' : 'text-amber-400'
-                                }`} />
+                                <ArrowRight className={`h-4 w-4 ${alert.severity === 'critical' ? 'text-red-400' : 'text-amber-400'
+                                    }`} />
                             </div>
                         ))}
                     </div>

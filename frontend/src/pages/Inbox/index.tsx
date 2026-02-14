@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Inbox, Send, ArrowLeft, Mail, MessageSquare, Filter, Trash2, TestTube, Sparkles } from 'lucide-react';
+import { Inbox, Send, ArrowLeft, Mail, MessageSquare, Trash2, TestTube, Sparkles, BrainCircuit } from 'lucide-react';
+import { useSocket } from '../../context/SocketContext';
 import { conversationService } from '../../services/conversationService';
 import { aiService } from '../../services/aiService';
 import type { Conversation, Message } from '../../types/modules';
 import { format } from 'date-fns';
 import ConfirmModal from '../../components/ConfirmModal';
+import Badge from '../../components/Badge';
 
 const CHANNEL_COLORS: Record<string, string> = {
     EMAIL: 'bg-blue-100 text-blue-700',
@@ -14,6 +16,12 @@ const CHANNEL_COLORS: Record<string, string> = {
 const CHANNEL_ICONS: Record<string, React.ReactNode> = {
     EMAIL: <Mail className="h-3 w-3" />,
     SMS: <MessageSquare className="h-3 w-3" />,
+};
+
+const SENTIMENT_COLORS: Record<string, 'green' | 'gray' | 'red'> = {
+    Positive: 'green',
+    Neutral: 'gray',
+    Negative: 'red',
 };
 
 const InboxPage: React.FC = () => {
@@ -32,11 +40,43 @@ const InboxPage: React.FC = () => {
     const [testReplyChannel, setTestReplyChannel] = useState<'EMAIL' | 'SMS'>('EMAIL');
     const [sendingTestReply, setSendingTestReply] = useState(false);
     const [generatingReply, setGeneratingReply] = useState(false);
+    const { socket } = useSocket();
     const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    // AI Analysis State
+    const [aiAnalysis, setAiAnalysis] = useState<{ intent: string; sentiment: string; score: number; tags: string[] } | null>(null);
+    const [draftReply, setDraftReply] = useState<string | null>(null);
 
     useEffect(() => {
         loadConversations();
     }, []);
+
+    useEffect(() => {
+        if (!socket) return;
+
+        socket.on('message:received', (data: any) => {
+            // Refresh conversation list to show new preview
+            loadConversations();
+
+            // If this message belongs to the currently selected conversation
+            if (selectedId && data.conversationId === selectedId) {
+                // Refresh the messages
+                loadConversation(selectedId).then(() => {
+                    // If the event contained AI analysis, display it
+                    if (data.aiAnalysis) {
+                        setAiAnalysis(data.aiAnalysis);
+                    }
+                    if (data.draftReply) {
+                        setDraftReply(data.draftReply);
+                    }
+                });
+            }
+        });
+
+        return () => {
+            socket.off('message:received');
+        };
+    }, [socket, selectedId]);
 
     useEffect(() => {
         if (selectedId) loadConversation(selectedId);
@@ -62,6 +102,8 @@ const InboxPage: React.FC = () => {
         try {
             const convo = await conversationService.getById(id);
             setSelectedConversation(convo);
+            setAiAnalysis(null);
+            setDraftReply(null); // Clear draft when switching
         } catch {
             console.error('Failed to load conversation');
         }
@@ -139,13 +181,19 @@ const InboxPage: React.FC = () => {
         if (!testReplyText.trim() || !selectedId) return;
         try {
             setSendingTestReply(true);
-            await conversationService.recordInbound(selectedId, {
+            const response = await conversationService.recordInbound(selectedId, {
                 content: testReplyText,
                 channel: testReplyChannel
             });
+
             setTestReplyText('');
             setShowTestReply(false);
+
             await loadConversation(selectedId);
+
+            if (response.aiAnalysis) setAiAnalysis(response.aiAnalysis);
+            if (response.draftReply) setDraftReply(response.draftReply); // Set draft from response
+
         } catch (error) {
             console.error('Failed to record test reply');
             alert('Failed to record test reply. Please try again.');
@@ -175,6 +223,13 @@ const InboxPage: React.FC = () => {
             alert('Failed to generate smart reply. Please try again.');
         } finally {
             setGeneratingReply(false);
+        }
+    };
+
+    const useDraftReply = () => {
+        if (draftReply) {
+            setNewMessage(draftReply);
+            setDraftReply(null); // Clear draft after using
         }
     };
 
@@ -268,34 +323,68 @@ const InboxPage: React.FC = () => {
                 ) : (
                     <>
                         {/* Header */}
-                        <div className="p-4 border-b border-gray-200 flex items-center gap-3">
-                            <button onClick={() => { setSelectedId(null); setSelectedConversation(null); }} className="md:hidden text-gray-500 hover:text-gray-700">
-                                <ArrowLeft className="h-5 w-5" />
-                            </button>
-                            <div className="h-8 w-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-sm font-medium">
-                                {selectedConversation.contact?.name?.charAt(0)?.toUpperCase() || '?'}
+                        <div className="p-4 border-b border-gray-200">
+                            <div className="flex items-center gap-3 mb-3">
+                                <button onClick={() => { setSelectedId(null); setSelectedConversation(null); }} className="md:hidden text-gray-500 hover:text-gray-700">
+                                    <ArrowLeft className="h-5 w-5" />
+                                </button>
+                                <div className="h-8 w-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-sm font-medium">
+                                    {selectedConversation.contact?.name?.charAt(0)?.toUpperCase() || '?'}
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-2">
+                                        <p className="text-sm font-medium text-gray-900">{selectedConversation.contact?.name}</p>
+                                        {/* AI Analysis Badges */}
+                                        {aiAnalysis && (
+                                            <div className="flex items-center gap-2 animate-fadeIn">
+                                                <Badge color={SENTIMENT_COLORS[aiAnalysis.sentiment]}>
+                                                    {aiAnalysis.sentiment}
+                                                </Badge>
+                                                <Badge color="purple">
+                                                    {aiAnalysis.intent}
+                                                </Badge>
+                                                {aiAnalysis.tags.map(tag => (
+                                                    <Badge key={tag} color="blue">{tag}</Badge>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <p className="text-xs text-gray-500">
+                                        {selectedConversation.contact?.email}
+                                        {selectedConversation.contact?.phone && ` · ${selectedConversation.contact.phone}`}
+                                    </p>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <button
+                                        onClick={() => setShowTestReply(true)}
+                                        className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+                                        title="Simulate customer reply (for testing)"
+                                    >
+                                        <TestTube className="h-4 w-4" />
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(selectedConversation.id)}
+                                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                        title="Delete conversation"
+                                    >
+                                        <Trash2 className="h-4 w-4" />
+                                    </button>
+                                </div>
                             </div>
-                            <div className="flex-1">
-                                <p className="text-sm font-medium text-gray-900">{selectedConversation.contact?.name}</p>
-                                <p className="text-xs text-gray-500">
-                                    {selectedConversation.contact?.email}
-                                    {selectedConversation.contact?.phone && ` · ${selectedConversation.contact.phone}`}
-                                </p>
-                            </div>
-                            <button
-                                onClick={() => setShowTestReply(true)}
-                                className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
-                                title="Simulate customer reply (for testing)"
-                            >
-                                <TestTube className="h-4 w-4" />
-                            </button>
-                            <button
-                                onClick={() => handleDelete(selectedConversation.id)}
-                                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                title="Delete conversation"
-                            >
-                                <Trash2 className="h-4 w-4" />
-                            </button>
+
+                            {/* AI Insight Box (if analysis exists) */}
+                            {aiAnalysis && (
+                                <div className="bg-purple-50 rounded-lg p-3 flex items-start gap-3 animate-fadeIn">
+                                    <BrainCircuit className="h-5 w-5 text-purple-600 mt-0.5 shrink-0" />
+                                    <div>
+                                        <p className="text-xs font-semibold text-purple-900">AI Insight</p>
+                                        <p className="text-xs text-purple-700 mt-0.5">
+                                            This customer seems <strong>{aiAnalysis.sentiment.toLowerCase()}</strong> and is interested in <strong>{aiAnalysis.intent.toLowerCase()}</strong>.
+                                            Suggested priority score: {aiAnalysis.score}/10.
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         {/* Messages */}
@@ -329,14 +418,41 @@ const InboxPage: React.FC = () => {
 
                         {/* Input with channel selector */}
                         <div className="p-4 border-t border-gray-200">
+                            {/* AI Draft Suggestion */}
+                            {draftReply && (
+                                <div className="mb-3 p-3 bg-purple-50 border border-purple-100 rounded-lg animate-slideUp">
+                                    <div className="flex items-start gap-2">
+                                        <Sparkles className="h-4 w-4 text-purple-600 mt-0.5 shrink-0" />
+                                        <div className="flex-1">
+                                            <p className="text-xs font-semibold text-purple-900 mb-1">AI Suggested Reply</p>
+                                            <p className="text-sm text-gray-700 italic mb-2">"{draftReply}"</p>
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={useDraftReply}
+                                                    className="text-xs bg-purple-600 text-white px-3 py-1.5 rounded-md hover:bg-purple-700 transition-colors"
+                                                >
+                                                    Use this reply
+                                                </button>
+                                                <button
+                                                    onClick={() => setDraftReply(null)}
+                                                    className="text-xs text-gray-500 hover:text-gray-700 px-2 py-1.5"
+                                                >
+                                                    Dismiss
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
                             <div className="flex gap-2">
                                 {/* Channel selector */}
                                 <div className="flex items-center">
                                     <button
                                         onClick={() => setSendChannel(sendChannel === 'EMAIL' ? 'SMS' : 'EMAIL')}
                                         className={`px-3 py-2.5 border rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors ${sendChannel === 'EMAIL'
-                                                ? 'border-blue-300 bg-blue-50 text-blue-700'
-                                                : 'border-green-300 bg-green-50 text-green-700'
+                                            ? 'border-blue-300 bg-blue-50 text-blue-700'
+                                            : 'border-green-300 bg-green-50 text-green-700'
                                             }`}
                                         title={`Sending via ${sendChannel}. Click to switch.`}
                                     >
@@ -401,8 +517,8 @@ const InboxPage: React.FC = () => {
                                     <button
                                         onClick={() => setTestReplyChannel('EMAIL')}
                                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${testReplyChannel === 'EMAIL'
-                                                ? 'border-blue-300 bg-blue-50 text-blue-700'
-                                                : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                                            ? 'border-blue-300 bg-blue-50 text-blue-700'
+                                            : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
                                             }`}
                                     >
                                         <Mail className="h-4 w-4" />
@@ -411,8 +527,8 @@ const InboxPage: React.FC = () => {
                                     <button
                                         onClick={() => setTestReplyChannel('SMS')}
                                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${testReplyChannel === 'SMS'
-                                                ? 'border-green-300 bg-green-50 text-green-700'
-                                                : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                                            ? 'border-green-300 bg-green-50 text-green-700'
+                                            : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
                                             }`}
                                     >
                                         <MessageSquare className="h-4 w-4" />

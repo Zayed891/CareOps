@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Settings as SettingsIcon, Plug, Zap, ToggleLeft, ToggleRight, Trash2, Plus, Mail, MessageSquare, CalendarDays, Building2, Save, ExternalLink, Copy, AlertCircle } from 'lucide-react';
-import { integrationService, automationService, workspaceService } from '../../services/settingsService';
+import { integrationService, automationService } from '../../services/settingsService';
 import type { Integration, AutomationRule } from '../../types/modules';
 import api from '../../services/api';
 import ConfirmModal from '../../components/ConfirmModal';
@@ -110,8 +110,8 @@ const SettingsPage: React.FC = () => {
             setError('');
             const response = await api.put('/workspace', wsForm);
             setWorkspace(response.data);
-            const message = slugWillChange 
-                ? 'Workspace settings and booking URL updated successfully!' 
+            const message = slugWillChange
+                ? 'Workspace settings and booking URL updated successfully!'
                 : 'Workspace settings saved successfully';
             setSuccess(message);
             setTimeout(() => setSuccess(''), 3000);
@@ -292,7 +292,7 @@ const SettingsPage: React.FC = () => {
                                         {workspace.isActive ? 'Active' : 'Inactive'}
                                     </span>
                                 </div>
-                                
+
                                 <div className="flex items-center gap-2">
                                     <code className="flex-1 bg-white px-3 py-2 rounded border border-gray-300 text-xs text-gray-700 font-mono">
                                         {window.location.origin}/book/{slugWillChange ? previewSlug : workspace.slug}

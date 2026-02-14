@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, FileText, Edit2, Trash2, Search, Share2, Copy, ExternalLink } from 'lucide-react';
+import { Plus, FileText, Edit2, Trash2, Search, Copy, ExternalLink } from 'lucide-react';
 import { formService } from '../../services/formService';
 import { type FormTemplate } from '../../types/form';
 
@@ -183,7 +183,7 @@ const FormList: React.FC<FormListProps> = ({ onFillForm, onViewSubmissions, onNe
                             <p className="text-gray-500 text-sm mb-3 line-clamp-2">
                                 {template.description || 'No description provided.'}
                             </p>
-                            
+
                             {/* Public Link */}
                             <div className="bg-gray-50 rounded-lg p-2 mb-3 flex items-center gap-2">
                                 <code className="text-xs text-gray-600 truncate flex-1" title={`${window.location.origin}/f/${template.id}`}>

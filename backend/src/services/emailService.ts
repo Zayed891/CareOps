@@ -68,7 +68,7 @@ export async function sendEmail({ to, subject, body, workspaceId }: SendEmailPar
 
         // Get the verified sender email from config or env
         const fromEmail = (config as any)?.fromEmail || process.env.SENDGRID_FROM_EMAIL;
-        
+
         if (!fromEmail) {
             logger.error('[EmailService] No SENDGRID_FROM_EMAIL configured');
             return false;
@@ -85,9 +85,16 @@ export async function sendEmail({ to, subject, body, workspaceId }: SendEmailPar
             html: body,
         };
 
-        // Set reply-to so customer replies go to the owner's real email
-        // This is crucial for inbound email handling!
-        if (ownerEmail) {
+        // Set reply-to so customer replies go to the Inbound Parse address (if configured)
+        // OR fallback to the owner's real email.
+        const routingEmail = process.env.REPLY_TO_EMAIL; // e.g., replies@inbound.careops.com
+
+        if (routingEmail) {
+            msg.replyTo = {
+                email: routingEmail,
+                name: `${ownerName} (via CareOps)`,
+            };
+        } else if (ownerEmail) {
             msg.replyTo = {
                 email: ownerEmail,
                 name: ownerName,

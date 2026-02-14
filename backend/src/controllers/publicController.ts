@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import prisma from '../db';
 import automationEngine from '../services/automationEngine';
+import { getIO } from '../services/socketService';
 
 // GET /api/public/booking-page/:slug — Public booking page data
 export const getPublicBookingPage = async (req: Request, res: Response) => {
@@ -159,6 +160,19 @@ export const createPublicBooking = async (req: Request, res: Response) => {
 
         res.status(201).json({ booking, message: 'Booking created successfully' });
 
+        // Real-time notification
+        try {
+            const io = getIO();
+            io.to(workspace.id).emit('booking:created', {
+                bookingId: booking.id,
+                contactName: contact.name,
+                serviceTypeName: serviceType.name,
+                scheduledAt: booking.scheduledAt,
+            });
+        } catch (err) {
+            console.error('Socket emit error:', err);
+        }
+
         // ── Fire automation events (non-blocking) ──
         if (isNewContact) {
             automationEngine.emit('contact_created', workspace.id, {
@@ -261,6 +275,22 @@ export const submitPublicContactForm = async (req: Request, res: Response) => {
 
         res.status(201).json({ contact, message: 'Contact form submitted successfully' });
 
+        // Real-time notification if message was added
+        if (message) {
+            try {
+                const io = getIO();
+                io.to(workspace.id).emit('message:received', {
+                    conversationId: conversation.id,
+                    contactName: contact.name,
+                    content: message,
+                    channel: 'EMAIL',
+                    timestamp: new Date(),
+                });
+            } catch (err) {
+                console.error('Socket emit error:', err);
+            }
+        }
+
         // ── Fire automation event (non-blocking) ──
         if (isNewContact) {
             automationEngine.emit('contact_created', workspace.id, {
@@ -352,6 +382,20 @@ export const submitPublicForm = async (req: Request, res: Response) => {
                 where: { id: conversation.id },
                 data: { updatedAt: new Date() },
             });
+
+            // Real-time notification
+            try {
+                const io = getIO();
+                io.to(template.workspaceId).emit('message:received', {
+                    conversationId: conversation.id,
+                    contactName: contact.name,
+                    content: message,
+                    channel: 'EMAIL',
+                    timestamp: new Date(),
+                });
+            } catch (err) {
+                console.error('Socket emit error:', err);
+            }
         }
 
         // Check if there's an existing pending submission for this form + contact + booking

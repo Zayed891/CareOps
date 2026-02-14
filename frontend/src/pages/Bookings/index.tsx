@@ -42,8 +42,8 @@ const BookingsPage: React.FC = () => {
                 )}
             </div>
 
-            <div className="border-b border-gray-200">
-                <nav className="-mb-px flex space-x-8">
+            <div className="border-b border-gray-200 overflow-x-auto">
+                <nav className="-mb-px flex space-x-8 min-w-max px-2">
                     <button
                         onClick={() => setActiveTab('schedule')}
                         className={`${activeTab === 'schedule'

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -19,7 +19,10 @@ import PublicFormPage from './pages/Public/FormPage';
 import AuthCallback from './pages/AuthCallback';
 import './index.css';
 
-import ToastContainer from './components/ToastContainer';
+import { SocketProvider, useSocket } from './context/SocketContext';
+import { ToastProvider, useToast } from './context/ToastContext';
+import { useEffect } from 'react';
+
 
 const AuthenticatedLayout = () => {
   return (
@@ -29,33 +32,63 @@ const AuthenticatedLayout = () => {
   );
 };
 
+const AppContent = () => {
+  const { socket } = useSocket();
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on('booking:created', (data: any) => {
+      showToast(`New booking: ${data.serviceTypeName} with ${data.contactName}`, 'success');
+    });
+
+    socket.on('message:received', (data: any) => {
+      showToast(`New message from ${data.contactName}`, 'info');
+    });
+
+    return () => {
+      socket.off('booking:created');
+      socket.off('message:received');
+    };
+  }, [socket, showToast]);
+
+  return (
+    <Routes>
+      {/* Public routes */}
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/auth/callback" element={<AuthCallback />} />
+      <Route path="/book/:slug" element={<PublicBookingPage />} />
+      <Route path="/f/:id" element={<PublicFormPage />} />
+
+      {/* Protected routes */}
+      <Route element={<ProtectedRoute><AuthenticatedLayout /></ProtectedRoute>}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/inbox" element={<InboxPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/bookings" element={<BookingsPage />} />
+        <Route path="/inventory" element={<InventoryList />} />
+        <Route path="/forms" element={<FormsPage />} />
+        <Route path="/staff" element={<StaffPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/onboarding" element={<OnboardingPage />} />
+
+      </Route>
+    </Routes>
+  );
+};
+
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer />
       <AuthProvider>
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/auth/callback" element={<AuthCallback />} />
-          <Route path="/book/:slug" element={<PublicBookingPage />} />
-          <Route path="/f/:id" element={<PublicFormPage />} />
-
-          {/* Protected routes */}
-          <Route element={<ProtectedRoute><AuthenticatedLayout /></ProtectedRoute>}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/inbox" element={<InboxPage />} />
-            <Route path="/contacts" element={<ContactsPage />} />
-            <Route path="/bookings" element={<BookingsPage />} />
-            <Route path="/inventory" element={<InventoryList />} />
-            <Route path="/forms" element={<FormsPage />} />
-            <Route path="/staff" element={<StaffPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/onboarding" element={<OnboardingPage />} />
-          </Route>
-        </Routes>
+        <SocketProvider>
+          <ToastProvider>
+            <AppContent />
+          </ToastProvider>
+        </SocketProvider>
       </AuthProvider>
     </BrowserRouter>
   );

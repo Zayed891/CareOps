@@ -90,11 +90,10 @@ const OnboardingPage: React.FC = () => {
                     return (
                         <div
                             key={step.key}
-                            className={`flex items-center justify-between p-5 rounded-xl border-2 transition-all cursor-pointer ${
-                                isDone 
-                                    ? 'bg-success-50 border-success-300 shadow-sm' 
+                            className={`flex items-center justify-between p-5 rounded-xl border-2 transition-all cursor-pointer ${isDone
+                                    ? 'bg-success-50 border-success-300 shadow-sm'
                                     : 'bg-white border-gray-200 hover:border-primary-400 hover:shadow-lg hover:-translate-y-0.5'
-                            }`}
+                                }`}
                             onClick={() => !isDone && navigate(step.path)}
                         >
                             <div className="flex items-center gap-3">
@@ -122,12 +121,24 @@ const OnboardingPage: React.FC = () => {
             <button
                 onClick={handleActivate}
                 disabled={activating || progress < 100}
-                className={`w-full py-3 rounded-lg text-sm font-medium transition-colors ${progress >= 100
-                    ? 'bg-green-600 text-white hover:bg-green-700'
-                    : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                className={`w-full py-4 rounded-xl text-base font-semibold shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 ${progress >= 100
+                    ? 'bg-primary-600 text-white hover:bg-primary-700 hover:shadow-xl shadow-primary-200'
+                    : 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none'
                     }`}
             >
-                {activating ? 'Activating...' : progress >= 100 ? '🚀 Activate Workspace' : `Complete all steps to activate (${progress}%)`}
+                {activating ? (
+                    <div className="flex items-center justify-center gap-2">
+                        <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Setting up your workspace...</span>
+                    </div>
+                ) : progress >= 100 ? (
+                    <span className="flex items-center justify-center gap-2">
+                        <Rocket className="h-5 w-5" />
+                        Launch Workspace
+                    </span>
+                ) : (
+                    `Complete all steps to activate (${progress}%)`
+                )}
             </button>
         </div>
     );

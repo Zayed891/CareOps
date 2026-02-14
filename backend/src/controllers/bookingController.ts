@@ -2,6 +2,7 @@ import { Response } from 'express';
 import { AuthRequest } from './../types/express';
 import prisma from '../db';
 import automationEngine from '../services/automationEngine';
+import { getIO } from '../services/socketService';
 
 // Get all bookings for workspace
 export const getBookings = async (req: AuthRequest, res: Response) => {
@@ -192,6 +193,19 @@ export const createBooking = async (req: AuthRequest, res: Response) => {
         // Fire automation event (non-blocking)
         const contactWorkspaceId = booking.contact?.workspaceId;
         if (contactWorkspaceId) {
+            // Real-time notification
+            try {
+                const io = getIO();
+                io.to(contactWorkspaceId).emit('booking:created', {
+                    bookingId: booking.id,
+                    contactName: booking.contact?.name,
+                    serviceTypeName: booking.serviceType?.name,
+                    scheduledAt: booking.scheduledAt,
+                });
+            } catch (err) {
+                console.error('Socket emit error:', err);
+            }
+
             automationEngine.emit('booking_created', contactWorkspaceId, {
                 bookingId: booking.id,
                 contactId: booking.contactId,

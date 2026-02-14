@@ -31,6 +31,13 @@ export interface Message {
     channel: 'EMAIL' | 'SMS';
     direction: 'INBOUND' | 'OUTBOUND';
     createdAt: string;
+    aiAnalysis?: {
+        intent: string;
+        sentiment: string;
+        score: number;
+        tags: string[];
+    } | null;
+    draftReply?: string | null;
 }
 
 export interface StaffMember {
