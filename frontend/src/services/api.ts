@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { toast } from '../utils/toastEvent';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const envUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
 
 const api = axios.create({
     baseURL: API_URL,
