@@ -238,7 +238,7 @@ export const duplicateFormTemplate = async (req: AuthRequest, res: Response) => 
                 description: existing.description,
                 serviceTypeId: existing.serviceTypeId,
                 fields: {
-                    create: existing.fields.map((field) => ({
+                    create: existing.fields.map((field: any) => ({
                         label: field.label,
                         fieldType: field.fieldType,
                         required: field.required,
