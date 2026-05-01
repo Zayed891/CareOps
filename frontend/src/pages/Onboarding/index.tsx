@@ -90,15 +90,15 @@ const OnboardingPage: React.FC = () => {
                     return (
                         <div
                             key={step.key}
-                            className={`flex items-center justify-between p-5 rounded-xl border-2 transition-all cursor-pointer ${isDone
-                                    ? 'bg-success-50 border-success-300 shadow-sm'
+                            className={`flex items-center justify-between p-5 rounded-xl border transition-all cursor-pointer ${isDone
+                                    ? 'bg-surface-1/40 border-success-500/20'
                                     : 'bg-surface-1 border-white/[0.06] hover:border-amber-500/30 hover:shadow-lg hover:-translate-y-0.5'
                                 }`}
                             onClick={() => !isDone && navigate(step.path)}
                         >
                             <div className="flex items-center gap-3">
                                 {isDone ? (
-                                    <div className="h-8 w-8 rounded-full bg-green-100 text-success-500 flex items-center justify-center">
+                                    <div className="h-8 w-8 rounded-full bg-success-500/10 text-success-500 flex items-center justify-center border border-success-500/20">
                                         <Check className="h-4 w-4" />
                                     </div>
                                 ) : (
@@ -107,8 +107,8 @@ const OnboardingPage: React.FC = () => {
                                     </div>
                                 )}
                                 <div>
-                                    <p className={`text-sm font-medium ${isDone ? 'text-green-800' : 'text-text-primary'}`}>{step.label}</p>
-                                    <p className="text-xs text-text-muted">{step.description}</p>
+                                    <p className={`text-sm font-medium ${isDone ? 'text-text-primary' : 'text-text-primary'}`}>{step.label}</p>
+                                    <p className={`text-xs ${isDone ? 'text-text-secondary' : 'text-text-muted'}`}>{step.description}</p>
                                 </div>
                             </div>
                             {!isDone && <ArrowRight className="h-4 w-4 text-text-muted" />}
