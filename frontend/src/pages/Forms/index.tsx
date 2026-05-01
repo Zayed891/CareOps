@@ -51,13 +51,13 @@ const FormsPage: React.FC = () => {
             <div className="max-w-3xl mx-auto py-8">
                 <button
                     onClick={handleBack}
-                    className="flex items-center text-gray-500 hover:text-gray-900 mb-6 transition-colors"
+                    className="flex items-center text-text-muted hover:text-text-primary mb-6 transition-colors"
                 >
                     <ArrowLeft size={20} className="mr-2" />
                     Back to Forms
                 </button>
 
-                <div className="bg-white rounded-lg shadow-md p-8 border border-gray-100">
+                <div className="bg-surface-1 rounded-lg shadow-md p-8 border border-white/[0.04]">
                     <FormRenderer
                         template={selectedTemplate}
                         onCancel={handleBack}
@@ -77,13 +77,13 @@ const FormsPage: React.FC = () => {
                     <div className="flex items-center">
                         <button
                             onClick={handleBack}
-                            className="mr-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+                            className="mr-4 p-2 rounded-full hover:bg-surface-2 transition-colors"
                         >
-                            <ArrowLeft size={20} className="text-gray-500" />
+                            <ArrowLeft size={20} className="text-text-muted" />
                         </button>
                         <div>
-                            <h1 className="text-2xl font-bold text-gray-900">{selectedTemplate.name}</h1>
-                            <p className="text-gray-500">Submissions</p>
+                            <h1 className="text-2xl font-semibold text-text-primary">{selectedTemplate.name}</h1>
+                            <p className="text-text-muted">Submissions</p>
                         </div>
                     </div>
                 </div>

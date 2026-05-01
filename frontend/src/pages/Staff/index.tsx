@@ -111,39 +111,39 @@ const StaffPage: React.FC = () => {
         <div className="max-w-5xl mx-auto animate-fadeIn">
             <div className="section-header mb-8">
                 <div className="flex items-center gap-3">
-                    <Users className="h-8 w-8 text-primary-600" />
+                    <Users className="h-8 w-8 text-amber-400" />
                     <div>
                         <h1 className="section-title">Staff Management</h1>
                         <p className="section-description">Manage team members and their permissions</p>
                     </div>
                 </div>
                 <button onClick={() => setShowInvite(!showInvite)}
-                    className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium">
+                    className="inline-flex items-center px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-400 transition-colors text-sm font-medium">
                     <UserPlus className="h-4 w-4 mr-2" /> Invite Staff
                 </button>
             </div>
 
-            {error && <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">{error}</div>}
+            {error && <div className="mb-4 p-3 bg-error-50 text-error-500 rounded-lg text-sm">{error}</div>}
 
             {showInvite && (
-                <form onSubmit={handleInvite} className="mb-6 p-5 bg-white border border-gray-200 rounded-lg shadow-sm">
-                    <h3 className="text-sm font-semibold text-gray-700 mb-3">Invite New Staff Member</h3>
+                <form onSubmit={handleInvite} className="mb-6 p-5 bg-surface-1 border border-white/[0.06] rounded-lg shadow-sm">
+                    <h3 className="text-sm font-semibold text-text-secondary mb-3">Invite New Staff Member</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
                         <input required placeholder="Full Name *" value={form.name}
                             onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
-                            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500" />
+                            className="px-3 py-2 border border-white/[0.08] rounded-lg text-sm focus:ring-2 focus:ring-amber-500/40" />
                         <input required type="email" placeholder="Email *" value={form.email}
                             onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
-                            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500" />
+                            className="px-3 py-2 border border-white/[0.08] rounded-lg text-sm focus:ring-2 focus:ring-amber-500/40" />
                         <input required type="password" placeholder="Password *" value={form.password}
                             onChange={(e) => setForm(f => ({ ...f, password: e.target.value }))}
-                            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500" />
+                            className="px-3 py-2 border border-white/[0.08] rounded-lg text-sm focus:ring-2 focus:ring-amber-500/40" />
                     </div>
                     <div className="mb-4">
-                        <p className="text-xs font-medium text-gray-500 mb-2">Permissions</p>
+                        <p className="text-xs font-medium text-text-muted mb-2">Permissions</p>
                         <div className="flex flex-wrap gap-3">
                             {Object.entries(PERMISSION_LABELS).map(([key, label]) => (
-                                <label key={key} className="flex items-center gap-2 text-sm text-gray-700">
+                                <label key={key} className="flex items-center gap-2 text-sm text-text-secondary">
                                     <input
                                         type="checkbox"
                                         checked={form.permissions[key] ?? (key !== 'canModifySettings')}
@@ -151,7 +151,7 @@ const StaffPage: React.FC = () => {
                                             ...f,
                                             permissions: { ...f.permissions, [key]: e.target.checked }
                                         }))}
-                                        className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                                        className="rounded border-white/[0.08] text-amber-400 focus:ring-amber-500/40"
                                     />
                                     {label}
                                 </label>
@@ -159,8 +159,8 @@ const StaffPage: React.FC = () => {
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        <button type="submit" className="px-4 py-2 bg-primary-600 text-white rounded-lg text-sm hover:bg-primary-700">Invite</button>
-                        <button type="button" onClick={() => setShowInvite(false)} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">Cancel</button>
+                        <button type="submit" className="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm hover:bg-amber-400">Invite</button>
+                        <button type="button" onClick={() => setShowInvite(false)} className="px-4 py-2 bg-surface-2 text-text-secondary rounded-lg text-sm hover:bg-surface-3">Cancel</button>
                     </div>
                 </form>
             )}
@@ -172,31 +172,31 @@ const StaffPage: React.FC = () => {
             ) : (
                 <div className="space-y-3">
                     {staff.map(member => (
-                        <div key={member.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                        <div key={member.id} className="bg-surface-1 border border-white/[0.06] rounded-lg overflow-hidden">
                             <div className="flex items-center justify-between p-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-sm font-medium">
+                                    <div className="h-10 w-10 rounded-full bg-amber-900/20 text-amber-300 flex items-center justify-center text-sm font-medium">
                                         {member.name.charAt(0).toUpperCase()}
                                     </div>
                                     <div>
-                                        <p className="text-sm font-medium text-gray-900">{member.name}</p>
-                                        <p className="text-xs text-gray-500">{member.email}</p>
+                                        <p className="text-sm font-medium text-text-primary">{member.name}</p>
+                                        <p className="text-xs text-text-muted">{member.email}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${member.role === 'OWNER' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800'}`}>
+                                    <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${member.role === 'OWNER' ? 'bg-amber-900/30 text-amber-400' : 'bg-blue-900/30 text-blue-400'}`}>
                                         <Shield className="h-3 w-3" />{member.role}
                                     </span>
                                     {member.role === 'STAFF' && (
                                         <>
                                             <button
                                                 onClick={() => editingPermissions === member.id ? setEditingPermissions(null) : startEditPermissions(member)}
-                                                className="text-gray-400 hover:text-primary-600 transition-colors"
+                                                className="text-text-muted hover:text-amber-400 transition-colors"
                                                 title="Edit Permissions"
                                             >
                                                 <Settings className="h-4 w-4" />
                                             </button>
-                                            <button onClick={() => handleRemoveClick(member.id)} className="text-gray-400 hover:text-red-600 transition-colors">
+                                            <button onClick={() => handleRemoveClick(member.id)} className="text-text-muted hover:text-error-500 transition-colors">
                                                 <Trash2 className="h-4 w-4" />
                                             </button>
                                         </>
@@ -206,16 +206,16 @@ const StaffPage: React.FC = () => {
 
                             {/* Permissions Editor */}
                             {editingPermissions === member.id && (
-                                <div className="px-4 pb-4 pt-2 border-t border-gray-100 bg-gray-50">
-                                    <p className="text-xs font-medium text-gray-500 mb-3">Edit Permissions</p>
+                                <div className="px-4 pb-4 pt-2 border-t border-white/[0.04] bg-surface-0">
+                                    <p className="text-xs font-medium text-text-muted mb-3">Edit Permissions</p>
                                     <div className="flex flex-wrap gap-4 mb-3">
                                         {Object.entries(PERMISSION_LABELS).map(([key, label]) => (
-                                            <label key={key} className="flex items-center gap-2 text-sm text-gray-700">
+                                            <label key={key} className="flex items-center gap-2 text-sm text-text-secondary">
                                                 <input
                                                     type="checkbox"
                                                     checked={(permForm as any)[key] ?? false}
                                                     onChange={(e) => setPermForm(prev => ({ ...prev, [key]: e.target.checked }))}
-                                                    className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                                                    className="rounded border-white/[0.08] text-amber-400 focus:ring-amber-500/40"
                                                 />
                                                 {label}
                                             </label>
@@ -223,11 +223,11 @@ const StaffPage: React.FC = () => {
                                     </div>
                                     <div className="flex gap-2">
                                         <button onClick={savePermissions}
-                                            className="inline-flex items-center px-3 py-1.5 bg-primary-600 text-white rounded-lg text-xs hover:bg-primary-700">
+                                            className="inline-flex items-center px-3 py-1.5 bg-amber-500 text-white rounded-lg text-xs hover:bg-amber-400">
                                             <Check className="h-3 w-3 mr-1" /> Save
                                         </button>
                                         <button onClick={() => setEditingPermissions(null)}
-                                            className="inline-flex items-center px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-xs hover:bg-gray-200">
+                                            className="inline-flex items-center px-3 py-1.5 bg-surface-2 text-text-secondary rounded-lg text-xs hover:bg-surface-3">
                                             <X className="h-3 w-3 mr-1" /> Cancel
                                         </button>
                                     </div>
@@ -241,7 +241,7 @@ const StaffPage: React.FC = () => {
                                         const perms = Array.isArray(member.permissions) ? member.permissions[0] : member.permissions;
                                         const hasPermission = (perms as any)?.[key];
                                         return hasPermission ? (
-                                            <span key={key} className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-green-50 text-green-700 border border-green-200">
+                                            <span key={key} className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-success-50 text-success-500 border border-success-500/20">
                                                 {label}
                                             </span>
                                         ) : null;

@@ -41,10 +41,10 @@ const LandingPage: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <span className="inline-block py-1.5 px-4 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold font-display tracking-wide uppercase mb-8 border border-amber-500/20">
+                        <span className="inline-block py-1.5 px-4 rounded-full bg-amber-500/10 text-amber-400 text-xs font-semibold font-display tracking-wide uppercase mb-8 border border-amber-500/20">
                             For Service Businesses
                         </span>
-                        <h1 className="text-5xl md:text-7xl font-extrabold text-text-primary tracking-tight mb-8 leading-[1.1] font-display">
+                        <h1 className="text-5xl md:text-7xl font-semibold text-text-primary tracking-tighterer mb-8 leading-[1.1] font-display">
                             Run your entire business <br className="hidden md:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">
                                 on autopilot
@@ -54,10 +54,10 @@ const LandingPage: React.FC = () => {
                             The all-in-one CRM, scheduling, and automation platform designed to help you grow your service-based business without the busywork.
                         </p>
                         <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                            <Link to="/register" className="w-full sm:w-auto px-8 py-4 bg-amber-500 text-surface-0 rounded-xl font-bold font-display text-lg shadow-glow-amber hover:bg-amber-400 hover:scale-105 transition-all duration-200">
+                            <Link to="/register" className="w-full sm:w-auto px-8 py-4 bg-amber-500 text-surface-0 rounded-xl font-semibold font-display text-lg shadow-glow-amber hover:bg-amber-400 hover:scale-105 transition-all duration-200">
                                 Start Free Trial
                             </Link>
-                            <Link to="#features" className="w-full sm:w-auto px-8 py-4 bg-surface-2 text-text-primary border border-white/[0.08] rounded-xl font-bold font-display text-lg hover:bg-surface-3 hover:border-white/[0.12] transition-all">
+                            <Link to="#features" className="w-full sm:w-auto px-8 py-4 bg-surface-2 text-text-primary border border-white/[0.08] rounded-xl font-semibold font-display text-lg hover:bg-surface-3 hover:border-white/[0.12] transition-all">
                                 View Demo
                             </Link>
                         </div>
@@ -91,7 +91,7 @@ const LandingPage: React.FC = () => {
             <section id="features" className="py-24 bg-surface-1/50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-text-primary sm:text-4xl mb-4 font-display">Everything you need to grow</h2>
+                        <h2 className="text-3xl font-semibold text-text-primary sm:text-4xl mb-4 font-display tracking-tighterer">Everything you need to grow</h2>
                         <p className="text-xl text-text-secondary max-w-2xl mx-auto">Stop juggling multiple tools. CareOps brings everything together in one unified platform.</p>
                     </div>
 
@@ -150,13 +150,13 @@ const LandingPage: React.FC = () => {
                         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-white/10 blur-3xl"></div>
                         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-amber-800/50 blur-3xl"></div>
 
-                        <h2 className="text-3xl md:text-4xl font-bold text-surface-0 mb-6 relative z-10 font-display">
+                        <h2 className="text-3xl md:text-4xl font-semibold text-surface-0 mb-6 relative z-10 font-display tracking-tighterer">
                             Ready to streamline your business?
                         </h2>
                         <p className="text-amber-100 text-lg mb-10 max-w-2xl mx-auto relative z-10">
                             Join thousands of service professionals who trust CareOps to manage their day-to-day operations.
                         </p>
-                        <Link to="/register" className="inline-block px-10 py-5 bg-surface-0 text-amber-600 rounded-xl font-bold font-display text-lg shadow-xl hover:bg-white hover:scale-105 transition-all duration-200 relative z-10">
+                        <Link to="/register" className="inline-block px-10 py-5 bg-surface-0 text-amber-600 rounded-xl font-semibold font-display text-lg shadow-xl hover:bg-white hover:scale-105 transition-all duration-200 relative z-10">
                             Get Started for Free
                         </Link>
                     </motion.div>
@@ -195,7 +195,7 @@ const FeatureCard = ({ icon: Icon, title, desc, color }: any) => (
         <div className={`p-3 rounded-xl w-fit mb-6 ${color} group-hover:scale-110 transition-transform duration-300`}>
             <Icon size={24} />
         </div>
-        <h3 className="text-xl font-bold text-text-primary mb-3 font-display">{title}</h3>
+        <h3 className="text-xl font-semibold text-text-primary mb-3 font-display">{title}</h3>
         <p className="text-text-secondary leading-relaxed">{desc}</p>
     </motion.div>
 );

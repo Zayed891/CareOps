@@ -86,34 +86,34 @@ const PublicFormPage: React.FC = () => {
     };
 
     if (loading) return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
-            <Loader className="animate-spin text-primary-600 h-8 w-8" />
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-surface-0 to-surface-1">
+            <Loader className="animate-spin text-amber-400 h-8 w-8" />
         </div>
     );
 
     if (error || !template) return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
-            <div className="bg-white p-8 rounded-xl shadow-card max-w-md w-full text-center border border-gray-100">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-surface-0 to-surface-1 p-4">
+            <div className="bg-surface-1 p-8 rounded-xl shadow-card max-w-md w-full text-center border border-white/[0.04]">
                 <AlertCircle className="mx-auto h-10 w-10 text-red-500 mb-4" />
-                <h2 className="text-lg font-bold text-gray-900 mb-2">Unavailable</h2>
-                <p className="text-sm text-gray-600">{error || 'This form does not exist.'}</p>
+                <h2 className="text-lg font-semibold text-text-primary mb-2">Unavailable</h2>
+                <p className="text-sm text-text-secondary">{error || 'This form does not exist.'}</p>
             </div>
         </div>
     );
 
     if (isSuccess) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-surface-0 to-surface-1 p-4">
                 <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="bg-white p-8 rounded-xl shadow-card max-w-md w-full text-center border border-gray-100"
+                    className="bg-surface-1 p-8 rounded-xl shadow-card max-w-md w-full text-center border border-white/[0.04]"
                 >
                     <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <CheckCircle className="h-7 w-7 text-green-600" />
+                        <CheckCircle className="h-7 w-7 text-success-500" />
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900 mb-2">Thank You!</h2>
-                    <p className="text-gray-600 text-sm mb-6">
+                    <h2 className="text-xl font-semibold text-text-primary mb-2">Thank You!</h2>
+                    <p className="text-text-secondary text-sm mb-6">
                         Your submission has been received successfully.
                     </p>
                     <button
@@ -128,7 +128,7 @@ const PublicFormPage: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-6 px-4 sm:px-6 lg:px-8 flex items-center">
+        <div className="min-h-screen bg-gradient-to-br from-surface-0 to-surface-1 py-6 px-4 sm:px-6 lg:px-8 flex items-center">
             <div className="max-w-2xl mx-auto w-full">
                 <div className="mb-4 flex justify-center">
                     <Logo size="sm" />
@@ -136,24 +136,24 @@ const PublicFormPage: React.FC = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-xl shadow-card overflow-hidden border border-gray-100"
+                    className="bg-surface-1 rounded-xl shadow-card overflow-hidden border border-white/[0.04]"
                 >
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-6 text-white text-center">
-                        <div className="bg-white/20 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 backdrop-blur-sm">
+                    <div className="bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-6 text-surface-0 text-center">
+                        <div className="bg-surface-1/20 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 backdrop-blur-sm">
                             <FileText className="h-6 w-6 text-white" />
                         </div>
-                        <h1 className="text-xl font-bold mb-1">{template.title}</h1>
+                        <h1 className="text-xl font-semibold mb-1">{template.title}</h1>
                         {template.description && (
-                            <p className="text-sm text-primary-100 max-w-lg mx-auto">{template.description}</p>
+                            <p className="text-sm text-amber-100 max-w-lg mx-auto">{template.description}</p>
                         )}
                     </div>
 
                     <form onSubmit={handleSubmit} className="p-6 space-y-5">
                         {/* Contact Info Section */}
-                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                            <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                                <User size={16} className="mr-2 text-primary-600" />
+                        <div className="bg-surface-0 p-4 rounded-lg border border-white/[0.04]">
+                            <h3 className="text-sm font-semibold text-text-primary mb-3 flex items-center">
+                                <User size={16} className="mr-2 text-amber-400" />
                                 Contact Information
                             </h3>
                             <div className="space-y-3">
@@ -237,11 +237,11 @@ const PublicFormPage: React.FC = () => {
                                                 <input
                                                     type="checkbox"
                                                     required={field.required}
-                                                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                                                    className="h-4 w-4 text-amber-400 focus:ring-amber-500/40 border-white/[0.08] rounded"
                                                     checked={formData[field.id]}
                                                     onChange={e => handleFieldChange(field.id, e.target.checked)}
                                                 />
-                                                <span className="ml-2 text-sm text-gray-700">Yes, confirm</span>
+                                                <span className="ml-2 text-sm text-text-secondary">Yes, confirm</span>
                                             </div>
                                         ) : (
                                             <input
@@ -257,11 +257,11 @@ const PublicFormPage: React.FC = () => {
                             </div>
                         )}
 
-                        <div className="pt-4 border-t border-gray-100">
+                        <div className="pt-4 border-t border-white/[0.04]">
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full btn-primary py-3 shadow-lg shadow-primary-500/20 flex items-center justify-center"
+                                className="w-full btn-primary py-3 shadow-lg shadow-amber-500/20 flex items-center justify-center"
                             >
                                 {isSubmitting ? (
                                     <>Processing...</>

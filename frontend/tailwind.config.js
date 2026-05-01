@@ -80,8 +80,8 @@ export default {
                 },
             },
             fontFamily: {
-                sans: ['DM Sans', 'system-ui', 'sans-serif'],
-                display: ['Outfit', 'system-ui', 'sans-serif'],
+                sans: ['Satoshi', 'system-ui', 'sans-serif'],
+                display: ['Satoshi', 'system-ui', 'sans-serif'],
             },
             boxShadow: {
                 'sm': '0 1px 2px rgba(0, 0, 0, 0.3)',

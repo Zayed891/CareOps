@@ -50,20 +50,20 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
                             layout
-                            className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 flex items-center gap-3 min-w-[300px] border border-gray-100 dark:border-gray-700"
+                            className="bg-surface-1 dark:bg-gray-800 shadow-lg rounded-lg p-4 flex items-center gap-3 min-w-[300px] border border-white/[0.04] dark:border-gray-700"
                         >
-                            <div className={`p-2 rounded-full ${toast.type === 'success' ? 'bg-green-100 text-green-600' :
-                                    toast.type === 'error' ? 'bg-red-100 text-red-600' :
-                                        'bg-blue-100 text-blue-600'
+                            <div className={`p-2 rounded-full ${toast.type === 'success' ? 'bg-green-100 text-success-500' :
+                                    toast.type === 'error' ? 'bg-red-100 text-error-500' :
+                                        'bg-blue-900/30 text-blue-600'
                                 }`}>
                                 {toast.type === 'success' && <CheckCircle size={18} />}
                                 {toast.type === 'error' && <AlertCircle size={18} />}
                                 {toast.type === 'info' && <Info size={18} />}
                             </div>
-                            <p className="text-sm font-medium text-gray-800 dark:text-gray-100 flex-1">{toast.message}</p>
+                            <p className="text-sm font-medium text-text-primary dark:text-gray-100 flex-1">{toast.message}</p>
                             <button
                                 onClick={() => removeToast(toast.id)}
-                                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                                className="text-text-muted hover:text-text-secondary dark:hover:text-gray-200"
                             >
                                 <X size={16} />
                             </button>

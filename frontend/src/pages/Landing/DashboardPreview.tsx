@@ -33,7 +33,7 @@ const DashboardPreview = () => {
             <div className="flex-1 flex flex-col overflow-hidden bg-surface-0">
                 <div className="p-6 md:p-8 overflow-y-auto">
                     <div className="mb-8">
-                        <h2 className="text-xl font-bold text-text-primary font-display">Dashboard Overview</h2>
+                        <h2 className="text-xl font-semibold text-text-primary font-display">Dashboard Overview</h2>
                         <p className="text-text-secondary mt-1">Welcome back! Here's what's happening with your business today.</p>
                     </div>
 
@@ -148,7 +148,7 @@ const StatCard = ({ title, value, sub, icon: Icon, iconColor, bg }: any) => (
             </div>
         </div>
         <div>
-            <div className="text-2xl font-bold text-text-primary font-display">{value}</div>
+            <div className="text-2xl font-semibold text-text-primary font-display">{value}</div>
             <div className="text-text-muted text-xs mt-1">{sub}</div>
         </div>
     </div>

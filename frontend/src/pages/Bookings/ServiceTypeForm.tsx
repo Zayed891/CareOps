@@ -57,22 +57,22 @@ const ServiceTypeForm: React.FC<ServiceTypeFormProps> = ({ isOpen, onClose, onSu
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
                 <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-                    <div className="absolute inset-0 bg-gray-500 opacity-75" onClick={onClose}></div>
+                    <div className="absolute inset-0 bg-surface-00 opacity-75" onClick={onClose}></div>
                 </div>
 
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-                <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
-                    <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-                        <h3 className="text-lg font-medium text-gray-900">Add Service Type</h3>
-                        <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
+                <div className="inline-block align-bottom bg-surface-1 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
+                    <div className="flex justify-between items-center px-6 py-4 border-b border-white/[0.06]">
+                        <h3 className="text-lg font-medium text-text-primary">Add Service Type</h3>
+                        <button onClick={onClose} className="text-text-muted hover:text-text-muted">
                             <X size={20} />
                         </button>
                     </div>
 
                     <form onSubmit={handleSubmit} className="p-6 space-y-4">
                         {error && (
-                            <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">
+                            <div className="bg-error-50 text-error-500 p-3 rounded-md text-sm">
                                 {error}
                             </div>
                         )}

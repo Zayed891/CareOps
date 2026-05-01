@@ -113,22 +113,22 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, onSuccess })
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
                 <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-                    <div className="absolute inset-0 bg-gray-500 opacity-75" onClick={onClose}></div>
+                    <div className="absolute inset-0 bg-surface-00 opacity-75" onClick={onClose}></div>
                 </div>
 
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-                <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                    <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-                        <h3 className="text-lg font-medium text-gray-900">New Booking</h3>
-                        <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
+                <div className="inline-block align-bottom bg-surface-1 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div className="flex justify-between items-center px-6 py-4 border-b border-white/[0.06]">
+                        <h3 className="text-lg font-medium text-text-primary">New Booking</h3>
+                        <button onClick={onClose} className="text-text-muted hover:text-text-muted">
                             <X size={20} />
                         </button>
                     </div>
 
                     <div className="p-6">
                         {error && (
-                            <div className="mb-4 bg-red-50 text-red-600 p-3 rounded-md text-sm">
+                            <div className="mb-4 bg-error-50 text-error-500 p-3 rounded-md text-sm">
                                 {error}
                             </div>
                         )}
@@ -136,19 +136,19 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, onSuccess })
                         {/* Step 1: Select Service */}
                         {step === 1 && (
                             <div className="space-y-4">
-                                <h4 className="font-medium text-gray-900">1. Select Service</h4>
+                                <h4 className="font-medium text-text-primary">1. Select Service</h4>
                                 <div className="grid grid-cols-1 gap-3 max-h-60 overflow-y-auto">
                                     {serviceTypes.map(service => (
                                         <div
                                             key={service.id}
                                             onClick={() => setSelectedService(service.id)}
                                             className={`p-3 rounded-lg border cursor-pointer transition-colors ${selectedService === service.id
-                                                ? 'border-primary-500 bg-primary-50'
-                                                : 'border-gray-200 hover:border-primary-200'
+                                                ? 'border-amber-500 bg-amber-900/30'
+                                                : 'border-white/[0.06] hover:border-primary-200'
                                                 }`}
                                         >
-                                            <div className="font-medium text-gray-900">{service.name}</div>
-                                            <div className="text-sm text-gray-500 flex justify-between">
+                                            <div className="font-medium text-text-primary">{service.name}</div>
+                                            <div className="text-sm text-text-muted flex justify-between">
                                                 <span>{service.duration} mins</span>
                                                 <span>{service.price ? `$${service.price}` : 'Free'}</span>
                                             </div>
@@ -170,7 +170,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, onSuccess })
                         {/* Step 2: Date & Time */}
                         {step === 2 && (
                             <div className="space-y-4">
-                                <h4 className="font-medium text-gray-900">2. Date & Time</h4>
+                                <h4 className="font-medium text-text-primary">2. Date & Time</h4>
                                 <div>
                                     <label className="label">Date</label>
                                     <input
@@ -206,7 +206,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, onSuccess })
                         {/* Step 3: Contact Details */}
                         {step === 3 && (
                             <div className="space-y-4">
-                                <h4 className="font-medium text-gray-900">3. Client Details</h4>
+                                <h4 className="font-medium text-text-primary">3. Client Details</h4>
 
                                 {!isNewContact ? (
                                     <div className="space-y-3">
@@ -221,21 +221,21 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, onSuccess })
                                             {availableContacts.map(contact => (
                                                 <div
                                                     key={contact.id}
-                                                    className={`p-2 cursor-pointer hover:bg-gray-50 ${selectedContact === contact.id ? 'bg-primary-50' : ''}`}
+                                                    className={`p-2 cursor-pointer hover:bg-surface-0 ${selectedContact === contact.id ? 'bg-amber-900/30' : ''}`}
                                                     onClick={() => setSelectedContact(contact.id)}
                                                 >
                                                     <div className="font-medium">{contact.name}</div>
-                                                    <div className="text-xs text-gray-500">{contact.email}</div>
+                                                    <div className="text-xs text-text-muted">{contact.email}</div>
                                                 </div>
                                             ))}
                                             {availableContacts.length === 0 && (
-                                                <div className="p-2 text-sm text-gray-500 text-center">No contacts found</div>
+                                                <div className="p-2 text-sm text-text-muted text-center">No contacts found</div>
                                             )}
                                         </div>
                                         <div className="text-center">
-                                            <span className="text-sm text-gray-500">or</span>
+                                            <span className="text-sm text-text-muted">or</span>
                                             <button
-                                                className="ml-2 text-sm text-primary-600 font-medium"
+                                                className="ml-2 text-sm text-amber-400 font-medium"
                                                 onClick={() => setIsNewContact(true)}
                                             >
                                                 Create New Contact
@@ -243,11 +243,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, onSuccess })
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="space-y-3 bg-gray-50 p-4 rounded-lg">
+                                    <div className="space-y-3 bg-surface-0 p-4 rounded-lg">
                                         <div className="flex justify-between items-center mb-2">
                                             <h5 className="text-sm font-medium">New Client</h5>
                                             <button
-                                                className="text-xs text-primary-600"
+                                                className="text-xs text-amber-400"
                                                 onClick={() => setIsNewContact(false)}
                                             >
                                                 Cancel

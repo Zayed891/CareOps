@@ -67,11 +67,11 @@ const BookingsList: React.FC = () => {
             PENDING: 'bg-yellow-100 text-yellow-800',
             CONFIRMED: 'bg-green-100 text-green-800',
             CANCELLED: 'bg-red-100 text-red-800',
-            COMPLETED: 'bg-blue-100 text-blue-800',
-            NO_SHOW: 'bg-gray-100 text-gray-800'
+            COMPLETED: 'bg-blue-900/30 text-blue-400',
+            NO_SHOW: 'bg-surface-2 text-text-primary'
         };
         return (
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status] || 'bg-gray-100'}`}>
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status] || 'bg-surface-2'}`}>
                 {status}
             </span>
         );
@@ -81,30 +81,30 @@ const BookingsList: React.FC = () => {
 
     return (
         <div className="space-y-4">
-            <div className="flex space-x-2 border-b border-gray-200 pb-4">
+            <div className="flex space-x-2 border-b border-white/[0.06] pb-4">
                 <button
                     onClick={() => { setFilter('upcoming'); setCurrentPage(1); }}
-                    className={`px-4 py-2 rounded-md text-sm font-medium ${filter === 'upcoming' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700'}`}
+                    className={`px-4 py-2 rounded-md text-sm font-medium ${filter === 'upcoming' ? 'bg-amber-900/20 text-amber-300' : 'text-text-muted hover:text-text-secondary'}`}
                 >
                     Upcoming
                 </button>
                 <button
                     onClick={() => { setFilter('past'); setCurrentPage(1); }}
-                    className={`px-4 py-2 rounded-md text-sm font-medium ${filter === 'past' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700'}`}
+                    className={`px-4 py-2 rounded-md text-sm font-medium ${filter === 'past' ? 'bg-amber-900/20 text-amber-300' : 'text-text-muted hover:text-text-secondary'}`}
                 >
                     Past
                 </button>
                 <button
                     onClick={() => { setFilter('all'); setCurrentPage(1); }}
-                    className={`px-4 py-2 rounded-md text-sm font-medium ${filter === 'all' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700'}`}
+                    className={`px-4 py-2 rounded-md text-sm font-medium ${filter === 'all' ? 'bg-amber-900/20 text-amber-300' : 'text-text-muted hover:text-text-secondary'}`}
                 >
                     All
                 </button>
             </div>
 
             {bookings.length === 0 ? (
-                <div className="text-center py-12 bg-gray-50 rounded-lg">
-                    <p className="text-gray-500">No {filter} bookings found.</p>
+                <div className="text-center py-12 bg-surface-0 rounded-lg">
+                    <p className="text-text-muted">No {filter} bookings found.</p>
                 </div>
             ) : (
                 <div className="space-y-4">
@@ -119,7 +119,7 @@ const BookingsList: React.FC = () => {
                             }}
                         />
                         <div className="relative flex-1 sm:flex-initial">
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted" size={20} />
                             {/* Assuming a search input will be added here later */}
                             <input
                                 type="text"
@@ -132,37 +132,37 @@ const BookingsList: React.FC = () => {
                         <div key={booking.id} className="card-hover flex flex-col sm:flex-row justify-between">
                             <div className="flex-1 space-y-2">
                                 <div className="flex items-center space-x-3">
-                                    <div className="text-lg font-semibold text-gray-900">
+                                    <div className="text-lg font-semibold text-text-primary">
                                         {format(new Date(booking.scheduledAt), 'h:mm a')}
                                     </div>
-                                    <div className="text-gray-500 text-sm">
+                                    <div className="text-text-muted text-sm">
                                         {format(new Date(booking.scheduledAt), 'MMM d, yyyy')}
                                     </div>
                                     <StatusBadge status={booking.status} />
                                 </div>
-                                <div className="flex items-center text-gray-700">
-                                    <User size={16} className="mr-2 text-gray-400" />
+                                <div className="flex items-center text-text-secondary">
+                                    <User size={16} className="mr-2 text-text-muted" />
                                     <span className="font-medium">{booking.contact?.name || 'Unknown Contact'}</span>
                                 </div>
-                                <div className="flex items-center text-gray-600 text-sm">
-                                    <Clock size={16} className="mr-2 text-gray-400" />
+                                <div className="flex items-center text-text-secondary text-sm">
+                                    <Clock size={16} className="mr-2 text-text-muted" />
                                     {booking.serviceType?.name || 'Service'} ({booking.serviceType?.duration} mins)
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-2 mt-4 sm:mt-0 pt-4 sm:pt-0 border-t sm:border-0 border-gray-100">
+                            <div className="flex items-center space-x-2 mt-4 sm:mt-0 pt-4 sm:pt-0 border-t sm:border-0 border-white/[0.04]">
                                 {booking.status === 'PENDING' && (
                                     <>
                                         <button
                                             onClick={() => handleStatusUpdate(booking.id, 'CONFIRMED')}
-                                            className="p-2 text-green-600 hover:bg-green-50 rounded-full"
+                                            className="p-2 text-success-500 hover:bg-success-50 rounded-full"
                                             title="Confirm"
                                         >
                                             <CheckCircle size={20} />
                                         </button>
                                         <button
                                             onClick={() => handleStatusUpdate(booking.id, 'CANCELLED')}
-                                            className="p-2 text-red-600 hover:bg-red-50 rounded-full"
+                                            className="p-2 text-error-500 hover:bg-error-50 rounded-full"
                                             title="Cancel"
                                         >
                                             <XCircle size={20} />

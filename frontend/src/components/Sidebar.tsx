@@ -81,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
                                     flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200
                                     ${isActive
                                         ? 'bg-amber-500/10 text-amber-400 border border-amber-500/15'
-                                        : 'text-text-secondary hover:bg-white/[0.04] hover:text-text-primary border border-transparent'}
+                                        : 'text-text-secondary hover:bg-surface-1/[0.04] hover:text-text-primary border border-transparent'}
                                 `}
                             >
                                 <item.icon className="mr-3 h-[18px] w-[18px]" />

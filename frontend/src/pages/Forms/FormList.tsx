@@ -130,7 +130,7 @@ const FormList: React.FC<FormListProps> = ({ onFillForm, onViewSubmissions, onNe
                     }}
                 />
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted" size={20} />
                     <input
                         type="text"
                         placeholder="Search forms..."
@@ -144,8 +144,8 @@ const FormList: React.FC<FormListProps> = ({ onFillForm, onViewSubmissions, onNe
             {loading ? (
                 <div className="text-center py-12">Loading templates...</div>
             ) : filteredTemplates.length === 0 ? (
-                <div className="text-center py-12 bg-gray-50 rounded-lg">
-                    <p className="text-gray-500">No forms found. Create your first one!</p>
+                <div className="text-center py-12 bg-surface-0 rounded-lg">
+                    <p className="text-text-muted">No forms found. Create your first one!</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -156,7 +156,7 @@ const FormList: React.FC<FormListProps> = ({ onFillForm, onViewSubmissions, onNe
                             onClick={() => onViewSubmissions?.(template)}
                         >
                             <div className="flex justify-between items-start mb-4">
-                                <div className="p-2 bg-primary-50 rounded-lg text-primary-600">
+                                <div className="p-2 bg-amber-900/30 rounded-lg text-amber-400">
                                     <FileText size={24} />
                                 </div>
                                 <div className="flex space-x-1">
@@ -165,28 +165,28 @@ const FormList: React.FC<FormListProps> = ({ onFillForm, onViewSubmissions, onNe
                                             e.stopPropagation();
                                             onEditForm?.(template);
                                         }}
-                                        className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full"
+                                        className="p-2 text-text-muted hover:text-amber-400 hover:bg-amber-900/30 rounded-full"
                                         title="Edit"
                                     >
                                         <Edit2 size={18} />
                                     </button>
                                     <button
                                         onClick={(e) => handleDeleteClick(template.id, e)}
-                                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-full"
+                                        className="p-2 text-text-muted hover:text-error-500 hover:bg-error-50 rounded-full"
                                         title="Delete"
                                     >
                                         <Trash2 size={18} />
                                     </button>
                                 </div>
                             </div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">{template.name}</h3>
-                            <p className="text-gray-500 text-sm mb-3 line-clamp-2">
+                            <h3 className="text-lg font-semibold text-text-primary mb-2">{template.name}</h3>
+                            <p className="text-text-muted text-sm mb-3 line-clamp-2">
                                 {template.description || 'No description provided.'}
                             </p>
 
                             {/* Public Link */}
-                            <div className="bg-gray-50 rounded-lg p-2 mb-3 flex items-center gap-2">
-                                <code className="text-xs text-gray-600 truncate flex-1" title={`${window.location.origin}/f/${template.id}`}>
+                            <div className="bg-surface-0 rounded-lg p-2 mb-3 flex items-center gap-2">
+                                <code className="text-xs text-text-secondary truncate flex-1" title={`${window.location.origin}/f/${template.id}`}>
                                     {window.location.origin}/f/{template.id}
                                 </code>
                             </div>

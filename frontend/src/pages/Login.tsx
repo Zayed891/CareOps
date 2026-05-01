@@ -47,7 +47,7 @@ const Login: React.FC = () => {
                     <Link to="/" className="inline-block mb-2 hover:scale-105 transition-transform">
                         <Logo size="sm" />
                     </Link>
-                    <h1 className="text-lg font-bold text-text-primary font-display">Welcome back</h1>
+                    <h1 className="text-lg font-semibold text-text-primary font-display">Welcome back</h1>
                 </div>
 
                 {/* Login Card */}

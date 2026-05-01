@@ -55,7 +55,7 @@ const ServiceTypeList: React.FC = () => {
         <div className="space-y-6">
             <div className="section-header">
                 <div>
-                    <h2 className="text-xl font-semibold text-gray-900">Service Types</h2>
+                    <h2 className="text-xl font-semibold text-text-primary">Service Types</h2>
                     <p className="section-description">Define the services you offer</p>
                 </div>
                 <button
@@ -68,11 +68,11 @@ const ServiceTypeList: React.FC = () => {
             </div>
 
             {services.length === 0 ? (
-                <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
-                    <p className="text-gray-500 mb-2">No service types defined yet.</p>
+                <div className="text-center py-12 bg-surface-0 rounded-lg border-2 border-dashed border-white/[0.06]">
+                    <p className="text-text-muted mb-2">No service types defined yet.</p>
                     <button
                         onClick={() => setIsFormOpen(true)}
-                        className="text-primary-600 hover:text-primary-700 font-medium"
+                        className="text-amber-400 hover:text-amber-300 font-medium"
                     >
                         Create your first service type
                     </button>
@@ -84,31 +84,31 @@ const ServiceTypeList: React.FC = () => {
                             <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <button
                                     onClick={() => handleDeleteClick(service.id)}
-                                    className="p-2 text-gray-400 hover:text-red-600 transition-colors bg-white rounded-full shadow-md hover:shadow-lg"
+                                    className="p-2 text-text-muted hover:text-error-500 transition-colors bg-surface-1 rounded-full shadow-md hover:shadow-lg"
                                     title="Delete"
                                 >
                                     <Trash2 size={16} />
                                 </button>
                             </div>
 
-                            <h3 className="font-semibold text-gray-900 text-lg mb-1">{service.name}</h3>
+                            <h3 className="font-semibold text-text-primary text-lg mb-1">{service.name}</h3>
                             {service.description && (
-                                <p className="text-sm text-gray-500 mb-4 line-clamp-2 min-h-[2.5em]">{service.description}</p>
+                                <p className="text-sm text-text-muted mb-4 line-clamp-2 min-h-[2.5em]">{service.description}</p>
                             )}
 
-                            <div className="flex flex-col space-y-2 text-sm text-gray-600 border-t border-gray-100 pt-4 mt-2">
+                            <div className="flex flex-col space-y-2 text-sm text-text-secondary border-t border-white/[0.04] pt-4 mt-2">
                                 <div className="flex items-center">
-                                    <Clock size={16} className="mr-2 text-gray-400" />
+                                    <Clock size={16} className="mr-2 text-text-muted" />
                                     <span>{service.duration} mins</span>
                                 </div>
                                 {service.location && (
                                     <div className="flex items-center">
-                                        <MapPin size={16} className="mr-2 text-gray-400" />
+                                        <MapPin size={16} className="mr-2 text-text-muted" />
                                         <span>{service.location}</span>
                                     </div>
                                 )}
-                                <div className="flex items-center font-medium text-gray-900">
-                                    <DollarSign size={16} className="mr-2 text-gray-400" />
+                                <div className="flex items-center font-medium text-text-primary">
+                                    <DollarSign size={16} className="mr-2 text-text-muted" />
                                     <span>{service.price ? service.price.toFixed(2) : 'Free'}</span>
                                 </div>
                             </div>

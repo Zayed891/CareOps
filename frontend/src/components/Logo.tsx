@@ -69,7 +69,7 @@ const Logo: React.FC<LogoProps> = ({
 
             {/* Text */}
             {showText && (
-                <span className={`font-display font-bold tracking-tight ${textSizeClasses[size]} ${variant === 'white' ? 'text-white' : 'text-text-primary'}`}>
+                <span className={`font-display font-semibold tracking-tighter ${textSizeClasses[size]} ${variant === 'white' ? 'text-white' : 'text-text-primary'}`}>
                     Care<span className="text-amber-400">Ops</span>
                 </span>
             )}

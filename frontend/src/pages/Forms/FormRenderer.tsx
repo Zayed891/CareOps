@@ -55,10 +55,10 @@ const FormRenderer: React.FC<FormRendererProps> = ({ template, onSuccess, onCanc
 
     if (success) {
         return (
-            <div className="text-center py-12 bg-green-50 rounded-lg border border-green-200">
+            <div className="text-center py-12 bg-success-50 rounded-lg border border-success-500/20">
                 <CheckCircle className="mx-auto h-12 w-12 text-green-500 mb-4" />
                 <h3 className="text-lg font-medium text-green-900">Form Submitted!</h3>
-                <p className="text-green-600 mb-6">Your response has been recorded successfully.</p>
+                <p className="text-success-500 mb-6">Your response has been recorded successfully.</p>
                 <div className="flex justify-center space-x-4">
                     <button
                         onClick={() => {
@@ -81,15 +81,15 @@ const FormRenderer: React.FC<FormRendererProps> = ({ template, onSuccess, onCanc
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="border-b border-gray-200 pb-4 mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">{template.name}</h2>
+            <div className="border-b border-white/[0.06] pb-4 mb-6">
+                <h2 className="text-2xl font-semibold text-text-primary">{template.name}</h2>
                 {template.description && (
-                    <p className="mt-2 text-gray-600">{template.description}</p>
+                    <p className="mt-2 text-text-secondary">{template.description}</p>
                 )}
             </div>
 
             {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start">
+                <div className="bg-error-50 border border-error-500/20 text-error-500 px-4 py-3 rounded-lg flex items-start">
                     <AlertCircle className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" />
                     <span>{error}</span>
                 </div>
@@ -98,7 +98,7 @@ const FormRenderer: React.FC<FormRendererProps> = ({ template, onSuccess, onCanc
             <div className="space-y-6">
                 {template.fields.map((field) => (
                     <div key={field.id} className="space-y-1">
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium text-text-secondary">
                             {field.label}
                             {field.required && <span className="text-red-500 ml-1">*</span>}
                         </label>
@@ -108,7 +108,7 @@ const FormRenderer: React.FC<FormRendererProps> = ({ template, onSuccess, onCanc
                 ))}
             </div>
 
-            <div className="border-t border-gray-200 pt-6 flex justify-end space-x-3">
+            <div className="border-t border-white/[0.06] pt-6 flex justify-end space-x-3">
                 {onCancel && (
                     <button
                         type="button"
@@ -149,11 +149,11 @@ const renderFieldInput = (field: FormField, value: any, onChange: (val: any) => 
                 <div className="flex items-center space-x-2 mt-2">
                     <input
                         type="checkbox"
-                        className="rounded border-gray-300 text-primary-600 focus:ring-primary-500 h-5 w-5"
+                        className="rounded border-white/[0.08] text-amber-400 focus:ring-amber-500/40 h-5 w-5"
                         checked={!!value}
                         onChange={(e) => onChange(e.target.checked)}
                     />
-                    <span className="text-gray-600 text-sm">Yes</span>
+                    <span className="text-text-secondary text-sm">Yes</span>
                 </div>
             );
         case 'select':

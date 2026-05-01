@@ -66,11 +66,11 @@ const OnboardingPage: React.FC = () => {
                 <div className="inline-flex p-4 bg-amber-900/30 rounded-2xl mb-4">
                     <Rocket className="h-16 w-16 text-amber-400" />
                 </div>
-                <h1 className="text-3xl font-bold text-text-primary mb-3">Set Up Your Workspace</h1>
+                <h1 className="text-3xl font-semibold text-text-primary mb-3">Set Up Your Workspace</h1>
                 <p className="text-text-secondary text-lg">Complete these steps to get CareOps ready for your business.</p>
             </div>
 
-            {error && <div className="mb-4 p-3 bg-error-50 text-red-700 rounded-lg text-sm">{error}</div>}
+            {error && <div className="mb-4 p-3 bg-error-50 text-error-500 rounded-lg text-sm">{error}</div>}
 
             {/* Progress Bar */}
             <div className="mb-8">

@@ -53,7 +53,7 @@ const Register: React.FC = () => {
                     <Link to="/" className="inline-block mb-2 hover:scale-105 transition-transform">
                         <Logo size="sm" />
                     </Link>
-                    <h1 className="text-lg font-bold text-text-primary font-display">Create your workspace</h1>
+                    <h1 className="text-lg font-semibold text-text-primary font-display">Create your workspace</h1>
                 </div>
 
                 {/* Register Card */}

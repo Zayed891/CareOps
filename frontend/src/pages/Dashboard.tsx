@@ -186,7 +186,7 @@ const Dashboard: React.FC = () => {
                     >
                         <div>
                             <p className="text-sm font-medium text-text-muted mb-1">{card.title}</p>
-                            <h3 className="text-2xl font-bold text-text-primary mb-1 font-display">{card.value}</h3>
+                            <h3 className="text-2xl font-semibold text-text-primary mb-1 font-display">{card.value}</h3>
                             <span className="text-xs text-text-muted">{card.change}</span>
                         </div>
                         <div className="flex flex-col items-center gap-2">
@@ -259,7 +259,7 @@ const Dashboard: React.FC = () => {
                 <div className="bg-gradient-to-br from-amber-900/20 to-surface-1 rounded-2xl border border-amber-500/10 p-6">
                     <div className="flex items-center justify-between mb-6">
                         <div>
-                            <h3 className="font-bold text-text-primary mb-1 flex items-center font-display">
+                            <h3 className="font-semibold text-text-primary mb-1 flex items-center font-display">
                                 <LinkIcon className="mr-2 h-5 w-5 text-amber-400" />
                                 Customer Access Links
                             </h3>

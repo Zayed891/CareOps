@@ -131,7 +131,7 @@ const InventoryList: React.FC = () => {
                     }}
                 />
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted" size={20} />
                     <input
                         type="text"
                         placeholder="Search items by name or category..."
@@ -153,32 +153,32 @@ const InventoryList: React.FC = () => {
             <div className="hidden md:block card overflow-hidden p-0">
                 <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                        <thead className="bg-surface-0">
                             <tr>
-                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item Name</th>
-                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock Level</th>
-                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unit</th>
-                                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Item Name</th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Category</th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Stock Level</th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Unit</th>
+                                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-text-muted uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-surface-1 divide-y divide-gray-200">
                             {loading ? (
                                 <tr>
-                                    <td colSpan={5} className="px-6 py-4 text-center text-gray-500">Loading inventory...</td>
+                                    <td colSpan={5} className="px-6 py-4 text-center text-text-muted">Loading inventory...</td>
                                 </tr>
                             ) : filteredItems.length === 0 ? (
                                 <tr>
-                                    <td colSpan={5} className="px-6 py-4 text-center text-gray-500">No items found</td>
+                                    <td colSpan={5} className="px-6 py-4 text-center text-text-muted">No items found</td>
                                 </tr>
                             ) : (
                                 filteredItems.map((item) => {
                                     const isLowStock = item.reorderLevel !== null && item.reorderLevel !== undefined && item.quantity <= item.reorderLevel;
                                     return (
-                                        <tr key={item.id} className="hover:bg-gray-50">
+                                        <tr key={item.id} className="hover:bg-surface-0">
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm font-medium text-gray-900">{item.name}</div>
-                                                {item.description && <div className="text-sm text-gray-500 truncate max-w-xs">{item.description}</div>}
+                                                <div className="text-sm font-medium text-text-primary">{item.name}</div>
+                                                {item.description && <div className="text-sm text-text-muted truncate max-w-xs">{item.description}</div>}
                                                 {isLowStock && (
                                                     <span className="inline-flex items-center mt-1 px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
                                                         Low Stock
@@ -186,28 +186,28 @@ const InventoryList: React.FC = () => {
                                                 )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-500">{item.category || '-'}</div>
+                                                <div className="text-sm text-text-muted">{item.category || '-'}</div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className={`text-sm font-semibold ${isLowStock ? 'text-red-600' : 'text-green-600'}`}>
+                                                <div className={`text-sm font-semibold ${isLowStock ? 'text-error-500' : 'text-success-500'}`}>
                                                     {item.quantity}
                                                 </div>
-                                                <div className="text-xs text-gray-400">Min: {item.reorderLevel || 0}</div>
+                                                <div className="text-xs text-text-muted">Min: {item.reorderLevel || 0}</div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-text-muted">
                                                 {item.unit}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <button
                                                     onClick={() => handleEdit(item)}
-                                                    className="text-indigo-600 hover:text-indigo-900 mr-4"
+                                                    className="text-amber-400 hover:text-indigo-900 mr-4"
                                                     title="Edit"
                                                 >
                                                     <Edit2 size={18} />
                                                 </button>
                                                 <button
                                                     onClick={() => handleDeleteClick(item.id)}
-                                                    className="text-red-600 hover:text-red-900"
+                                                    className="text-error-500 hover:text-red-900"
                                                     title="Delete"
                                                 >
                                                     <Trash2 size={18} />
@@ -238,23 +238,23 @@ const InventoryList: React.FC = () => {
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
                     </div>
                 ) : filteredItems.length === 0 ? (
-                    <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
-                        <p className="text-gray-500">No items found</p>
+                    <div className="text-center py-12 bg-surface-1 rounded-lg border border-white/[0.06]">
+                        <p className="text-text-muted">No items found</p>
                     </div>
                 ) : (
                     <>
                         {filteredItems.map((item) => {
                             const isLowStock = item.reorderLevel !== null && item.reorderLevel !== undefined && item.quantity <= item.reorderLevel;
                             return (
-                                <div key={item.id} className="bg-white border border-gray-200 rounded-lg p-4">
+                                <div key={item.id} className="bg-surface-1 border border-white/[0.06] rounded-lg p-4">
                                     <div className="flex items-start justify-between mb-3">
                                         <div className="flex-1">
-                                            <h3 className="text-sm font-medium text-gray-900">{item.name}</h3>
+                                            <h3 className="text-sm font-medium text-text-primary">{item.name}</h3>
                                             {item.description && (
-                                                <p className="text-xs text-gray-500 mt-1 line-clamp-2">{item.description}</p>
+                                                <p className="text-xs text-text-muted mt-1 line-clamp-2">{item.description}</p>
                                             )}
                                             {item.category && (
-                                                <span className="inline-block mt-1 px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">
+                                                <span className="inline-block mt-1 px-2 py-0.5 bg-surface-2 text-text-secondary text-xs rounded">
                                                     {item.category}
                                                 </span>
                                             )}
@@ -267,27 +267,27 @@ const InventoryList: React.FC = () => {
                                         <div className="flex gap-2 ml-3">
                                             <button
                                                 onClick={() => handleEdit(item)}
-                                                className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg"
+                                                className="p-2 text-amber-400 hover:bg-amber-900/30 rounded-lg"
                                             >
                                                 <Edit2 size={16} />
                                             </button>
                                             <button
                                                 onClick={() => handleDeleteClick(item.id)}
-                                                className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                                                className="p-2 text-error-500 hover:bg-error-50 rounded-lg"
                                             >
                                                 <Trash2 size={16} />
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                                    <div className="flex items-center justify-between pt-3 border-t border-white/[0.04]">
                                         <div className="flex items-center gap-4 text-sm">
                                             <div>
-                                                <span className="text-gray-500 text-xs">Stock:</span>
-                                                <span className={`ml-1 font-semibold ${isLowStock ? 'text-red-600' : 'text-green-600'}`}>
+                                                <span className="text-text-muted text-xs">Stock:</span>
+                                                <span className={`ml-1 font-semibold ${isLowStock ? 'text-error-500' : 'text-success-500'}`}>
                                                     {item.quantity} {item.unit}
                                                 </span>
                                             </div>
-                                            <div className="text-xs text-gray-400">
+                                            <div className="text-xs text-text-muted">
                                                 Min: {item.reorderLevel || 0}
                                             </div>
                                         </div>

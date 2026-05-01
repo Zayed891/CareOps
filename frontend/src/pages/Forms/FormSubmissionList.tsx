@@ -58,8 +58,8 @@ const FormSubmissionList: React.FC<FormSubmissionListProps> = ({ templateId }) =
 
     if (submissions.length === 0) {
         return (
-            <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <p className="text-gray-500">No submissions yet.</p>
+            <div className="text-center py-12 bg-surface-0 rounded-lg">
+                <p className="text-text-muted">No submissions yet.</p>
             </div>
         );
     }
@@ -77,15 +77,15 @@ const FormSubmissionList: React.FC<FormSubmissionListProps> = ({ templateId }) =
                                 <FileText size={20} />
                             </div>
                             <div>
-                                <h4 className="font-medium text-gray-900">
+                                <h4 className="font-medium text-text-primary">
                                     {submission.contact?.name || submission.submittedBy || 'Anonymous User'}
                                 </h4>
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm text-text-muted">
                                     Submitted {new Date(submission.createdAt).toLocaleString()}
                                 </p>
                             </div>
                         </div>
-                        <div className="flex items-center text-gray-400">
+                        <div className="flex items-center text-text-muted">
                             {expandedIds.has(submission.id) ? (
                                 <ChevronUp size={20} />
                             ) : (
@@ -95,13 +95,13 @@ const FormSubmissionList: React.FC<FormSubmissionListProps> = ({ templateId }) =
                     </div>
 
                     {expandedIds.has(submission.id) && (
-                        <div className="mt-4 pt-4 border-t border-gray-100 space-y-4">
+                        <div className="mt-4 pt-4 border-t border-white/[0.04] space-y-4">
                             {/* Submission Data */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {Object.entries(submission.data).map(([key, value]) => (
-                                    <div key={key} className="bg-gray-50 p-3 rounded-md">
-                                        <p className="text-xs font-medium text-gray-500 uppercase mb-1">{key}</p>
-                                        <p className="text-sm text-gray-900 font-medium">
+                                    <div key={key} className="bg-surface-0 p-3 rounded-md">
+                                        <p className="text-xs font-medium text-text-muted uppercase mb-1">{key}</p>
+                                        <p className="text-sm text-text-primary font-medium">
                                             {typeof value === 'object' ? JSON.stringify(value) : String(value)}
                                         </p>
                                     </div>
@@ -110,7 +110,7 @@ const FormSubmissionList: React.FC<FormSubmissionListProps> = ({ templateId }) =
 
                             {/* Linked Booking Info */}
                             {submission.booking && (
-                                <div className="mt-4 bg-indigo-50 p-3 rounded-md border border-indigo-100">
+                                <div className="mt-4 bg-amber-900/30 p-3 rounded-md border border-indigo-100">
                                     <h5 className="text-sm font-semibold text-indigo-900 mb-2">Linked Appointment</h5>
                                     <p className="text-sm text-indigo-700">
                                         Scheduled for: {new Date(submission.booking.scheduledAt).toLocaleString()}

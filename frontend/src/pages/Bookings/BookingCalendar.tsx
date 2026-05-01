@@ -59,22 +59,22 @@ const BookingCalendar: React.FC = () => {
     });
 
     return (
-        <div className="bg-white rounded-lg shadow border border-gray-200 flex flex-col h-[calc(100vh-12rem)]">
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+        <div className="bg-surface-1 rounded-lg shadow border border-white/[0.06] flex flex-col h-[calc(100vh-12rem)]">
+            <div className="flex items-center justify-between p-4 border-b border-white/[0.06]">
                 <div className="flex items-center space-x-4">
-                    <h2 className="text-lg font-semibold text-gray-900">
+                    <h2 className="text-lg font-semibold text-text-primary">
                         {format(currentMonth, "MMMM yyyy")}
                     </h2>
                     <div className="flex space-x-1">
-                        <button onClick={prevMonth} className="p-1 rounded hover:bg-gray-100">
+                        <button onClick={prevMonth} className="p-1 rounded hover:bg-surface-2">
                             <ChevronLeft size={20} />
                         </button>
-                        <button onClick={nextMonth} className="p-1 rounded hover:bg-gray-100">
+                        <button onClick={nextMonth} className="p-1 rounded hover:bg-surface-2">
                             <ChevronRight size={20} />
                         </button>
                         <button
                             onClick={() => setCurrentMonth(new Date())}
-                            className="ml-2 px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded text-gray-700"
+                            className="ml-2 px-3 py-1 text-sm bg-surface-2 hover:bg-surface-3 rounded text-text-secondary"
                         >
                             Today
                         </button>
@@ -84,9 +84,9 @@ const BookingCalendar: React.FC = () => {
 
             <div className="flex-1 overflow-auto">
                 <div className="min-w-[800px] h-full flex flex-col">
-                    <div className="grid grid-cols-7 border-b border-gray-200 bg-gray-50 flex-shrink-0">
+                    <div className="grid grid-cols-7 border-b border-white/[0.06] bg-surface-0 flex-shrink-0">
                         {daysOfWeek.map(dayName => (
-                            <div key={dayName} className="py-2 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                            <div key={dayName} className="py-2 text-center text-xs font-semibold text-text-muted uppercase tracking-wider">
                                 {dayName}
                             </div>
                         ))}
@@ -100,12 +100,12 @@ const BookingCalendar: React.FC = () => {
                                 <div
                                     key={day.toString()}
                                     className={`
-                                        min-h-[80px] border-b border-r border-gray-100 p-2 relative group transition-colors hover:bg-gray-50
-                                        ${!isSameMonth(day, monthStart) ? "bg-gray-50/50 text-gray-400" : "bg-white"}
+                                        min-h-[80px] border-b border-r border-white/[0.04] p-2 relative group transition-colors hover:bg-surface-0
+                                        ${!isSameMonth(day, monthStart) ? "bg-surface-0/50 text-text-muted" : "bg-surface-1"}
                                         ${isToday(day) ? "bg-blue-50/30" : ""}
                                     `}
                                 >
-                                    <div className={`text-sm font-medium mb-1 ${isToday(day) ? "text-blue-600" : "text-gray-700"}`}>
+                                    <div className={`text-sm font-medium mb-1 ${isToday(day) ? "text-blue-600" : "text-text-secondary"}`}>
                                         {format(day, "d")}
                                     </div>
 
@@ -133,12 +133,12 @@ const BookingCalendar: React.FC = () => {
 
 const getStatusColor = (status: BookingStatus) => {
     switch (status) {
-        case 'CONFIRMED': return 'bg-green-100 text-green-800 border-green-200';
+        case 'CONFIRMED': return 'bg-green-100 text-green-800 border-success-500/20';
         case 'PENDING': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-        case 'COMPLETED': return 'bg-blue-100 text-blue-800 border-blue-200';
+        case 'COMPLETED': return 'bg-blue-900/30 text-blue-400 border-blue-200';
         case 'CANCELLED':
-        case 'NO_SHOW': return 'bg-gray-100 text-gray-600 border-gray-200 line-through opacity-75';
-        default: return 'bg-gray-100 text-gray-800';
+        case 'NO_SHOW': return 'bg-surface-2 text-text-secondary border-white/[0.06] line-through opacity-75';
+        default: return 'bg-surface-2 text-text-primary';
     }
 };
 
