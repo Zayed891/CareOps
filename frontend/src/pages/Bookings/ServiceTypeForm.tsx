@@ -63,7 +63,7 @@ const ServiceTypeForm: React.FC<ServiceTypeFormProps> = ({ isOpen, onClose, onSu
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
                 <div className="inline-block align-bottom bg-surface-1 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
-                    <div className="flex justify-between items-center px-6 py-4 border-b border-white/[0.06]">
+                    <div className="flex justify-between items-center px-6 py-4 border-b border-white/[0.24]">
                         <h3 className="text-lg font-medium text-text-primary">Add Service Type</h3>
                         <button onClick={onClose} className="text-text-muted hover:text-text-muted">
                             <X size={20} />

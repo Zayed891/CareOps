@@ -51,7 +51,7 @@ const Login: React.FC = () => {
                 </div>
 
                 {/* Login Card */}
-                <div className="bg-surface-1 rounded-xl shadow-xl border border-white/[0.06] p-5 animate-scaleIn">
+                <div className="bg-surface-1 rounded-xl shadow-xl border border-white/[0.24] p-5 animate-scaleIn">
                     {/* Error Alert */}
                     {error && (
                         <div className="mb-3 bg-error-50 border border-error-500/20 rounded-lg p-2.5 animate-slideIn">
@@ -119,7 +119,7 @@ const Login: React.FC = () => {
                     {/* Divider */}
                     <div className="relative my-4">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-white/[0.06]"></div>
+                            <div className="w-full border-t border-white/[0.24]"></div>
                         </div>
                         <div className="relative flex justify-center text-xs">
                             <span className="px-2 bg-surface-1 text-text-muted">Or continue with</span>
@@ -130,7 +130,7 @@ const Login: React.FC = () => {
                     <button
                         type="button"
                         onClick={() => window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-white/[0.08] rounded-lg text-sm font-medium text-text-primary bg-surface-2 hover:bg-surface-3 transition-colors"
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-white/[0.16] rounded-lg text-sm font-medium text-text-primary bg-surface-2 hover:bg-surface-3 transition-colors"
                     >
                         <svg className="w-4 h-4" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -142,7 +142,7 @@ const Login: React.FC = () => {
                     </button>
 
                     {/* Footer Link */}
-                    <div className="mt-3 text-center pt-3 border-t border-white/[0.04]">
+                    <div className="mt-3 text-center pt-3 border-t border-white/[0.16]">
                         <p className="text-xs text-text-muted">
                             Don't have an account?{' '}
                             <Link to="/register" className="font-semibold text-amber-400 hover:text-amber-300 transition-colors">

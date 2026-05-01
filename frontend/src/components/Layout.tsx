@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
             <div className="flex-1 flex flex-col overflow-hidden">
                 {/* Mobile Header */}
-                <header className="lg:hidden flex items-center justify-between h-16 px-4 bg-surface-1 border-b border-white/[0.06]">
+                <header className="lg:hidden flex items-center justify-between h-16 px-4 bg-surface-1 border-b border-white/[0.24]">
                     <button
                         onClick={() => setIsSidebarOpen(true)}
                         className="text-text-muted hover:text-text-primary focus:outline-none p-2 transition-colors"

@@ -126,18 +126,18 @@ const StaffPage: React.FC = () => {
             {error && <div className="mb-4 p-3 bg-error-50 text-error-500 rounded-lg text-sm">{error}</div>}
 
             {showInvite && (
-                <form onSubmit={handleInvite} className="mb-6 p-5 bg-surface-1 border border-white/[0.06] rounded-lg shadow-sm">
+                <form onSubmit={handleInvite} className="mb-6 p-5 bg-surface-1 border border-white/[0.24] rounded-lg shadow-sm">
                     <h3 className="text-sm font-semibold text-text-secondary mb-3">Invite New Staff Member</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
                         <input required placeholder="Full Name *" value={form.name}
                             onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
-                            className="px-3 py-2 border border-white/[0.08] rounded-lg text-sm focus:ring-2 focus:ring-amber-500/40" />
+                            className="px-3 py-2 border border-white/[0.16] rounded-lg text-sm focus:ring-2 focus:ring-amber-500/40" />
                         <input required type="email" placeholder="Email *" value={form.email}
                             onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
-                            className="px-3 py-2 border border-white/[0.08] rounded-lg text-sm focus:ring-2 focus:ring-amber-500/40" />
+                            className="px-3 py-2 border border-white/[0.16] rounded-lg text-sm focus:ring-2 focus:ring-amber-500/40" />
                         <input required type="password" placeholder="Password *" value={form.password}
                             onChange={(e) => setForm(f => ({ ...f, password: e.target.value }))}
-                            className="px-3 py-2 border border-white/[0.08] rounded-lg text-sm focus:ring-2 focus:ring-amber-500/40" />
+                            className="px-3 py-2 border border-white/[0.16] rounded-lg text-sm focus:ring-2 focus:ring-amber-500/40" />
                     </div>
                     <div className="mb-4">
                         <p className="text-xs font-medium text-text-muted mb-2">Permissions</p>
@@ -151,7 +151,7 @@ const StaffPage: React.FC = () => {
                                             ...f,
                                             permissions: { ...f.permissions, [key]: e.target.checked }
                                         }))}
-                                        className="rounded border-white/[0.08] text-amber-400 focus:ring-amber-500/40"
+                                        className="rounded border-white/[0.16] text-amber-400 focus:ring-amber-500/40"
                                     />
                                     {label}
                                 </label>
@@ -172,7 +172,7 @@ const StaffPage: React.FC = () => {
             ) : (
                 <div className="space-y-3">
                     {staff.map(member => (
-                        <div key={member.id} className="bg-surface-1 border border-white/[0.06] rounded-lg overflow-hidden">
+                        <div key={member.id} className="bg-surface-1 border border-white/[0.24] rounded-lg overflow-hidden">
                             <div className="flex items-center justify-between p-4">
                                 <div className="flex items-center gap-3">
                                     <div className="h-10 w-10 rounded-full bg-amber-900/20 text-amber-300 flex items-center justify-center text-sm font-medium">
@@ -206,7 +206,7 @@ const StaffPage: React.FC = () => {
 
                             {/* Permissions Editor */}
                             {editingPermissions === member.id && (
-                                <div className="px-4 pb-4 pt-2 border-t border-white/[0.04] bg-surface-0">
+                                <div className="px-4 pb-4 pt-2 border-t border-white/[0.16] bg-surface-0">
                                     <p className="text-xs font-medium text-text-muted mb-3">Edit Permissions</p>
                                     <div className="flex flex-wrap gap-4 mb-3">
                                         {Object.entries(PERMISSION_LABELS).map(([key, label]) => (
@@ -215,7 +215,7 @@ const StaffPage: React.FC = () => {
                                                     type="checkbox"
                                                     checked={(permForm as any)[key] ?? false}
                                                     onChange={(e) => setPermForm(prev => ({ ...prev, [key]: e.target.checked }))}
-                                                    className="rounded border-white/[0.08] text-amber-400 focus:ring-amber-500/40"
+                                                    className="rounded border-white/[0.16] text-amber-400 focus:ring-amber-500/40"
                                                 />
                                                 {label}
                                             </label>

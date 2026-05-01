@@ -82,7 +82,7 @@ const InventoryForm: React.FC<InventoryFormProps> = ({
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
                 <div className="inline-block align-bottom bg-surface-1 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                    <div className="flex justify-between items-center px-6 py-4 border-b border-white/[0.06]">
+                    <div className="flex justify-between items-center px-6 py-4 border-b border-white/[0.24]">
                         <h3 className="text-lg font-medium text-text-primary">
                             {initialData ? 'Edit Item' : 'Add New Item'}
                         </h3>

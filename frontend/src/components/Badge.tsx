@@ -7,7 +7,7 @@ interface BadgeProps {
 }
 
 const COLORS = {
-    gray: 'bg-surface-3 text-text-secondary border border-white/[0.08]',
+    gray: 'bg-surface-3 text-text-secondary border border-white/[0.16]',
     red: 'bg-error-50 text-error-500 border border-error-500/20',
     yellow: 'bg-warning-50 text-warning-500 border border-warning-500/20',
     green: 'bg-success-50 text-success-500 border border-success-500/20',

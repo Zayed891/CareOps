@@ -105,7 +105,7 @@ const ContactsPage: React.FC = () => {
 
             {/* Create Form */}
             {showForm && (
-                <form onSubmit={handleCreate} className="mb-6 p-4 bg-surface-1 border border-white/[0.06] rounded-lg">
+                <form onSubmit={handleCreate} className="mb-6 p-4 bg-surface-1 border border-white/[0.24] rounded-lg">
                     <h3 className="text-sm font-semibold text-text-primary mb-3 font-display">New Contact</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <input required placeholder="Name *" value={form.name}
@@ -131,14 +131,14 @@ const ContactsPage: React.FC = () => {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div>
                 </div>
             ) : contacts.length === 0 ? (
-                <div className="text-center py-12 bg-surface-1 rounded-lg border border-white/[0.06]">
+                <div className="text-center py-12 bg-surface-1 rounded-lg border border-white/[0.24]">
                     <Users className="h-12 w-12 text-text-muted/30 mx-auto mb-3" />
                     <p className="text-text-muted">No contacts yet. Add your first contact to get started.</p>
                 </div>
             ) : (
                 <>
                     {/* Desktop Table View */}
-                    <div className="hidden md:block bg-surface-1 rounded-lg border border-white/[0.06] overflow-hidden">
+                    <div className="hidden md:block bg-surface-1 rounded-lg border border-white/[0.24] overflow-hidden">
                         <table className="min-w-full divide-y divide-white/[0.04]">
                             <thead className="bg-surface-2/50">
                                 <tr>
@@ -198,7 +198,7 @@ const ContactsPage: React.FC = () => {
                     {/* Mobile Card View */}
                     <div className="md:hidden space-y-3">
                         {contacts.map(contact => (
-                            <div key={contact.id} className="bg-surface-1 border border-white/[0.06] rounded-lg p-4">
+                            <div key={contact.id} className="bg-surface-1 border border-white/[0.24] rounded-lg p-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <div className="flex items-center gap-3">
                                         <div className="h-10 w-10 rounded-full bg-surface-3 text-amber-400 flex items-center justify-center text-sm font-medium font-display">
@@ -226,7 +226,7 @@ const ContactsPage: React.FC = () => {
                                             <span>{contact.phone}</span>
                                         </div>
                                     )}
-                                    <div className="flex items-center gap-4 pt-2 text-xs text-text-muted border-t border-white/[0.04] mt-2">
+                                    <div className="flex items-center gap-4 pt-2 text-xs text-text-muted border-t border-white/[0.16] mt-2">
                                         <span className="flex items-center gap-1">
                                             <Calendar className="h-3.5 w-3.5" />{contact._count?.bookings || 0} bookings
                                         </span>

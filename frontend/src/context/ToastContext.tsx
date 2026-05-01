@@ -50,7 +50,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
                             layout
-                            className="bg-surface-1 dark:bg-gray-800 shadow-lg rounded-lg p-4 flex items-center gap-3 min-w-[300px] border border-white/[0.04] dark:border-gray-700"
+                            className="bg-surface-1 dark:bg-gray-800 shadow-lg rounded-lg p-4 flex items-center gap-3 min-w-[300px] border border-white/[0.16] dark:border-gray-700"
                         >
                             <div className={`p-2 rounded-full ${toast.type === 'success' ? 'bg-green-100 text-success-500' :
                                     toast.type === 'error' ? 'bg-red-100 text-error-500' :

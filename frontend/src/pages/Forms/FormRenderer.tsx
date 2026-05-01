@@ -81,7 +81,7 @@ const FormRenderer: React.FC<FormRendererProps> = ({ template, onSuccess, onCanc
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="border-b border-white/[0.06] pb-4 mb-6">
+            <div className="border-b border-white/[0.24] pb-4 mb-6">
                 <h2 className="text-2xl font-semibold text-text-primary">{template.name}</h2>
                 {template.description && (
                     <p className="mt-2 text-text-secondary">{template.description}</p>
@@ -108,7 +108,7 @@ const FormRenderer: React.FC<FormRendererProps> = ({ template, onSuccess, onCanc
                 ))}
             </div>
 
-            <div className="border-t border-white/[0.06] pt-6 flex justify-end space-x-3">
+            <div className="border-t border-white/[0.24] pt-6 flex justify-end space-x-3">
                 {onCancel && (
                     <button
                         type="button"
@@ -149,7 +149,7 @@ const renderFieldInput = (field: FormField, value: any, onChange: (val: any) => 
                 <div className="flex items-center space-x-2 mt-2">
                     <input
                         type="checkbox"
-                        className="rounded border-white/[0.08] text-amber-400 focus:ring-amber-500/40 h-5 w-5"
+                        className="rounded border-white/[0.16] text-amber-400 focus:ring-amber-500/40 h-5 w-5"
                         checked={!!value}
                         onChange={(e) => onChange(e.target.checked)}
                     />

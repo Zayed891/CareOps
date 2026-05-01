@@ -57,7 +57,7 @@ const Register: React.FC = () => {
                 </div>
 
                 {/* Register Card */}
-                <div className="bg-surface-1 rounded-xl shadow-xl border border-white/[0.06] p-5 animate-scaleIn">
+                <div className="bg-surface-1 rounded-xl shadow-xl border border-white/[0.24] p-5 animate-scaleIn">
                     {/* Error Alert */}
                     {error && (
                         <div className="mb-3 bg-error-50 border border-error-500/20 rounded-lg p-2.5 animate-slideIn">
@@ -126,7 +126,7 @@ const Register: React.FC = () => {
                         </div>
 
                         {/* Business Information */}
-                        <div className="pt-3 border-t border-white/[0.06]">
+                        <div className="pt-3 border-t border-white/[0.24]">
                             <div className="flex items-center gap-1.5 mb-2">
                                 <Building2 className="h-3.5 w-3.5 text-text-secondary" />
                                 <h3 className="text-xs font-semibold text-text-primary font-display uppercase tracking-wider">Business Details</h3>
@@ -207,7 +207,7 @@ const Register: React.FC = () => {
                     </form>
 
                     {/* Footer Link */}
-                    <div className="mt-3 text-center pt-3 border-t border-white/[0.04]">
+                    <div className="mt-3 text-center pt-3 border-t border-white/[0.16]">
                         <p className="text-xs text-text-muted">
                             Already have an account?{' '}
                             <Link to="/login" className="font-semibold text-amber-400 hover:text-amber-300 transition-colors">

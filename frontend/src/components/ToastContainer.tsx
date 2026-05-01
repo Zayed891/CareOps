@@ -50,7 +50,7 @@ const ToastContainer: React.FC = () => {
                 <div
                     key={t.id}
                     className={`
-                        pointer-events-auto min-w-[300px] max-w-sm rounded-lg border border-white/[0.08] 
+                        pointer-events-auto min-w-[300px] max-w-sm rounded-lg border border-white/[0.16] 
                         bg-surface-1/95 backdrop-blur-xl shadow-xl p-4 flex items-start gap-3
                         border-l-4 ${getAccent(t.type)}
                         transform transition-all duration-300 animate-slideIn

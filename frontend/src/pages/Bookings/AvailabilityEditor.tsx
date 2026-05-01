@@ -141,7 +141,7 @@ const AvailabilityEditor: React.FC = () => {
 
     if (serviceTypes.length === 0) {
         return (
-            <div className="text-center py-12 bg-surface-1 rounded-lg border border-white/[0.06]">
+            <div className="text-center py-12 bg-surface-1 rounded-lg border border-white/[0.24]">
                 <AlertCircle className="mx-auto h-12 w-12 text-amber-400" />
                 <h3 className="mt-4 text-lg font-medium text-text-primary">No Service Types</h3>
                 <p className="mt-2 text-text-muted">
@@ -157,7 +157,7 @@ const AvailabilityEditor: React.FC = () => {
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div className="bg-surface-1 rounded-lg border border-white/[0.06] p-6">
+            <div className="bg-surface-1 rounded-lg border border-white/[0.24] p-6">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                         <h2 className="text-lg font-semibold text-text-primary">Weekly Availability</h2>
@@ -272,7 +272,7 @@ const AvailabilityEditor: React.FC = () => {
             )}
 
             {/* Weekly Schedule Grid */}
-            <div className="bg-surface-1 rounded-lg border border-white/[0.06] overflow-hidden">
+            <div className="bg-surface-1 rounded-lg border border-white/[0.24] overflow-hidden">
                 {loading ? (
                     <div className="flex items-center justify-center py-12">
                         <Loader2 className="w-5 h-5 animate-spin text-primary-500 mr-2" />

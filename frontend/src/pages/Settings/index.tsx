@@ -225,7 +225,7 @@ const SettingsPage: React.FC = () => {
             {success && <div className="mb-4 p-3 bg-success-50 text-success-500 rounded-lg text-sm border border-success-500/20">{success}</div>}
 
             {/* Tabs */}
-            <div className="flex border-b border-white/[0.06] mb-6">
+            <div className="flex border-b border-white/[0.24] mb-6">
                 <button onClick={() => setTab('workspace')}
                     className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${tab === 'workspace' ? 'border-amber-500 text-amber-400' : 'border-transparent text-text-muted hover:text-text-secondary'}`}>
                     <Building2 className="h-4 w-4 inline mr-1.5" />Workspace
@@ -247,7 +247,7 @@ const SettingsPage: React.FC = () => {
             ) : tab === 'workspace' ? (
                 <div>
                     <p className="text-sm text-text-secondary mb-4">Manage your business workspace settings.</p>
-                    <form onSubmit={handleSaveWorkspace} className="bg-surface-1 border border-white/[0.06] rounded-lg p-6 space-y-4">
+                    <form onSubmit={handleSaveWorkspace} className="bg-surface-1 border border-white/[0.24] rounded-lg p-6 space-y-4">
                         <div>
                             <label className="label">Business Name</label>
                             <input type="text" value={wsForm.name} onChange={(e) => setWsForm(f => ({ ...f, name: e.target.value }))}
@@ -285,16 +285,16 @@ const SettingsPage: React.FC = () => {
 
                         {/* Booking URL Section */}
                         {workspace && (
-                            <div className="bg-surface-2/50 border border-white/[0.06] rounded-lg p-4 space-y-3">
+                            <div className="bg-surface-2/50 border border-white/[0.24] rounded-lg p-4 space-y-3">
                                 <div className="flex items-center justify-between">
                                     <label className="label mb-0">Public Booking URL</label>
-                                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${workspace.isActive ? 'bg-success-50 text-success-500 border border-success-500/20' : 'bg-surface-3 text-text-muted border border-white/[0.08]'}`}>
+                                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${workspace.isActive ? 'bg-success-50 text-success-500 border border-success-500/20' : 'bg-surface-3 text-text-muted border border-white/[0.16]'}`}>
                                         {workspace.isActive ? 'Active' : 'Inactive'}
                                     </span>
                                 </div>
 
                                 <div className="flex items-center gap-2">
-                                    <code className="flex-1 bg-surface-0 px-3 py-2 rounded border border-white/[0.06] text-xs text-text-secondary font-mono">
+                                    <code className="flex-1 bg-surface-0 px-3 py-2 rounded border border-white/[0.24] text-xs text-text-secondary font-mono">
                                         {window.location.origin}/book/{slugWillChange ? previewSlug : workspace.slug}
                                     </code>
                                     <button
@@ -350,7 +350,7 @@ const SettingsPage: React.FC = () => {
                     </div>
 
                     {showIntForm && (
-                        <form onSubmit={handleCreateInt} className="mb-4 p-4 bg-surface-1 border border-white/[0.06] rounded-lg flex items-end gap-3">
+                        <form onSubmit={handleCreateInt} className="mb-4 p-4 bg-surface-1 border border-white/[0.24] rounded-lg flex items-end gap-3">
                             <select value={intForm.type} onChange={(e) => setIntForm({ type: e.target.value })}
                                 className="input w-auto">
                                 <option value="EMAIL">Email</option>
@@ -362,13 +362,13 @@ const SettingsPage: React.FC = () => {
                     )}
 
                     {integrations.length === 0 ? (
-                        <div className="text-center py-8 bg-surface-1 rounded-lg border border-white/[0.06] text-text-muted text-sm">
+                        <div className="text-center py-8 bg-surface-1 rounded-lg border border-white/[0.24] text-text-muted text-sm">
                             No integrations configured yet. Add one to enable email, SMS, or calendar sync.
                         </div>
                     ) : (
                         <div className="space-y-3">
                             {integrations.map(int => (
-                                <div key={int.id} className="flex items-center justify-between p-4 bg-surface-1 border border-white/[0.06] rounded-lg">
+                                <div key={int.id} className="flex items-center justify-between p-4 bg-surface-1 border border-white/[0.24] rounded-lg">
                                     <div className="flex items-center gap-3">
                                         <div className={`p-2 rounded-lg ${int.isActive ? 'bg-success-50 text-success-500' : 'bg-surface-3 text-text-muted'}`}>
                                             {INTEGRATION_ICONS[int.type] || <Plug className="h-5 w-5" />}
@@ -402,7 +402,7 @@ const SettingsPage: React.FC = () => {
                     </div>
 
                     {showRuleForm && (
-                        <form onSubmit={handleCreateRule} className="mb-4 p-4 bg-surface-1 border border-white/[0.06] rounded-lg flex items-end gap-3">
+                        <form onSubmit={handleCreateRule} className="mb-4 p-4 bg-surface-1 border border-white/[0.24] rounded-lg flex items-end gap-3">
                             <div>
                                 <label className="label">When</label>
                                 <select value={ruleForm.eventType} onChange={(e) => setRuleForm(f => ({ ...f, eventType: e.target.value }))}
@@ -422,13 +422,13 @@ const SettingsPage: React.FC = () => {
                     )}
 
                     {rules.length === 0 ? (
-                        <div className="text-center py-8 bg-surface-1 rounded-lg border border-white/[0.06] text-text-muted text-sm">
+                        <div className="text-center py-8 bg-surface-1 rounded-lg border border-white/[0.24] text-text-muted text-sm">
                             No automation rules yet. Create one to automate workflows.
                         </div>
                     ) : (
                         <div className="space-y-3">
                             {rules.map(rule => (
-                                <div key={rule.id} className="flex items-center justify-between p-4 bg-surface-1 border border-white/[0.06] rounded-lg">
+                                <div key={rule.id} className="flex items-center justify-between p-4 bg-surface-1 border border-white/[0.24] rounded-lg">
                                     <div className="flex items-center gap-3">
                                         <Zap className={`h-5 w-5 ${rule.isActive ? 'text-amber-400' : 'text-text-muted/30'}`} />
                                         <div>

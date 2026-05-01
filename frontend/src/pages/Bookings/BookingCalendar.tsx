@@ -59,8 +59,8 @@ const BookingCalendar: React.FC = () => {
     });
 
     return (
-        <div className="bg-surface-1 rounded-lg shadow border border-white/[0.06] flex flex-col h-[calc(100vh-12rem)]">
-            <div className="flex items-center justify-between p-4 border-b border-white/[0.06]">
+        <div className="bg-surface-1 rounded-lg shadow border border-white/[0.24] flex flex-col h-[calc(100vh-12rem)]">
+            <div className="flex items-center justify-between p-4 border-b border-white/[0.24]">
                 <div className="flex items-center space-x-4">
                     <h2 className="text-lg font-semibold text-text-primary">
                         {format(currentMonth, "MMMM yyyy")}
@@ -84,7 +84,7 @@ const BookingCalendar: React.FC = () => {
 
             <div className="flex-1 overflow-auto">
                 <div className="min-w-[800px] h-full flex flex-col">
-                    <div className="grid grid-cols-7 border-b border-white/[0.06] bg-surface-0 flex-shrink-0">
+                    <div className="grid grid-cols-7 border-b border-white/[0.24] bg-surface-0 flex-shrink-0">
                         {daysOfWeek.map(dayName => (
                             <div key={dayName} className="py-2 text-center text-xs font-semibold text-text-muted uppercase tracking-wider">
                                 {dayName}
@@ -100,7 +100,7 @@ const BookingCalendar: React.FC = () => {
                                 <div
                                     key={day.toString()}
                                     className={`
-                                        min-h-[80px] border-b border-r border-white/[0.04] p-2 relative group transition-colors hover:bg-surface-0
+                                        min-h-[80px] border-b border-r border-white/[0.16] p-2 relative group transition-colors hover:bg-surface-0
                                         ${!isSameMonth(day, monthStart) ? "bg-surface-0/50 text-text-muted" : "bg-surface-1"}
                                         ${isToday(day) ? "bg-blue-50/30" : ""}
                                     `}
@@ -137,7 +137,7 @@ const getStatusColor = (status: BookingStatus) => {
         case 'PENDING': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
         case 'COMPLETED': return 'bg-blue-900/30 text-blue-400 border-blue-200';
         case 'CANCELLED':
-        case 'NO_SHOW': return 'bg-surface-2 text-text-secondary border-white/[0.06] line-through opacity-75';
+        case 'NO_SHOW': return 'bg-surface-2 text-text-secondary border-white/[0.24] line-through opacity-75';
         default: return 'bg-surface-2 text-text-primary';
     }
 };

@@ -114,7 +114,7 @@ const PublicBookingPage: React.FC = () => {
 
     if (error || !workspace) return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-surface-0 to-surface-1 p-4">
-            <div className="bg-surface-1 p-8 rounded-xl shadow-card max-w-md w-full text-center border border-white/[0.04]">
+            <div className="bg-surface-1 p-8 rounded-xl shadow-card max-w-md w-full text-center border border-white/[0.16]">
                 <AlertCircle className="mx-auto h-10 w-10 text-red-500 mb-4" />
                 <h2 className="text-lg font-semibold text-text-primary mb-2">Unavailable</h2>
                 <p className="text-sm text-text-secondary">{error || 'This booking page does not exist.'}</p>
@@ -128,7 +128,7 @@ const PublicBookingPage: React.FC = () => {
                 <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="bg-surface-1 p-8 rounded-xl shadow-card max-w-md w-full text-center border border-white/[0.04]"
+                    className="bg-surface-1 p-8 rounded-xl shadow-card max-w-md w-full text-center border border-white/[0.16]"
                 >
                     <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <CheckCircle className="h-7 w-7 text-success-500" />
@@ -167,9 +167,9 @@ const PublicBookingPage: React.FC = () => {
                     )}
                 </div>
 
-                <div className="bg-surface-1 rounded-xl shadow-card overflow-hidden min-h-[450px] flex flex-col border border-white/[0.04]">
+                <div className="bg-surface-1 rounded-xl shadow-card overflow-hidden min-h-[450px] flex flex-col border border-white/[0.16]">
                     {/* Progress Bar */}
-                    <div className="bg-gradient-to-r from-surface-0 to-surface-1 px-5 py-3 border-b border-white/[0.06] flex items-center justify-between">
+                    <div className="bg-gradient-to-r from-surface-0 to-surface-1 px-5 py-3 border-b border-white/[0.24] flex items-center justify-between">
                         <button
                             onClick={() => step > 1 && setStep(step - 1)}
                             disabled={step === 1}
@@ -201,7 +201,7 @@ const PublicBookingPage: React.FC = () => {
                                             <button
                                                 key={service.id}
                                                 onClick={() => handleServiceSelect(service.id)}
-                                                className="w-full text-left p-4 rounded-xl border-2 border-white/[0.06] hover:border-amber-500 hover:bg-amber-900/30 hover:shadow-md hover:-translate-y-0.5 transition-all group"
+                                                className="w-full text-left p-4 rounded-xl border-2 border-white/[0.24] hover:border-amber-500 hover:bg-amber-900/30 hover:shadow-md hover:-translate-y-0.5 transition-all group"
                                             >
                                                 <div className="flex justify-between items-center">
                                                     <h3 className="font-semibold text-sm text-text-primary group-hover:text-amber-300">{service.name}</h3>
@@ -241,7 +241,7 @@ const PublicBookingPage: React.FC = () => {
                                                     className={`p-2 rounded-lg border text-center transition-all
                                                         ${isSelected
                                                             ? 'bg-amber-500 text-surface-0 border-amber-600 shadow-md'
-                                                            : 'bg-surface-1 border-white/[0.06] hover:border-amber-500 hover:bg-surface-0'
+                                                            : 'bg-surface-1 border-white/[0.24] hover:border-amber-500 hover:bg-surface-0'
                                                         }
                                                     `}
                                                 >
@@ -287,7 +287,7 @@ const PublicBookingPage: React.FC = () => {
                                                 <button
                                                     key={time}
                                                     onClick={() => handleTimeSelect(time)}
-                                                    className="py-2 px-3 rounded-lg border border-white/[0.06] hover:border-amber-500 hover:bg-amber-900/30 text-text-secondary font-medium text-sm transition-all"
+                                                    className="py-2 px-3 rounded-lg border border-white/[0.24] hover:border-amber-500 hover:bg-amber-900/30 text-text-secondary font-medium text-sm transition-all"
                                                 >
                                                     {time}
                                                 </button>
@@ -307,7 +307,7 @@ const PublicBookingPage: React.FC = () => {
                                 >
                                     <h2 className="text-lg font-semibold text-text-primary mb-4">Your Details</h2>
 
-                                    <div className="bg-surface-0 p-3 rounded-lg mb-4 flex items-start space-x-3 border border-white/[0.04]">
+                                    <div className="bg-surface-0 p-3 rounded-lg mb-4 flex items-start space-x-3 border border-white/[0.16]">
                                         <div className="bg-surface-1 p-2 rounded-lg shadow-sm">
                                             <Calendar className="text-amber-400 h-5 w-5" />
                                         </div>

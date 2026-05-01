@@ -240,10 +240,10 @@ const InboxPage: React.FC = () => {
     };
 
     return (
-        <div className="flex h-[calc(100vh-4rem)] bg-surface-1 rounded-xl border border-white/[0.06] overflow-hidden">
+        <div className="flex h-[calc(100vh-4rem)] bg-surface-1 rounded-xl border border-white/[0.24] overflow-hidden">
             {/* Conversation List */}
-            <div className={`w-80 border-r border-white/[0.06] flex flex-col ${selectedId ? 'hidden md:flex' : 'flex'} flex-shrink-0 bg-surface-0`}>
-                <div className="p-5 border-b border-white/[0.06] bg-surface-1">
+            <div className={`w-80 border-r border-white/[0.24] flex flex-col ${selectedId ? 'hidden md:flex' : 'flex'} flex-shrink-0 bg-surface-0`}>
+                <div className="p-5 border-b border-white/[0.24] bg-surface-1">
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-amber-900/30 rounded-lg">
                             <Inbox className="h-5 w-5 text-amber-400" />
@@ -274,7 +274,7 @@ const InboxPage: React.FC = () => {
                                 <button
                                     key={convo.id}
                                     onClick={() => setSelectedId(convo.id)}
-                                    className={`w-full p-4 text-left border-b border-white/[0.04] hover:bg-surface-2/50 transition-colors ${selectedId === convo.id ? 'bg-amber-500/5 border-l-2 border-l-amber-500' : ''
+                                    className={`w-full p-4 text-left border-b border-white/[0.16] hover:bg-surface-2/50 transition-colors ${selectedId === convo.id ? 'bg-amber-500/5 border-l-2 border-l-amber-500' : ''
                                         }`}
                                 >
                                     <div className="flex items-center gap-3">
@@ -323,7 +323,7 @@ const InboxPage: React.FC = () => {
                 ) : (
                     <>
                         {/* Header */}
-                        <div className="p-4 border-b border-white/[0.06] bg-surface-1">
+                        <div className="p-4 border-b border-white/[0.24] bg-surface-1">
                             <div className="flex items-center gap-3 mb-3">
                                 <button onClick={() => { setSelectedId(null); setSelectedConversation(null); }} className="md:hidden text-text-muted hover:text-text-primary">
                                     <ArrowLeft className="h-5 w-5" />
@@ -396,7 +396,7 @@ const InboxPage: React.FC = () => {
                                     <div key={msg.id} className={`flex ${msg.direction === 'OUTBOUND' ? 'justify-end' : 'justify-start'}`}>
                                         <div className={`max-w-[70%] px-4 py-2.5 rounded-2xl text-sm ${msg.direction === 'OUTBOUND'
                                             ? 'bg-amber-500 text-surface-0 rounded-br-md'
-                                            : 'bg-surface-2 text-text-primary rounded-bl-md border border-white/[0.06]'
+                                            : 'bg-surface-2 text-text-primary rounded-bl-md border border-white/[0.24]'
                                             }`}>
                                             <p>{msg.content}</p>
                                             <div className={`flex items-center gap-1.5 mt-1 text-xs ${msg.direction === 'OUTBOUND' ? 'text-amber-100/60' : 'text-text-muted'}`}>
@@ -417,7 +417,7 @@ const InboxPage: React.FC = () => {
                         </div>
 
                         {/* Input with channel selector */}
-                        <div className="p-4 border-t border-white/[0.06] bg-surface-1">
+                        <div className="p-4 border-t border-white/[0.24] bg-surface-1">
                             {/* AI Draft Suggestion */}
                             {draftReply && (
                                 <div className="mb-3 p-3 bg-purple-900/20 border border-purple-500/10 rounded-lg animate-slideUp">
@@ -496,8 +496,8 @@ const InboxPage: React.FC = () => {
             {/* Test Reply Modal (for development/testing) */}
             {showTestReply && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn" onClick={() => setShowTestReply(false)}>
-                    <div className="bg-surface-1 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-scaleIn border border-white/[0.08]" onClick={(e) => e.stopPropagation()}>
-                        <div className="p-5 border-b border-white/[0.06]">
+                    <div className="bg-surface-1 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden animate-scaleIn border border-white/[0.16]" onClick={(e) => e.stopPropagation()}>
+                        <div className="p-5 border-b border-white/[0.24]">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                     <TestTube className="h-5 w-5 text-amber-400" />
@@ -518,7 +518,7 @@ const InboxPage: React.FC = () => {
                                         onClick={() => setTestReplyChannel('EMAIL')}
                                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${testReplyChannel === 'EMAIL'
                                             ? 'border-blue-500/30 bg-blue-900/20 text-blue-400'
-                                            : 'border-white/[0.08] bg-surface-2 text-text-secondary hover:bg-surface-3'
+                                            : 'border-white/[0.16] bg-surface-2 text-text-secondary hover:bg-surface-3'
                                             }`}
                                     >
                                         <Mail className="h-4 w-4" />
@@ -528,7 +528,7 @@ const InboxPage: React.FC = () => {
                                         onClick={() => setTestReplyChannel('SMS')}
                                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${testReplyChannel === 'SMS'
                                             ? 'border-emerald-500/30 bg-emerald-900/20 text-emerald-400'
-                                            : 'border-white/[0.08] bg-surface-2 text-text-secondary hover:bg-surface-3'
+                                            : 'border-white/[0.16] bg-surface-2 text-text-secondary hover:bg-surface-3'
                                             }`}
                                     >
                                         <MessageSquare className="h-4 w-4" />

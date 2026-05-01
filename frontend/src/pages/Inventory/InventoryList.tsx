@@ -238,7 +238,7 @@ const InventoryList: React.FC = () => {
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
                     </div>
                 ) : filteredItems.length === 0 ? (
-                    <div className="text-center py-12 bg-surface-1 rounded-lg border border-white/[0.06]">
+                    <div className="text-center py-12 bg-surface-1 rounded-lg border border-white/[0.24]">
                         <p className="text-text-muted">No items found</p>
                     </div>
                 ) : (
@@ -246,7 +246,7 @@ const InventoryList: React.FC = () => {
                         {filteredItems.map((item) => {
                             const isLowStock = item.reorderLevel !== null && item.reorderLevel !== undefined && item.quantity <= item.reorderLevel;
                             return (
-                                <div key={item.id} className="bg-surface-1 border border-white/[0.06] rounded-lg p-4">
+                                <div key={item.id} className="bg-surface-1 border border-white/[0.24] rounded-lg p-4">
                                     <div className="flex items-start justify-between mb-3">
                                         <div className="flex-1">
                                             <h3 className="text-sm font-medium text-text-primary">{item.name}</h3>
@@ -279,7 +279,7 @@ const InventoryList: React.FC = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="flex items-center justify-between pt-3 border-t border-white/[0.04]">
+                                    <div className="flex items-center justify-between pt-3 border-t border-white/[0.16]">
                                         <div className="flex items-center gap-4 text-sm">
                                             <div>
                                                 <span className="text-text-muted text-xs">Stock:</span>

@@ -52,9 +52,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
             ></div>
 
             {/* Sidebar component */}
-            <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-surface-1 border-r border-white/[0.06] transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+            <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-surface-1 border-r border-white/[0.24] transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
                 }`}>
-                <div className="flex items-center justify-between h-16 px-6 border-b border-white/[0.06]">
+                <div className="flex items-center justify-between h-16 px-6 border-b border-white/[0.24]">
                     <NavLink 
                         to="/dashboard" 
                         onClick={() => setIsOpen(false)}
@@ -90,7 +90,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
                         ))}
                     </nav>
 
-                    <div className="p-3 border-t border-white/[0.06]">
+                    <div className="p-3 border-t border-white/[0.24]">
                         <button
                             onClick={handleLogout}
                             className="flex items-center w-full px-3 py-2.5 text-sm font-medium text-text-muted rounded-lg hover:bg-error-50 hover:text-error-500 transition-all duration-200"

@@ -81,7 +81,7 @@ const BookingsList: React.FC = () => {
 
     return (
         <div className="space-y-4">
-            <div className="flex space-x-2 border-b border-white/[0.06] pb-4">
+            <div className="flex space-x-2 border-b border-white/[0.24] pb-4">
                 <button
                     onClick={() => { setFilter('upcoming'); setCurrentPage(1); }}
                     className={`px-4 py-2 rounded-md text-sm font-medium ${filter === 'upcoming' ? 'bg-amber-900/20 text-amber-300' : 'text-text-muted hover:text-text-secondary'}`}
@@ -150,7 +150,7 @@ const BookingsList: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-2 mt-4 sm:mt-0 pt-4 sm:pt-0 border-t sm:border-0 border-white/[0.04]">
+                            <div className="flex items-center space-x-2 mt-4 sm:mt-0 pt-4 sm:pt-0 border-t sm:border-0 border-white/[0.16]">
                                 {booking.status === 'PENDING' && (
                                     <>
                                         <button

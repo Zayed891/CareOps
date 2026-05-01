@@ -42,13 +42,13 @@ const BookingsPage: React.FC = () => {
                 )}
             </div>
 
-            <div className="border-b border-white/[0.06] overflow-x-auto">
+            <div className="border-b border-white/[0.24] overflow-x-auto">
                 <nav className="-mb-px flex space-x-8 min-w-max px-2">
                     <button
                         onClick={() => setActiveTab('schedule')}
                         className={`${activeTab === 'schedule'
                             ? 'border-amber-500 text-amber-400'
-                            : 'border-transparent text-text-muted hover:text-text-secondary hover:border-white/[0.12]'
+                            : 'border-transparent text-text-muted hover:text-text-secondary hover:border-white/[0.24]'
                             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center transition-colors`}
                     >
                         <Calendar className="mr-2 h-5 w-5" />
@@ -58,7 +58,7 @@ const BookingsPage: React.FC = () => {
                         onClick={() => setActiveTab('calendar')}
                         className={`${activeTab === 'calendar'
                             ? 'border-amber-500 text-amber-400'
-                            : 'border-transparent text-text-muted hover:text-text-secondary hover:border-white/[0.12]'
+                            : 'border-transparent text-text-muted hover:text-text-secondary hover:border-white/[0.24]'
                             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center transition-colors`}
                     >
                         <Calendar className="mr-2 h-5 w-5" />
@@ -68,7 +68,7 @@ const BookingsPage: React.FC = () => {
                         onClick={() => setActiveTab('services')}
                         className={`${activeTab === 'services'
                             ? 'border-amber-500 text-amber-400'
-                            : 'border-transparent text-text-muted hover:text-text-secondary hover:border-white/[0.12]'
+                            : 'border-transparent text-text-muted hover:text-text-secondary hover:border-white/[0.24]'
                             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center transition-colors`}
                     >
                         <Briefcase className="mr-2 h-5 w-5" />
@@ -78,7 +78,7 @@ const BookingsPage: React.FC = () => {
                         onClick={() => setActiveTab('availability')}
                         className={`${activeTab === 'availability'
                             ? 'border-amber-500 text-amber-400'
-                            : 'border-transparent text-text-muted hover:text-text-secondary hover:border-white/[0.12]'
+                            : 'border-transparent text-text-muted hover:text-text-secondary hover:border-white/[0.24]'
                             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center transition-colors`}
                     >
                         <Clock className="mr-2 h-5 w-5" />

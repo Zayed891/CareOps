@@ -10,10 +10,10 @@ import Logo from '../../components/Logo';
 
 const DashboardPreview = () => {
     return (
-        <div className="flex h-full bg-surface-0 font-sans text-xs sm:text-sm overflow-hidden rounded-xl border border-white/[0.06] text-left">
+        <div className="flex h-full bg-surface-0 font-sans text-xs sm:text-sm overflow-hidden rounded-xl border border-white/[0.24] text-left">
             {/* Sidebar */}
-            <div className="w-48 bg-surface-1 border-r border-white/[0.06] flex flex-col flex-shrink-0 hidden md:flex">
-                <div className="p-4 flex items-center gap-2 border-b border-white/[0.04]">
+            <div className="w-48 bg-surface-1 border-r border-white/[0.24] flex flex-col flex-shrink-0 hidden md:flex">
+                <div className="p-4 flex items-center gap-2 border-b border-white/[0.16]">
                     <Logo size="sm" />
                 </div>
                 <div className="flex-1 overflow-y-auto py-4 space-y-1 px-3">
@@ -92,7 +92,7 @@ const DashboardPreview = () => {
                     {/* Bottom Sections */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         {/* Schedule */}
-                        <div className="bg-surface-1 p-6 rounded-xl border border-white/[0.06]">
+                        <div className="bg-surface-1 p-6 rounded-xl border border-white/[0.24]">
                             <div className="flex justify-between items-center mb-6">
                                 <h3 className="font-semibold text-text-primary flex items-center gap-2 font-display">
                                     <Calendar size={18} className="text-text-muted" />
@@ -100,13 +100,13 @@ const DashboardPreview = () => {
                                 </h3>
                                 <button className="text-text-muted hover:text-text-secondary"><MoreHorizontal size={18} /></button>
                             </div>
-                            <div className="text-text-muted text-sm py-8 text-center bg-surface-2/50 rounded-lg border border-dashed border-white/[0.06]">
+                            <div className="text-text-muted text-sm py-8 text-center bg-surface-2/50 rounded-lg border border-dashed border-white/[0.24]">
                                 No appointments scheduled for today.
                             </div>
                         </div>
 
                         {/* Inventory */}
-                        <div className="bg-surface-1 p-6 rounded-xl border border-white/[0.06]">
+                        <div className="bg-surface-1 p-6 rounded-xl border border-white/[0.24]">
                             <div className="flex justify-between items-center mb-6">
                                 <h3 className="font-semibold text-text-primary flex items-center gap-2 font-display">
                                     <Box size={18} className="text-text-muted" />
@@ -115,7 +115,7 @@ const DashboardPreview = () => {
                                 <button className="text-text-muted hover:text-text-secondary"><MoreHorizontal size={18} /></button>
                             </div>
                             <div className="space-y-4">
-                                <div className="flex justify-between items-center pb-3 border-b border-white/[0.04]">
+                                <div className="flex justify-between items-center pb-3 border-b border-white/[0.16]">
                                     <span className="text-text-secondary">Total Items</span>
                                     <span className="font-semibold text-text-primary">1</span>
                                 </div>
@@ -140,7 +140,7 @@ const NavItem = ({ icon: Icon, label, active = false }: any) => (
 );
 
 const StatCard = ({ title, value, sub, icon: Icon, iconColor, bg }: any) => (
-    <div className="bg-surface-1 p-5 rounded-xl border border-white/[0.06] flex flex-col justify-between h-32">
+    <div className="bg-surface-1 p-5 rounded-xl border border-white/[0.24] flex flex-col justify-between h-32">
         <div className="flex justify-between items-start">
             <span className="text-text-muted font-medium text-xs uppercase tracking-wide font-display">{title}</span>
             <div className={`p-2 rounded-lg ${bg} ${iconColor}`}>

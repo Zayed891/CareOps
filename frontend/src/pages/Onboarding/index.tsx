@@ -92,7 +92,7 @@ const OnboardingPage: React.FC = () => {
                             key={step.key}
                             className={`flex items-center justify-between p-5 rounded-xl border transition-all cursor-pointer ${isDone
                                     ? 'bg-surface-1/40 border-success-500/20'
-                                    : 'bg-surface-1 border-white/[0.06] hover:border-amber-500/30 hover:shadow-lg hover:-translate-y-0.5'
+                                    : 'bg-surface-1 border-white/[0.24] hover:border-amber-500/30 hover:shadow-lg hover:-translate-y-0.5'
                                 }`}
                             onClick={() => !isDone && navigate(step.path)}
                         >

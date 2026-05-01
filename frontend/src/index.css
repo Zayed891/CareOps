@@ -51,11 +51,11 @@
 @layer components {
   /* ===== GLASS SURFACE ===== */
   .glass {
-    @apply bg-surface-1/80 backdrop-blur-xl border border-white/[0.06];
+    @apply bg-surface-1/80 backdrop-blur-xl border border-white/[0.24];
   }
 
   .glass-strong {
-    @apply bg-surface-2/90 backdrop-blur-2xl border border-white/[0.08];
+    @apply bg-surface-2/90 backdrop-blur-2xl border border-white/[0.16];
   }
 
   /* ===== BUTTON STYLES ===== */
@@ -68,8 +68,8 @@
   }
 
   .btn-secondary {
-    @apply px-4 py-2.5 bg-surface-3 text-text-primary border border-white/[0.08] rounded-lg font-medium
-           hover:bg-surface-4 hover:border-white/[0.12] active:bg-surface-3
+    @apply px-4 py-2.5 bg-surface-3 text-text-primary border border-white/[0.16] rounded-lg font-medium
+           hover:bg-surface-4 hover:border-white/[0.24] active:bg-surface-3
            focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:ring-offset-2 focus:ring-offset-surface-0
            disabled:opacity-40 disabled:cursor-not-allowed
            transition-all duration-200;
@@ -93,25 +93,25 @@
 
   /* ===== CARD STYLES ===== */
   .card {
-    @apply bg-surface-1 rounded-xl shadow-card border border-white/[0.06] p-6
+    @apply bg-surface-1 rounded-xl shadow-card border border-white/[0.24] p-6
            transition-all duration-300;
   }
 
   .card-hover {
-    @apply bg-surface-1 rounded-xl shadow-card border border-white/[0.06] p-6
-           hover:shadow-card-hover hover:border-white/[0.10] hover:bg-surface-2/80
+    @apply bg-surface-1 rounded-xl shadow-card border border-white/[0.24] p-6
+           hover:shadow-card-hover hover:border-white/[0.20] hover:bg-surface-2/80
            transition-all duration-300 cursor-pointer;
   }
   
   .card-interactive {
-    @apply bg-surface-1 rounded-xl shadow-card border border-white/[0.06] p-6
+    @apply bg-surface-1 rounded-xl shadow-card border border-white/[0.24] p-6
            hover:shadow-lg hover:border-amber-500/20 hover:-translate-y-0.5
            transition-all duration-300 cursor-pointer;
   }
 
   /* ===== FORM STYLES ===== */
   .input {
-    @apply w-full px-4 py-2 bg-surface-2 border border-white/[0.08] rounded-lg
+    @apply w-full px-4 py-2 bg-surface-2 border border-white/[0.16] rounded-lg
            text-sm text-text-primary placeholder-text-muted
            focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500/40
            disabled:bg-surface-3 disabled:text-text-muted disabled:cursor-not-allowed
@@ -130,7 +130,7 @@
   }
   
   .input-field {
-    @apply w-full px-4 py-2.5 bg-surface-2 border border-white/[0.08] rounded-lg
+    @apply w-full px-4 py-2.5 bg-surface-2 border border-white/[0.16] rounded-lg
            text-text-primary placeholder-text-muted text-sm
            focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500/40
            disabled:bg-surface-3 disabled:text-text-muted disabled:cursor-not-allowed
@@ -160,7 +160,7 @@
   }
   
   .badge-neutral {
-    @apply badge bg-surface-3 text-text-secondary border border-white/[0.08];
+    @apply badge bg-surface-3 text-text-secondary border border-white/[0.16];
   }
   
   /* ===== ALERT STYLES ===== */

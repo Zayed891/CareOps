@@ -182,7 +182,7 @@ const Dashboard: React.FC = () => {
                     <div
                         key={index}
                         onClick={() => navigate(card.link)}
-                        className={`bg-surface-1 rounded-xl border border-white/[0.06] p-6 flex items-start justify-between cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${card.glowBorder} group`}
+                        className={`bg-surface-1 rounded-xl border border-white/[0.24] p-6 flex items-start justify-between cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${card.glowBorder} group`}
                     >
                         <div>
                             <p className="text-sm font-medium text-text-muted mb-1">{card.title}</p>
@@ -269,7 +269,7 @@ const Dashboard: React.FC = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Booking Link */}
-                        <div className="bg-surface-1 rounded-xl p-5 border border-white/[0.06] hover:border-white/[0.10] transition-all">
+                        <div className="bg-surface-1 rounded-xl p-5 border border-white/[0.24] hover:border-white/[0.20] transition-all">
                             <div className="flex items-start justify-between mb-3">
                                 <div className="flex items-center gap-2">
                                     <div className="p-2 bg-blue-900/30 rounded-lg">
@@ -305,7 +305,7 @@ const Dashboard: React.FC = () => {
                         </div>
 
                         {/* Form Links */}
-                        <div className="bg-surface-1 rounded-xl p-5 border border-white/[0.06] hover:border-white/[0.10] transition-all">
+                        <div className="bg-surface-1 rounded-xl p-5 border border-white/[0.24] hover:border-white/[0.20] transition-all">
                             <div className="flex items-start justify-between mb-3">
                                 <div className="flex items-center gap-2">
                                     <div className="p-2 bg-purple-900/30 rounded-lg">

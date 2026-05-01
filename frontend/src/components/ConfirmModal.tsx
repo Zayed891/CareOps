@@ -46,7 +46,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
             <div 
-                className="bg-surface-1 rounded-xl shadow-2xl max-w-md w-full overflow-hidden animate-scaleIn border border-white/[0.08]"
+                className="bg-surface-1 rounded-xl shadow-2xl max-w-md w-full overflow-hidden animate-scaleIn border border-white/[0.16]"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
@@ -74,7 +74,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
                 </div>
 
                 {/* Actions */}
-                <div className="px-6 py-4 bg-surface-2/50 flex items-center justify-end gap-3 border-t border-white/[0.04]">
+                <div className="px-6 py-4 bg-surface-2/50 flex items-center justify-end gap-3 border-t border-white/[0.16]">
                     <button
                         onClick={onClose}
                         disabled={loading}

@@ -95,7 +95,7 @@ const FormSubmissionList: React.FC<FormSubmissionListProps> = ({ templateId }) =
                     </div>
 
                     {expandedIds.has(submission.id) && (
-                        <div className="mt-4 pt-4 border-t border-white/[0.04] space-y-4">
+                        <div className="mt-4 pt-4 border-t border-white/[0.16] space-y-4">
                             {/* Submission Data */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {Object.entries(submission.data).map(([key, value]) => (

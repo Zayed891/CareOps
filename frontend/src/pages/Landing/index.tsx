@@ -12,7 +12,7 @@ const LandingPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-surface-0 noise-overlay">
             {/* Header */}
-            <header className="fixed w-full bg-surface-0/80 backdrop-blur-xl z-50 border-b border-white/[0.06]">
+            <header className="fixed w-full bg-surface-0/80 backdrop-blur-xl z-50 border-b border-white/[0.24]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                     <Link to="/" className="transition-transform hover:scale-105">
                         <Logo size="sm" />
@@ -57,7 +57,7 @@ const LandingPage: React.FC = () => {
                             <Link to="/register" className="w-full sm:w-auto px-8 py-4 bg-amber-500 text-surface-0 rounded-xl font-semibold font-display text-lg shadow-glow-amber hover:bg-amber-400 hover:scale-105 transition-all duration-200">
                                 Start Free Trial
                             </Link>
-                            <Link to="#features" className="w-full sm:w-auto px-8 py-4 bg-surface-2 text-text-primary border border-white/[0.08] rounded-xl font-semibold font-display text-lg hover:bg-surface-3 hover:border-white/[0.12] transition-all">
+                            <Link to="#features" className="w-full sm:w-auto px-8 py-4 bg-surface-2 text-text-primary border border-white/[0.16] rounded-xl font-semibold font-display text-lg hover:bg-surface-3 hover:border-white/[0.24] transition-all">
                                 View Demo
                             </Link>
                         </div>
@@ -74,7 +74,7 @@ const LandingPage: React.FC = () => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="mt-16 relative mx-auto max-w-5xl"
                     >
-                        <div className="rounded-2xl bg-surface-2 p-2 shadow-2xl border border-white/[0.06]">
+                        <div className="rounded-2xl bg-surface-2 p-2 shadow-2xl border border-white/[0.24]">
                             <div className="rounded-xl bg-surface-0 overflow-hidden aspect-[16/9] relative group">
                                 <DashboardPreview />
                                 {/* Overlay gradient for depth */}
@@ -164,7 +164,7 @@ const LandingPage: React.FC = () => {
             </section>
 
             {/* Footer */}
-            <footer className="bg-surface-1/50 border-t border-white/[0.06] py-24">
+            <footer className="bg-surface-1/50 border-t border-white/[0.24] py-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
                     <div className="mb-4 md:mb-0">
                         <Logo size="sm" />
@@ -190,7 +190,7 @@ const FeatureCard = ({ icon: Icon, title, desc, color }: any) => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="bg-surface-1 p-8 rounded-2xl border border-white/[0.06] hover:border-white/[0.10] hover:bg-surface-2/60 transition-all duration-300 group"
+        className="bg-surface-1 p-8 rounded-2xl border border-white/[0.24] hover:border-white/[0.20] hover:bg-surface-2/60 transition-all duration-300 group"
     >
         <div className={`p-3 rounded-xl w-fit mb-6 ${color} group-hover:scale-110 transition-transform duration-300`}>
             <Icon size={24} />

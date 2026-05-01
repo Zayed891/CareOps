@@ -89,7 +89,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ isOpen, onClose, onSuccess, i
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
                 <div className="inline-block align-bottom bg-surface-1 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
-                    <div className="flex justify-between items-center px-6 py-4 border-b border-white/[0.06]">
+                    <div className="flex justify-between items-center px-6 py-4 border-b border-white/[0.24]">
                         <h3 className="text-lg font-medium text-text-primary">
                             {initialData ? 'Edit Form Template' : 'Create Form Template'}
                         </h3>
@@ -106,7 +106,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ isOpen, onClose, onSuccess, i
 
                     <div className="flex flex-col md:flex-row md:h-[70vh]">
                         {/* Form Settings Sidebar */}
-                        <div className="md:w-1/3 md:border-r border-white/[0.06] p-6 overflow-y-auto bg-surface-0 border-b md:border-b-0">
+                        <div className="md:w-1/3 md:border-r border-white/[0.24] p-6 overflow-y-auto bg-surface-0 border-b md:border-b-0">
                             <h4 className="font-medium text-text-primary mb-4">Form Settings</h4>
                             <div className="space-y-4">
                                 <div>
@@ -138,7 +138,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ isOpen, onClose, onSuccess, i
 
                             <div className="space-y-4 mb-6">
                                 {fields.length === 0 ? (
-                                    <div className="text-center py-10 border-2 border-dashed border-white/[0.06] rounded-lg">
+                                    <div className="text-center py-10 border-2 border-dashed border-white/[0.24] rounded-lg">
                                         <p className="text-text-muted">No fields added yet.</p>
                                         <button
                                             onClick={addField}
@@ -149,7 +149,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ isOpen, onClose, onSuccess, i
                                     </div>
                                 ) : (
                                     fields.map((field) => (
-                                        <div key={field.id} className="card p-4 relative group border border-white/[0.06] hover:border-primary-200 transition-colors">
+                                        <div key={field.id} className="card p-4 relative group border border-white/[0.24] hover:border-primary-200 transition-colors">
                                             <div className="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <button
                                                     onClick={() => removeField(field.id)}
@@ -190,7 +190,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ isOpen, onClose, onSuccess, i
                                                             type="checkbox"
                                                             checked={field.required}
                                                             onChange={(e) => updateField(field.id, { required: e.target.checked })}
-                                                            className="rounded border-white/[0.08] text-amber-400 focus:ring-amber-500/40"
+                                                            className="rounded border-white/[0.16] text-amber-400 focus:ring-amber-500/40"
                                                         />
                                                         <span>Required Field</span>
                                                     </label>
@@ -217,7 +217,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ isOpen, onClose, onSuccess, i
 
                             <button
                                 onClick={addField}
-                                className="w-full py-3 border-2 border-dashed border-white/[0.08] rounded-lg text-text-muted hover:border-amber-500 hover:text-amber-400 transition-colors flex items-center justify-center font-medium"
+                                className="w-full py-3 border-2 border-dashed border-white/[0.16] rounded-lg text-text-muted hover:border-amber-500 hover:text-amber-400 transition-colors flex items-center justify-center font-medium"
                             >
                                 <Plus size={20} className="mr-2" />
                                 Add Question
@@ -225,7 +225,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ isOpen, onClose, onSuccess, i
                         </div>
                     </div>
 
-                    <div className="px-6 py-4 bg-surface-0 border-t border-white/[0.06] flex justify-end space-x-3">
+                    <div className="px-6 py-4 bg-surface-0 border-t border-white/[0.24] flex justify-end space-x-3">
                         <button onClick={onClose} className="btn-secondary">
                             Cancel
                         </button>

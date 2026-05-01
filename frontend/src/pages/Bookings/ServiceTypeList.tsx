@@ -68,7 +68,7 @@ const ServiceTypeList: React.FC = () => {
             </div>
 
             {services.length === 0 ? (
-                <div className="text-center py-12 bg-surface-0 rounded-lg border-2 border-dashed border-white/[0.06]">
+                <div className="text-center py-12 bg-surface-0 rounded-lg border-2 border-dashed border-white/[0.24]">
                     <p className="text-text-muted mb-2">No service types defined yet.</p>
                     <button
                         onClick={() => setIsFormOpen(true)}
@@ -96,7 +96,7 @@ const ServiceTypeList: React.FC = () => {
                                 <p className="text-sm text-text-muted mb-4 line-clamp-2 min-h-[2.5em]">{service.description}</p>
                             )}
 
-                            <div className="flex flex-col space-y-2 text-sm text-text-secondary border-t border-white/[0.04] pt-4 mt-2">
+                            <div className="flex flex-col space-y-2 text-sm text-text-secondary border-t border-white/[0.16] pt-4 mt-2">
                                 <div className="flex items-center">
                                     <Clock size={16} className="mr-2 text-text-muted" />
                                     <span>{service.duration} mins</span>

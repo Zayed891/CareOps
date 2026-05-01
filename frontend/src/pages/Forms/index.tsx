@@ -57,7 +57,7 @@ const FormsPage: React.FC = () => {
                     Back to Forms
                 </button>
 
-                <div className="bg-surface-1 rounded-lg shadow-md p-8 border border-white/[0.04]">
+                <div className="bg-surface-1 rounded-lg shadow-md p-8 border border-white/[0.16]">
                     <FormRenderer
                         template={selectedTemplate}
                         onCancel={handleBack}

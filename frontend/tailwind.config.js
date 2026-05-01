@@ -67,16 +67,16 @@ export default {
                 },
                 // Text colors
                 text: {
-                    primary: '#F0F0F2',
-                    secondary: '#8B8FA3',
-                    muted: '#5C6070',
+                    primary: '#F8F9FA',
+                    secondary: '#A1A5B7',
+                    muted: '#7E8299',
                 },
                 // Border
                 border: {
-                    subtle: 'rgba(255, 255, 255, 0.06)',
-                    DEFAULT: 'rgba(255, 255, 255, 0.08)',
-                    hover: 'rgba(255, 255, 255, 0.12)',
-                    strong: 'rgba(255, 255, 255, 0.18)',
+                    subtle: 'rgba(255, 255, 255, 0.08)',
+                    DEFAULT: 'rgba(255, 255, 255, 0.12)',
+                    hover: 'rgba(255, 255, 255, 0.16)',
+                    strong: 'rgba(255, 255, 255, 0.24)',
                 },
             },
             fontFamily: {
