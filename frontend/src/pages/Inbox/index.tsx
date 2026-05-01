@@ -242,7 +242,7 @@ const InboxPage: React.FC = () => {
     return (
         <div className="flex h-[calc(100vh-4rem)] bg-surface-1 rounded-xl border border-white/[0.24] overflow-hidden">
             {/* Conversation List */}
-            <div className={`w-80 border-r border-white/[0.24] flex flex-col ${selectedId ? 'hidden md:flex' : 'flex'} flex-shrink-0 bg-surface-0`}>
+            <div className={`w-full md:w-80 border-r border-white/[0.24] flex flex-col ${selectedId ? 'hidden md:flex' : 'flex'} flex-shrink-0 bg-surface-0`}>
                 <div className="p-5 border-b border-white/[0.24] bg-surface-1">
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-amber-900/30 rounded-lg">
