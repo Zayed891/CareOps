@@ -37,24 +37,27 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-gray-50 flex items-center justify-center p-4">
-            <div className="w-full max-w-md">
+        <div className="min-h-screen bg-surface-0 flex items-center justify-center p-4 relative noise-overlay">
+            {/* Background glow */}
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+            
+            <div className="w-full max-w-md relative z-10">
                 {/* Logo and Header */}
                 <div className="text-center mb-3 animate-fadeIn">
                     <Link to="/" className="inline-block mb-2 hover:scale-105 transition-transform">
                         <Logo size="sm" />
                     </Link>
-                    <h1 className="text-lg font-bold text-gray-900">Welcome back</h1>
+                    <h1 className="text-lg font-bold text-text-primary font-display">Welcome back</h1>
                 </div>
 
                 {/* Login Card */}
-                <div className="bg-white rounded-xl shadow-xl border border-gray-200 p-5 animate-scaleIn">
+                <div className="bg-surface-1 rounded-xl shadow-xl border border-white/[0.06] p-5 animate-scaleIn">
                     {/* Error Alert */}
                     {error && (
-                        <div className="mb-3 bg-red-50 border border-red-200 rounded-lg p-2.5 animate-slideIn">
+                        <div className="mb-3 bg-error-50 border border-error-500/20 rounded-lg p-2.5 animate-slideIn">
                             <div className="flex items-center gap-2">
-                                <AlertCircle className="h-4 w-4 text-red-600 flex-shrink-0" />
-                                <p className="text-xs font-medium text-red-900">{error}</p>
+                                <AlertCircle className="h-4 w-4 text-error-500 flex-shrink-0" />
+                                <p className="text-xs font-medium text-error-500">{error}</p>
                             </div>
                         </div>
                     )}
@@ -63,7 +66,7 @@ const Login: React.FC = () => {
                         <div>
                             <label htmlFor="email" className="label">Email address</label>
                             <div className="relative">
-                                <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
                                 <input
                                     id="email"
                                     name="email"
@@ -81,7 +84,7 @@ const Login: React.FC = () => {
                         <div>
                             <label htmlFor="password" className="label">Password</label>
                             <div className="relative">
-                                <Lock className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                <Lock className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
                                 <input
                                     id="password"
                                     name="password"
@@ -103,7 +106,7 @@ const Login: React.FC = () => {
                         >
                             {loading ? (
                                 <span className="flex items-center justify-center">
-                                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-surface-0" fill="none" viewBox="0 0 24 24">
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
@@ -116,10 +119,10 @@ const Login: React.FC = () => {
                     {/* Divider */}
                     <div className="relative my-4">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-gray-200"></div>
+                            <div className="w-full border-t border-white/[0.06]"></div>
                         </div>
                         <div className="relative flex justify-center text-xs">
-                            <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                            <span className="px-2 bg-surface-1 text-text-muted">Or continue with</span>
                         </div>
                     </div>
 
@@ -127,7 +130,7 @@ const Login: React.FC = () => {
                     <button
                         type="button"
                         onClick={() => window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-white/[0.08] rounded-lg text-sm font-medium text-text-primary bg-surface-2 hover:bg-surface-3 transition-colors"
                     >
                         <svg className="w-4 h-4" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -139,14 +142,14 @@ const Login: React.FC = () => {
                     </button>
 
                     {/* Footer Link */}
-                    <div className="mt-3 text-center pt-3 border-t border-gray-100">
-                        <p className="text-xs text-gray-600">
+                    <div className="mt-3 text-center pt-3 border-t border-white/[0.04]">
+                        <p className="text-xs text-text-muted">
                             Don't have an account?{' '}
-                            <Link to="/register" className="font-semibold text-primary-600 hover:text-primary-700 transition-colors">
+                            <Link to="/register" className="font-semibold text-amber-400 hover:text-amber-300 transition-colors">
                                 Create workspace
                             </Link>
                             {' · '}
-                            <Link to="/" className="text-gray-500 hover:text-gray-700 transition-colors">
+                            <Link to="/" className="text-text-muted hover:text-text-secondary transition-colors">
                                 Back to home
                             </Link>
                         </p>

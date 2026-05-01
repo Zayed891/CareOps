@@ -11,15 +11,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
-        <div className="flex h-screen bg-gray-50">
+        <div className="flex h-screen bg-surface-0 noise-overlay">
             <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
 
             <div className="flex-1 flex flex-col overflow-hidden">
                 {/* Mobile Header */}
-                <header className="lg:hidden flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200">
+                <header className="lg:hidden flex items-center justify-between h-16 px-4 bg-surface-1 border-b border-white/[0.06]">
                     <button
                         onClick={() => setIsSidebarOpen(true)}
-                        className="text-gray-500 hover:text-gray-700 focus:outline-none p-2"
+                        className="text-text-muted hover:text-text-primary focus:outline-none p-2 transition-colors"
                     >
                         <Menu size={24} />
                     </button>
@@ -28,7 +28,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </header>
 
                 {/* Main Content */}
-                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-4 sm:p-6">
+                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-surface-0 p-4 sm:p-6">
                     <div className="max-w-7xl mx-auto">
                         {children}
                     </div>

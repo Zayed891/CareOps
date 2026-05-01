@@ -43,24 +43,27 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-gray-50 flex items-center justify-center p-4">
-            <div className="w-full max-w-2xl">
+        <div className="min-h-screen bg-surface-0 flex items-center justify-center p-4 relative noise-overlay">
+            {/* Background glow */}
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+
+            <div className="w-full max-w-2xl relative z-10">
                 {/* Logo and Header */}
                 <div className="text-center mb-3 animate-fadeIn">
                     <Link to="/" className="inline-block mb-2 hover:scale-105 transition-transform">
                         <Logo size="sm" />
                     </Link>
-                    <h1 className="text-lg font-bold text-gray-900">Create your workspace</h1>
+                    <h1 className="text-lg font-bold text-text-primary font-display">Create your workspace</h1>
                 </div>
 
                 {/* Register Card */}
-                <div className="bg-white rounded-xl shadow-xl border border-gray-200 p-5 animate-scaleIn">
+                <div className="bg-surface-1 rounded-xl shadow-xl border border-white/[0.06] p-5 animate-scaleIn">
                     {/* Error Alert */}
                     {error && (
-                        <div className="mb-3 bg-red-50 border border-red-200 rounded-lg p-2.5 animate-slideIn">
+                        <div className="mb-3 bg-error-50 border border-error-500/20 rounded-lg p-2.5 animate-slideIn">
                             <div className="flex items-center gap-2">
-                                <AlertCircle className="h-4 w-4 text-red-600 flex-shrink-0" />
-                                <p className="text-xs font-medium text-red-900">{error}</p>
+                                <AlertCircle className="h-4 w-4 text-error-500 flex-shrink-0" />
+                                <p className="text-xs font-medium text-error-500">{error}</p>
                             </div>
                         </div>
                     )}
@@ -71,7 +74,7 @@ const Register: React.FC = () => {
                             <div>
                                 <label htmlFor="name" className="label">Your Name</label>
                                 <div className="relative">
-                                    <User className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                    <User className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
                                     <input
                                         id="name"
                                         name="name"
@@ -88,7 +91,7 @@ const Register: React.FC = () => {
                             <div>
                                 <label htmlFor="email" className="label">Email</label>
                                 <div className="relative">
-                                    <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                    <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
                                     <input
                                         id="email"
                                         name="email"
@@ -107,7 +110,7 @@ const Register: React.FC = () => {
                         <div>
                             <label htmlFor="password" className="label">Password</label>
                             <div className="relative">
-                                <Lock className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                <Lock className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
                                 <input
                                     id="password"
                                     name="password"
@@ -123,10 +126,10 @@ const Register: React.FC = () => {
                         </div>
 
                         {/* Business Information */}
-                        <div className="pt-3 border-t border-gray-200">
+                        <div className="pt-3 border-t border-white/[0.06]">
                             <div className="flex items-center gap-1.5 mb-2">
-                                <Building2 className="h-3.5 w-3.5 text-gray-700" />
-                                <h3 className="text-xs font-semibold text-gray-900">Business Details</h3>
+                                <Building2 className="h-3.5 w-3.5 text-text-secondary" />
+                                <h3 className="text-xs font-semibold text-text-primary font-display uppercase tracking-wider">Business Details</h3>
                             </div>
 
                             <div className="space-y-2.5">
@@ -148,7 +151,7 @@ const Register: React.FC = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowOptional(!showOptional)}
-                                    className="text-xs text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
+                                    className="text-xs text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1 transition-colors"
                                 >
                                     <ChevronDown className={`h-3 w-3 transition-transform ${showOptional ? 'rotate-180' : ''}`} />
                                     {showOptional ? 'Hide' : 'Add'} optional details
@@ -193,7 +196,7 @@ const Register: React.FC = () => {
                         >
                             {loading ? (
                                 <span className="flex items-center justify-center">
-                                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-surface-0" fill="none" viewBox="0 0 24 24">
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
@@ -204,14 +207,14 @@ const Register: React.FC = () => {
                     </form>
 
                     {/* Footer Link */}
-                    <div className="mt-3 text-center pt-3 border-t border-gray-100">
-                        <p className="text-xs text-gray-600">
+                    <div className="mt-3 text-center pt-3 border-t border-white/[0.04]">
+                        <p className="text-xs text-text-muted">
                             Already have an account?{' '}
-                            <Link to="/login" className="font-semibold text-primary-600 hover:text-primary-700 transition-colors">
+                            <Link to="/login" className="font-semibold text-amber-400 hover:text-amber-300 transition-colors">
                                 Sign in
                             </Link>
                             {' · '}
-                            <Link to="/" className="text-gray-500 hover:text-gray-700 transition-colors">
+                            <Link to="/" className="text-text-muted hover:text-text-secondary transition-colors">
                                 Back to home
                             </Link>
                         </p>

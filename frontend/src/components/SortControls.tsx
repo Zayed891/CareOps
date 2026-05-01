@@ -21,11 +21,11 @@ const SortControls: React.FC<SortControlsProps> = ({
 }) => {
     return (
         <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-500">Sort by:</span>
+            <span className="text-sm text-text-muted">Sort by:</span>
             <select
                 value={sortBy}
                 onChange={(e) => onSortChange(e.target.value, sortOrder)}
-                className="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 bg-surface-2 text-text-primary border border-white/[0.08] focus:ring-2 focus:ring-amber-500/40 sm:text-sm sm:leading-6"
             >
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -35,7 +35,7 @@ const SortControls: React.FC<SortControlsProps> = ({
             </select>
             <button
                 onClick={() => onSortChange(sortBy, sortOrder === 'asc' ? 'desc' : 'asc')}
-                className="p-2 text-gray-400 hover:text-gray-600 bg-white border border-gray-300 rounded-md shadow-sm"
+                className="p-2 text-text-muted hover:text-text-primary bg-surface-2 border border-white/[0.08] rounded-md transition-colors"
                 title={sortOrder === 'asc' ? 'Ascending' : 'Descending'}
             >
                 {sortOrder === 'asc' ? <ArrowDownAZ size={20} /> : <ArrowUpAZ size={20} />}

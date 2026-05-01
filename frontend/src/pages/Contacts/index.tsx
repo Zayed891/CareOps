@@ -73,7 +73,7 @@ const ContactsPage: React.FC = () => {
         <div className="max-w-7xl mx-auto animate-fadeIn">
             <div className="section-header mb-8">
                 <div className="flex items-center gap-3">
-                    <Users className="h-8 w-8 text-primary-600" />
+                    <Users className="h-8 w-8 text-amber-400" />
                     <div>
                         <h1 className="section-title">Contacts</h1>
                         <p className="section-description">Manage your customer contact directory</p>
@@ -81,46 +81,46 @@ const ContactsPage: React.FC = () => {
                 </div>
                 <button
                     onClick={() => setShowForm(!showForm)}
-                    className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
+                    className="btn-primary flex items-center text-sm"
                 >
                     <Plus className="h-4 w-4 mr-2" /> Add Contact
                 </button>
             </div>
 
             {error && (
-                <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">{error}</div>
+                <div className="mb-4 p-3 bg-error-50 text-error-500 rounded-lg text-sm border border-error-500/20">{error}</div>
             )}
 
             {/* Search */}
             <div className="relative mb-6">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-text-muted" />
                 <input
                     type="text"
                     placeholder="Search contacts by name, email, or phone..."
                     value={search}
                     onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
+                    className="w-full input pl-10"
                 />
             </div>
 
             {/* Create Form */}
             {showForm && (
-                <form onSubmit={handleCreate} className="mb-6 p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-                    <h3 className="text-sm font-semibold text-gray-700 mb-3">New Contact</h3>
+                <form onSubmit={handleCreate} className="mb-6 p-4 bg-surface-1 border border-white/[0.06] rounded-lg">
+                    <h3 className="text-sm font-semibold text-text-primary mb-3 font-display">New Contact</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <input required placeholder="Name *" value={form.name}
                             onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
-                            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500" />
+                            className="input" />
                         <input type="email" placeholder="Email" value={form.email}
                             onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
-                            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500" />
+                            className="input" />
                         <input placeholder="Phone" value={form.phone}
                             onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
-                            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500" />
+                            className="input" />
                     </div>
                     <div className="flex gap-2 mt-3">
-                        <button type="submit" className="px-4 py-2 bg-primary-600 text-white rounded-lg text-sm hover:bg-primary-700">Save</button>
-                        <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">Cancel</button>
+                        <button type="submit" className="btn-primary text-sm">Save</button>
+                        <button type="button" onClick={() => setShowForm(false)} className="btn-secondary text-sm">Cancel</button>
                     </div>
                 </form>
             )}
@@ -128,50 +128,50 @@ const ContactsPage: React.FC = () => {
             {/* Contacts List */}
             {loading ? (
                 <div className="flex justify-center py-12">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div>
                 </div>
             ) : contacts.length === 0 ? (
-                <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
-                    <Users className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-                    <p className="text-gray-500">No contacts yet. Add your first contact to get started.</p>
+                <div className="text-center py-12 bg-surface-1 rounded-lg border border-white/[0.06]">
+                    <Users className="h-12 w-12 text-text-muted/30 mx-auto mb-3" />
+                    <p className="text-text-muted">No contacts yet. Add your first contact to get started.</p>
                 </div>
             ) : (
                 <>
                     {/* Desktop Table View */}
-                    <div className="hidden md:block bg-white rounded-lg border border-gray-200 overflow-hidden">
-                        <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
+                    <div className="hidden md:block bg-surface-1 rounded-lg border border-white/[0.06] overflow-hidden">
+                        <table className="min-w-full divide-y divide-white/[0.04]">
+                            <thead className="bg-surface-2/50">
                                 <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Activity</th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider font-display">Name</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider font-display">Email</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider font-display">Phone</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider font-display">Activity</th>
+                                    <th className="px-6 py-3 text-right text-xs font-medium text-text-muted uppercase tracking-wider font-display">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-200">
+                            <tbody className="divide-y divide-white/[0.04]">
                                 {contacts.map(contact => (
-                                    <tr key={contact.id} className="hover:bg-gray-50 transition-colors">
+                                    <tr key={contact.id} className="hover:bg-surface-2/30 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center">
-                                                <div className="h-8 w-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-sm font-medium">
+                                                <div className="h-8 w-8 rounded-full bg-surface-3 text-amber-400 flex items-center justify-center text-sm font-medium font-display">
                                                     {contact.name.charAt(0).toUpperCase()}
                                                 </div>
-                                                <span className="ml-3 text-sm font-medium text-gray-900">{contact.name}</span>
+                                                <span className="ml-3 text-sm font-medium text-text-primary">{contact.name}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-500">
+                                        <td className="px-6 py-4 text-sm text-text-secondary">
                                             {contact.email ? (
                                                 <span className="flex items-center gap-1"><Mail className="h-3.5 w-3.5" />{contact.email}</span>
                                             ) : '—'}
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-500">
+                                        <td className="px-6 py-4 text-sm text-text-secondary">
                                             {contact.phone ? (
                                                 <span className="flex items-center gap-1"><Phone className="h-3.5 w-3.5" />{contact.phone}</span>
                                             ) : '—'}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <div className="flex items-center gap-3 text-xs text-gray-500">
+                                            <div className="flex items-center gap-3 text-xs text-text-muted">
                                                 <span className="flex items-center gap-1" title="Bookings">
                                                     <Calendar className="h-3.5 w-3.5" />{contact._count?.bookings || 0}
                                                 </span>
@@ -185,7 +185,7 @@ const ContactsPage: React.FC = () => {
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <button onClick={() => handleDeleteClick(contact.id)}
-                                                className="text-gray-400 hover:text-red-600 transition-colors">
+                                                className="text-text-muted hover:text-error-500 transition-colors">
                                                 <Trash2 className="h-4 w-4" />
                                             </button>
                                         </td>
@@ -198,35 +198,35 @@ const ContactsPage: React.FC = () => {
                     {/* Mobile Card View */}
                     <div className="md:hidden space-y-3">
                         {contacts.map(contact => (
-                            <div key={contact.id} className="bg-white border border-gray-200 rounded-lg p-4">
+                            <div key={contact.id} className="bg-surface-1 border border-white/[0.06] rounded-lg p-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <div className="flex items-center gap-3">
-                                        <div className="h-10 w-10 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-sm font-medium">
+                                        <div className="h-10 w-10 rounded-full bg-surface-3 text-amber-400 flex items-center justify-center text-sm font-medium font-display">
                                             {contact.name.charAt(0).toUpperCase()}
                                         </div>
                                         <div>
-                                            <p className="text-sm font-medium text-gray-900">{contact.name}</p>
+                                            <p className="text-sm font-medium text-text-primary">{contact.name}</p>
                                         </div>
                                     </div>
                                     <button onClick={() => handleDeleteClick(contact.id)}
-                                        className="text-gray-400 hover:text-red-600 transition-colors p-2">
+                                        className="text-text-muted hover:text-error-500 transition-colors p-2">
                                         <Trash2 className="h-4 w-4" />
                                     </button>
                                 </div>
                                 <div className="space-y-2 text-sm">
                                     {contact.email && (
-                                        <div className="flex items-center gap-2 text-gray-600">
+                                        <div className="flex items-center gap-2 text-text-secondary">
                                             <Mail className="h-3.5 w-3.5 flex-shrink-0" />
                                             <span className="truncate">{contact.email}</span>
                                         </div>
                                     )}
                                     {contact.phone && (
-                                        <div className="flex items-center gap-2 text-gray-600">
+                                        <div className="flex items-center gap-2 text-text-secondary">
                                             <Phone className="h-3.5 w-3.5 flex-shrink-0" />
                                             <span>{contact.phone}</span>
                                         </div>
                                     )}
-                                    <div className="flex items-center gap-4 pt-2 text-xs text-gray-500 border-t border-gray-100 mt-2">
+                                    <div className="flex items-center gap-4 pt-2 text-xs text-text-muted border-t border-white/[0.04] mt-2">
                                         <span className="flex items-center gap-1">
                                             <Calendar className="h-3.5 w-3.5" />{contact._count?.bookings || 0} bookings
                                         </span>

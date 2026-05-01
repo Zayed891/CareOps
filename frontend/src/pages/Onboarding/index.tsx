@@ -63,23 +63,23 @@ const OnboardingPage: React.FC = () => {
     return (
         <div className="max-w-3xl mx-auto animate-fadeIn">
             <div className="text-center mb-10">
-                <div className="inline-flex p-4 bg-primary-50 rounded-2xl mb-4">
-                    <Rocket className="h-16 w-16 text-primary-600" />
+                <div className="inline-flex p-4 bg-amber-900/30 rounded-2xl mb-4">
+                    <Rocket className="h-16 w-16 text-amber-400" />
                 </div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-3">Set Up Your Workspace</h1>
-                <p className="text-gray-600 text-lg">Complete these steps to get CareOps ready for your business.</p>
+                <h1 className="text-3xl font-bold text-text-primary mb-3">Set Up Your Workspace</h1>
+                <p className="text-text-secondary text-lg">Complete these steps to get CareOps ready for your business.</p>
             </div>
 
-            {error && <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">{error}</div>}
+            {error && <div className="mb-4 p-3 bg-error-50 text-red-700 rounded-lg text-sm">{error}</div>}
 
             {/* Progress Bar */}
             <div className="mb-8">
-                <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
+                <div className="flex items-center justify-between text-sm text-text-secondary mb-2">
                     <span>{completedCount} of {totalSteps} steps completed</span>
                     <span className="font-medium">{progress}%</span>
                 </div>
-                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-primary-600 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+                <div className="h-2 bg-surface-3 rounded-full overflow-hidden">
+                    <div className="h-full bg-amber-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
                 </div>
             </div>
 
@@ -92,26 +92,26 @@ const OnboardingPage: React.FC = () => {
                             key={step.key}
                             className={`flex items-center justify-between p-5 rounded-xl border-2 transition-all cursor-pointer ${isDone
                                     ? 'bg-success-50 border-success-300 shadow-sm'
-                                    : 'bg-white border-gray-200 hover:border-primary-400 hover:shadow-lg hover:-translate-y-0.5'
+                                    : 'bg-surface-1 border-white/[0.06] hover:border-amber-500/30 hover:shadow-lg hover:-translate-y-0.5'
                                 }`}
                             onClick={() => !isDone && navigate(step.path)}
                         >
                             <div className="flex items-center gap-3">
                                 {isDone ? (
-                                    <div className="h-8 w-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                                    <div className="h-8 w-8 rounded-full bg-green-100 text-success-500 flex items-center justify-center">
                                         <Check className="h-4 w-4" />
                                     </div>
                                 ) : (
-                                    <div className="h-8 w-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center">
+                                    <div className="h-8 w-8 rounded-full bg-surface-2 text-text-muted flex items-center justify-center">
                                         <Circle className="h-4 w-4" />
                                     </div>
                                 )}
                                 <div>
-                                    <p className={`text-sm font-medium ${isDone ? 'text-green-800' : 'text-gray-900'}`}>{step.label}</p>
-                                    <p className="text-xs text-gray-500">{step.description}</p>
+                                    <p className={`text-sm font-medium ${isDone ? 'text-green-800' : 'text-text-primary'}`}>{step.label}</p>
+                                    <p className="text-xs text-text-muted">{step.description}</p>
                                 </div>
                             </div>
-                            {!isDone && <ArrowRight className="h-4 w-4 text-gray-400" />}
+                            {!isDone && <ArrowRight className="h-4 w-4 text-text-muted" />}
                         </div>
                     );
                 })}
@@ -122,8 +122,8 @@ const OnboardingPage: React.FC = () => {
                 onClick={handleActivate}
                 disabled={activating || progress < 100}
                 className={`w-full py-4 rounded-xl text-base font-semibold shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 ${progress >= 100
-                    ? 'bg-primary-600 text-white hover:bg-primary-700 hover:shadow-xl shadow-primary-200'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none'
+                    ? 'bg-amber-500 text-white hover:bg-amber-400 hover:shadow-xl shadow-primary-200'
+                    : 'bg-surface-2 text-text-muted cursor-not-allowed shadow-none'
                     }`}
             >
                 {activating ? (

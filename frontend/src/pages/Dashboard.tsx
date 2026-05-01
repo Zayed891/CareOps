@@ -49,7 +49,11 @@ const Dashboard: React.FC = () => {
     };
 
     if (loading || !stats) {
-        return <div className="p-8 text-center text-gray-500">Loading dashboard...</div>;
+        return (
+            <div className="p-8 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div>
+            </div>
+        );
     }
 
     const cards = [
@@ -57,9 +61,9 @@ const Dashboard: React.FC = () => {
             title: "Today's Appointments",
             value: stats.bookings.today,
             icon: Calendar,
-            color: "text-blue-600",
-            bg: "bg-blue-50",
-            hoverBg: "hover:bg-blue-50/70",
+            color: "text-blue-400",
+            bg: "bg-blue-900/30",
+            glowBorder: "hover:border-blue-500/20",
             change: `+${stats.bookings.upcoming} upcoming`,
             link: "/bookings"
         },
@@ -67,9 +71,9 @@ const Dashboard: React.FC = () => {
             title: "Total Contacts",
             value: stats.contacts.total,
             icon: UserPlus,
-            color: "text-indigo-600",
-            bg: "bg-indigo-50",
-            hoverBg: "hover:bg-indigo-50/70",
+            color: "text-indigo-400",
+            bg: "bg-indigo-900/30",
+            glowBorder: "hover:border-indigo-500/20",
             change: `+${stats.contacts.newThisMonth} this month`,
             link: "/contacts"
         },
@@ -77,9 +81,9 @@ const Dashboard: React.FC = () => {
             title: "Conversations",
             value: stats.conversations.total,
             icon: Inbox,
-            color: "text-emerald-600",
-            bg: "bg-emerald-50",
-            hoverBg: "hover:bg-emerald-50/70",
+            color: "text-emerald-400",
+            bg: "bg-emerald-900/30",
+            glowBorder: "hover:border-emerald-500/20",
             change: stats.conversations.unanswered > 0
                 ? `${stats.conversations.unanswered} unanswered`
                 : `${stats.conversations.newThisWeek} new this week`,
@@ -89,9 +93,9 @@ const Dashboard: React.FC = () => {
             title: "Low Stock Alerts",
             value: stats.inventory.lowStock,
             icon: AlertTriangle,
-            color: "text-red-600",
-            bg: "bg-red-50",
-            hoverBg: "hover:bg-red-50/70",
+            color: "text-error-500",
+            bg: "bg-error-50",
+            glowBorder: "hover:border-error-500/20",
             change: stats.inventory.criticalStock > 0
                 ? `${stats.inventory.criticalStock} out of stock!`
                 : `${stats.inventory.totalItems} total items`,
@@ -101,9 +105,9 @@ const Dashboard: React.FC = () => {
             title: "Active Forms",
             value: stats.forms.activeTemplates,
             icon: ClipboardList,
-            color: "text-purple-600",
-            bg: "bg-purple-50",
-            hoverBg: "hover:bg-purple-50/70",
+            color: "text-purple-400",
+            bg: "bg-purple-900/30",
+            glowBorder: "hover:border-purple-500/20",
             change: stats.forms.overdue > 0
                 ? `${stats.forms.overdue} overdue, ${stats.forms.pending} pending`
                 : `${stats.forms.pending} pending`,
@@ -113,9 +117,9 @@ const Dashboard: React.FC = () => {
             title: "Bookings Summary",
             value: stats.bookings.completed,
             icon: CheckCircle,
-            color: "text-green-600",
-            bg: "bg-green-50",
-            hoverBg: "hover:bg-green-50/70",
+            color: "text-success-500",
+            bg: "bg-success-50",
+            glowBorder: "hover:border-success-500/20",
             change: `${stats.bookings.completed} completed, ${stats.bookings.noShow} no-show`,
             link: "/bookings"
         }
@@ -136,35 +140,35 @@ const Dashboard: React.FC = () => {
     return (
         <div className="space-y-8 animate-fadeIn">
             <div>
-                <h1 className="section-title">Dashboard Overview</h1>
+                <h1 className="section-title font-display">Dashboard Overview</h1>
                 <p className="section-description">Welcome back! Here's what's happening with your business today.</p>
             </div>
 
             {/* Alerts Section */}
             {stats.alerts.length > 0 && (
                 <div className="space-y-3">
-                    <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Needs Attention</h2>
+                    <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider font-display">Needs Attention</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {stats.alerts.map((alert, i) => (
                             <div
                                 key={i}
                                 onClick={() => navigate(alert.link)}
-                                className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 ${alert.severity === 'critical'
-                                        ? 'bg-red-50 border-red-200 hover:bg-red-100 hover:border-red-300'
-                                        : 'bg-amber-50 border-amber-200 hover:bg-amber-100 hover:border-amber-300'
+                                className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 ${alert.severity === 'critical'
+                                        ? 'bg-error-50 border-error-500/20 hover:border-error-500/40'
+                                        : 'bg-warning-50 border-warning-500/20 hover:border-warning-500/40'
                                     }`}
                             >
-                                <div className={`p-2 rounded-lg ${alert.severity === 'critical' ? 'bg-red-100 text-red-600' : 'bg-amber-100 text-amber-600'
+                                <div className={`p-2 rounded-lg ${alert.severity === 'critical' ? 'bg-error-100/50 text-error-500' : 'bg-warning-100/50 text-warning-500'
                                     }`}>
                                     {alertIcon(alert)}
                                 </div>
                                 <div className="flex-1">
-                                    <p className={`text-sm font-medium ${alert.severity === 'critical' ? 'text-red-800' : 'text-amber-800'
+                                    <p className={`text-sm font-medium ${alert.severity === 'critical' ? 'text-error-500' : 'text-warning-500'
                                         }`}>
                                         {alert.message}
                                     </p>
                                 </div>
-                                <ArrowRight className={`h-4 w-4 ${alert.severity === 'critical' ? 'text-red-400' : 'text-amber-400'
+                                <ArrowRight className={`h-4 w-4 ${alert.severity === 'critical' ? 'text-error-500/50' : 'text-warning-500/50'
                                     }`} />
                             </div>
                         ))}
@@ -173,23 +177,23 @@ const Dashboard: React.FC = () => {
             )}
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {cards.map((card, index) => (
                     <div
                         key={index}
                         onClick={() => navigate(card.link)}
-                        className="bg-white rounded-xl shadow-card border border-gray-100 p-6 flex items-start justify-between cursor-pointer transition-all duration-200 hover:shadow-xl hover:-translate-y-1 hover:border-primary-200 group"
+                        className={`bg-surface-1 rounded-xl border border-white/[0.06] p-6 flex items-start justify-between cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${card.glowBorder} group`}
                     >
                         <div>
-                            <p className="text-sm font-medium text-gray-500 mb-1">{card.title}</p>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-1">{card.value}</h3>
-                            <span className="text-xs text-gray-500">{card.change}</span>
+                            <p className="text-sm font-medium text-text-muted mb-1">{card.title}</p>
+                            <h3 className="text-2xl font-bold text-text-primary mb-1 font-display">{card.value}</h3>
+                            <span className="text-xs text-text-muted">{card.change}</span>
                         </div>
                         <div className="flex flex-col items-center gap-2">
                             <div className={`p-3 rounded-lg ${card.bg}`}>
                                 <card.icon className={`h-6 w-6 ${card.color}`} />
                             </div>
-                            <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-gray-500 transition-colors" />
+                            <ArrowRight className="h-4 w-4 text-text-muted/30 group-hover:text-text-secondary transition-colors" />
                         </div>
                     </div>
                 ))}
@@ -202,18 +206,18 @@ const Dashboard: React.FC = () => {
                     className="card-hover"
                     onClick={() => navigate('/bookings')}
                 >
-                    <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
-                        <Calendar className="mr-2 h-5 w-5 text-gray-400" />
+                    <h3 className="font-semibold text-text-primary mb-4 flex items-center font-display">
+                        <Calendar className="mr-2 h-5 w-5 text-text-muted" />
                         Today's Schedule
-                        <ArrowRight className="ml-auto h-4 w-4 text-gray-300" />
+                        <ArrowRight className="ml-auto h-4 w-4 text-text-muted/30" />
                     </h3>
                     {stats.bookings.today === 0 ? (
-                        <p className="text-gray-500 text-sm">No appointments scheduled for today.</p>
+                        <p className="text-text-muted text-sm">No appointments scheduled for today.</p>
                     ) : (
                         <div className="space-y-3">
-                            <p className="text-sm text-gray-600">You have <strong>{stats.bookings.today}</strong> appointments today.</p>
+                            <p className="text-sm text-text-secondary">You have <strong className="text-text-primary">{stats.bookings.today}</strong> appointments today.</p>
                             {stats.bookings.pending > 0 && (
-                                <p className="text-sm text-amber-600">{stats.bookings.pending} still unconfirmed.</p>
+                                <p className="text-sm text-warning-500">{stats.bookings.pending} still unconfirmed.</p>
                             )}
                         </div>
                     )}
@@ -224,26 +228,26 @@ const Dashboard: React.FC = () => {
                     className="card-hover"
                     onClick={() => navigate('/inventory')}
                 >
-                    <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
-                        <Package className="mr-2 h-5 w-5 text-gray-400" />
+                    <h3 className="font-semibold text-text-primary mb-4 flex items-center font-display">
+                        <Package className="mr-2 h-5 w-5 text-text-muted" />
                         Inventory Status
-                        <ArrowRight className="ml-auto h-4 w-4 text-gray-300" />
+                        <ArrowRight className="ml-auto h-4 w-4 text-text-muted/30" />
                     </h3>
                     <div className="space-y-3">
                         <div className="flex justify-between items-center text-sm">
-                            <span className="text-gray-600">Total Items</span>
-                            <span className="font-medium">{stats.inventory.totalItems}</span>
+                            <span className="text-text-secondary">Total Items</span>
+                            <span className="font-medium text-text-primary">{stats.inventory.totalItems}</span>
                         </div>
                         <div className="flex justify-between items-center text-sm">
-                            <span className="text-gray-600">Low Stock</span>
-                            <span className={`font-medium ${stats.inventory.lowStock > 0 ? 'text-amber-600' : 'text-green-600'}`}>
+                            <span className="text-text-secondary">Low Stock</span>
+                            <span className={`font-medium ${stats.inventory.lowStock > 0 ? 'text-warning-500' : 'text-success-500'}`}>
                                 {stats.inventory.lowStock}
                             </span>
                         </div>
                         {stats.inventory.criticalStock > 0 && (
                             <div className="flex justify-between items-center text-sm">
-                                <span className="text-gray-600">Out of Stock</span>
-                                <span className="font-medium text-red-600">{stats.inventory.criticalStock}</span>
+                                <span className="text-text-secondary">Out of Stock</span>
+                                <span className="font-medium text-error-500">{stats.inventory.criticalStock}</span>
                             </div>
                         )}
                     </div>
@@ -252,33 +256,33 @@ const Dashboard: React.FC = () => {
 
             {/* Customer Access Links */}
             {workspace?.slug && (
-                <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-2xl shadow-card border border-primary-100 p-6">
+                <div className="bg-gradient-to-br from-amber-900/20 to-surface-1 rounded-2xl border border-amber-500/10 p-6">
                     <div className="flex items-center justify-between mb-6">
                         <div>
-                            <h3 className="font-bold text-gray-900 mb-1 flex items-center">
-                                <LinkIcon className="mr-2 h-5 w-5 text-primary-600" />
+                            <h3 className="font-bold text-text-primary mb-1 flex items-center font-display">
+                                <LinkIcon className="mr-2 h-5 w-5 text-amber-400" />
                                 Customer Access Links
                             </h3>
-                            <p className="text-sm text-gray-600">Share these links with your customers for easy booking and form submission</p>
+                            <p className="text-sm text-text-secondary">Share these links with your customers for easy booking and form submission</p>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Booking Link */}
-                        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                        <div className="bg-surface-1 rounded-xl p-5 border border-white/[0.06] hover:border-white/[0.10] transition-all">
                             <div className="flex items-start justify-between mb-3">
                                 <div className="flex items-center gap-2">
-                                    <div className="p-2 bg-blue-50 rounded-lg">
-                                        <Calendar className="h-5 w-5 text-blue-600" />
+                                    <div className="p-2 bg-blue-900/30 rounded-lg">
+                                        <Calendar className="h-5 w-5 text-blue-400" />
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold text-gray-900">Booking Page</h4>
-                                        <p className="text-xs text-gray-500">Customer appointment booking</p>
+                                        <h4 className="font-semibold text-text-primary font-display">Booking Page</h4>
+                                        <p className="text-xs text-text-muted">Customer appointment booking</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-gray-50 rounded-lg p-3 flex items-center justify-between gap-2 mb-3">
-                                <code className="text-xs text-gray-700 truncate flex-1">
+                            <div className="bg-surface-2 rounded-lg p-3 flex items-center justify-between gap-2 mb-3">
+                                <code className="text-xs text-text-secondary truncate flex-1 font-mono">
                                     {window.location.origin}/book/{workspace.slug}
                                 </code>
                             </div>
@@ -301,20 +305,20 @@ const Dashboard: React.FC = () => {
                         </div>
 
                         {/* Form Links */}
-                        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                        <div className="bg-surface-1 rounded-xl p-5 border border-white/[0.06] hover:border-white/[0.10] transition-all">
                             <div className="flex items-start justify-between mb-3">
                                 <div className="flex items-center gap-2">
-                                    <div className="p-2 bg-purple-50 rounded-lg">
-                                        <ClipboardList className="h-5 w-5 text-purple-600" />
+                                    <div className="p-2 bg-purple-900/30 rounded-lg">
+                                        <ClipboardList className="h-5 w-5 text-purple-400" />
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold text-gray-900">Form Submissions</h4>
-                                        <p className="text-xs text-gray-500">Customer form access</p>
+                                        <h4 className="font-semibold text-text-primary font-display">Form Submissions</h4>
+                                        <p className="text-xs text-text-muted">Customer form access</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-gray-50 rounded-lg p-3 mb-3">
-                                <code className="text-xs text-gray-700">
+                            <div className="bg-surface-2 rounded-lg p-3 mb-3">
+                                <code className="text-xs text-text-secondary font-mono">
                                     {window.location.origin}/f/[form-id]
                                 </code>
                             </div>
@@ -325,15 +329,15 @@ const Dashboard: React.FC = () => {
                                 <ArrowRight className="h-4 w-4 mr-1" />
                                 Manage Forms
                             </button>
-                            <p className="text-xs text-gray-500 mt-2">
+                            <p className="text-xs text-text-muted mt-2">
                                 Get individual form links from the Forms page
                             </p>
                         </div>
                     </div>
 
-                    <div className="mt-4 p-4 bg-white/50 rounded-lg border border-primary-200">
-                        <p className="text-xs text-gray-600">
-                            <span className="font-medium">💡 Tip:</span> Copy these links and share them on your website, social media, or via email/SMS to let customers book appointments and submit forms directly!
+                    <div className="mt-4 p-4 bg-surface-2/50 rounded-lg border border-amber-500/10">
+                        <p className="text-xs text-text-secondary">
+                            <span className="font-medium text-amber-400">💡 Tip:</span> Copy these links and share them on your website, social media, or via email/SMS to let customers book appointments and submit forms directly!
                         </p>
                     </div>
                 </div>

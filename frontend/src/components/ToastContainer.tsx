@@ -24,21 +24,21 @@ const ToastContainer: React.FC = () => {
 
     const getIcon = (type: string) => {
         switch (type) {
-            case 'success': return <CheckCircle size={20} className="text-green-500" />;
-            case 'error': return <AlertCircle size={20} className="text-red-500" />;
-            case 'warning': return <AlertTriangle size={20} className="text-yellow-500" />;
-            case 'info': return <Info size={20} className="text-blue-500" />;
+            case 'success': return <CheckCircle size={20} className="text-success-500" />;
+            case 'error': return <AlertCircle size={20} className="text-error-500" />;
+            case 'warning': return <AlertTriangle size={20} className="text-warning-500" />;
+            case 'info': return <Info size={20} className="text-amber-400" />;
             default: return null;
         }
     };
 
-    const getColors = (type: string) => {
+    const getAccent = (type: string) => {
         switch (type) {
-            case 'success': return 'border-green-200 bg-green-50';
-            case 'error': return 'border-red-200 bg-red-50';
-            case 'warning': return 'border-yellow-200 bg-yellow-50';
-            case 'info': return 'border-blue-200 bg-blue-50';
-            default: return 'border-gray-200 bg-white';
+            case 'success': return 'border-l-success-500';
+            case 'error': return 'border-l-error-500';
+            case 'warning': return 'border-l-warning-500';
+            case 'info': return 'border-l-amber-400';
+            default: return 'border-l-white/20';
         }
     };
 
@@ -50,20 +50,21 @@ const ToastContainer: React.FC = () => {
                 <div
                     key={t.id}
                     className={`
-                        pointer-events-auto min-w-[300px] max-w-sm rounded-lg border shadow-lg p-4 flex items-start gap-3 
-                        transform transition-all duration-300 animate-in slide-in-from-right
-                        ${getColors(t.type)}
+                        pointer-events-auto min-w-[300px] max-w-sm rounded-lg border border-white/[0.08] 
+                        bg-surface-1/95 backdrop-blur-xl shadow-xl p-4 flex items-start gap-3
+                        border-l-4 ${getAccent(t.type)}
+                        transform transition-all duration-300 animate-slideIn
                     `}
                 >
                     <div className="flex-shrink-0 mt-0.5">
                         {getIcon(t.type)}
                     </div>
-                    <div className="flex-1 text-sm text-gray-800 font-medium">
+                    <div className="flex-1 text-sm text-text-primary font-medium">
                         {t.message}
                     </div>
                     <button
                         onClick={() => removeToast(t.id)}
-                        className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+                        className="flex-shrink-0 text-text-muted hover:text-text-primary transition-colors"
                     >
                         <X size={16} />
                     </button>
